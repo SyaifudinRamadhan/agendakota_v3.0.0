@@ -1,0 +1,14 @@
+.picture{
+    width: 40px;
+    height: 40px;
+    margin-left: 15px;
+}
+.inline-flex{
+    display: inline-flex;
+}
+.over-any{
+    overflow-wrap: anywhere;
+}
+.text-side{
+    width: calc(95% - 55px);
+}

@@ -1,0 +1,2020 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Keystroke Core\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-08-12 18:12+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.4.0; wp-5.3.2"
+
+#: include/common-functions.php:639
+msgid " link"
+msgstr ""
+
+#: include/common-functions.php:626
+msgid " Link Type"
+msgstr ""
+
+#: include/custom-post-type-base.php:143
+msgid " list"
+msgstr ""
+
+#: include/custom-post-type-base.php:144
+msgid " list navigation"
+msgstr ""
+
+#: include/custom-post-type-base.php:131
+msgid " Name"
+msgstr ""
+
+#: include/common-functions.php:660
+msgid " Page"
+msgstr ""
+
+#: include/common-functions.php:616
+msgid " Text"
+msgstr ""
+
+#. URI of the plugin
+msgid "#"
+msgstr ""
+
+#: include/common-functions.php:413
+#, php-format
+msgid "%s Query"
+msgstr ""
+
+#: include/elementor/contact-form-with-into-box.php:178
+msgid "(123) 456 7890"
+msgstr ""
+
+#: include/elementor/about-with-accordion.php:95
+#: include/elementor/portfolio-details.php:87
+#: include/elementor/process-box-two.php:67
+#: include/elementor/process-box-two.php:129
+#: include/elementor/process-box.php:84 include/elementor/process-box.php:165
+msgid "1"
+msgstr ""
+
+#: include/common-functions.php:886 include/common-functions.php:906
+#: include/common-functions.php:926 include/common-functions.php:946
+msgid "1 Columns"
+msgstr ""
+
+#: include/elementor/process-box.php:164
+msgid "1. Discuss"
+msgstr ""
+
+#: include/elementor/our-office.php:207
+msgid "10 Maggie Valleys, United States"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:276
+msgid "100% money back guarantee"
+msgstr ""
+
+#: include/common-functions.php:892 include/common-functions.php:912
+#: include/common-functions.php:932 include/common-functions.php:952
+msgid "12 Columns"
+msgstr ""
+
+#: include/elementor/followers.php:127
+msgid "13k Followers"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:346
+msgid "199"
+msgstr ""
+
+#: include/elementor/process-box-two.php:134
+#: include/elementor/process-box.php:170
+msgid "2"
+msgstr ""
+
+#: include/common-functions.php:887 include/common-functions.php:907
+#: include/common-functions.php:927 include/common-functions.php:947
+msgid "2 Columns"
+msgstr ""
+
+#: include/elementor/process-box.php:169
+msgid "2. Mapping"
+msgstr ""
+
+#: include/elementor/process-box-two.php:139
+#: include/elementor/process-box.php:175
+msgid "3"
+msgstr ""
+
+#: include/common-functions.php:888 include/common-functions.php:908
+#: include/common-functions.php:928 include/common-functions.php:948
+msgid "3 Columns"
+msgstr ""
+
+#: include/elementor/process-box.php:174
+msgid "3. Execution"
+msgstr ""
+
+#: include/elementor/followers.php:121
+msgid "30k Followers"
+msgstr ""
+
+#: include/elementor/process-box-two.php:144
+msgid "4"
+msgstr ""
+
+#: include/common-functions.php:889 include/common-functions.php:909
+#: include/common-functions.php:929 include/common-functions.php:949
+msgid "4 Columns"
+msgstr ""
+
+#: include/elementor/our-office.php:192
+msgid "435 Pouros Locks United States"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:340
+msgid "46"
+msgstr ""
+
+#: include/elementor/our-office.php:197
+msgid "46 Watsica Creek Suite 071 United States"
+msgstr ""
+
+#: include/common-functions.php:890 include/common-functions.php:910
+#: include/common-functions.php:930 include/common-functions.php:950
+msgid "5 Columns (col-5)"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:341
+msgid "500"
+msgstr ""
+
+#: include/common-functions.php:891 include/common-functions.php:911
+#: include/common-functions.php:931 include/common-functions.php:951
+msgid "6 Columns"
+msgstr ""
+
+#: include/elementor/followers.php:115
+msgid "60k Followers"
+msgstr ""
+
+#: include/elementor/our-office.php:202
+msgid "7140 Wehner Tunnel Washington, D.C"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:347
+msgid "900"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:55
+msgid "A beautiful, simple website"
+msgstr ""
+
+#: include/widgets/about-widget.php:52
+msgid "A."
+msgstr ""
+
+#: include/elementor/about-us.php:52
+msgid "About Content"
+msgstr ""
+
+#: include/elementor/about-us.php:15
+msgid "About Us"
+msgstr ""
+
+#: include/elementor/about-with-accordion.php:15
+msgid "About With Accordion"
+msgstr ""
+
+#: include/elementor/about-with-accordion.php:57 include/elementor/faq.php:37
+#: include/elementor/portfolio-details.php:49
+msgid "Accordion"
+msgstr ""
+
+#: include/elementor/faq.php:46
+msgid "Accordion Item"
+msgstr ""
+
+#: include/elementor/about-with-accordion.php:160
+#: include/elementor/portfolio-details.php:152
+msgid "Accordion List"
+msgstr ""
+
+#: include/elementor/about-with-accordion.php:142
+#: include/elementor/portfolio-details.php:134
+msgid "Accordion Title"
+msgstr ""
+
+#: include/elementor/call-to-action.php:46
+msgid "Add Content CTA Button Below content"
+msgstr ""
+
+#: include/elementor/banner-style-3.php:167 include/elementor/followers.php:100
+msgid "Add custom class"
+msgstr ""
+
+#: include/elementor/followers.php:74
+msgid "Add icon markup like: <i class=\"fab fa-dribbble\"></i>"
+msgstr ""
+
+#: include/elementor/banner-style-3.php:159
+msgid "Add icon markup like: <i class=\"fab fa-facebook-f\"></i>"
+msgstr ""
+
+#: include/elementor/banner-style-3.php:158 include/elementor/followers.php:73
+msgid "Add icons markup"
+msgstr ""
+
+#: include/elementor/services-navigation.php:52
+msgid "Add ID without #"
+msgstr ""
+
+#: include/custom-post-type-base.php:51
+msgid "Add New"
+msgstr ""
+
+#: include/custom-post-type-base.php:50
+msgid "Add New Item"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:307
+msgid "Add Offset"
+msgstr ""
+
+#: include/custom-post-type-base.php:137
+msgid "Add or remove items"
+msgstr ""
+
+#: include/elementor/need-designer.php:117
+msgid "Add your description here"
+msgstr ""
+
+#: include/elementor/contact-form-with-into-box.php:166
+#: include/elementor/contact-form-with-into-box.php:267
+#: include/elementor/need-designer.php:115 include/elementor/our-office.php:121
+msgid "Address"
+msgstr ""
+
+#: include/widgets/about-widget.php:126
+msgid "Address:"
+msgstr ""
+
+#: include/elementor/about-with-accordion.php:166
+#: include/elementor/about-with-accordion.php:170
+#: include/elementor/about-with-accordion.php:174
+#: include/elementor/portfolio-details.php:158
+#: include/elementor/portfolio-details.php:162
+#: include/elementor/portfolio-details.php:166
+msgid ""
+"Aenean hendrerit laoreet vehicula. Nullam convallis augue at enim gravida "
+"pellentesque."
+msgstr ""
+
+#: include/common-functions.php:348
+msgid "Alignment"
+msgstr ""
+
+#: include/elementor/portfolio.php:66 include/elementor/teams.php:54
+msgid "All"
+msgstr ""
+
+#: include/elementor/portfolio.php:64 include/elementor/teams.php:52
+msgid "All Button Label"
+msgstr ""
+
+#: include/custom-post-type-base.php:49
+msgid "All Items"
+msgstr ""
+
+#: include/common-functions.php:726 include/elementor/case-studies.php:208
+#: include/elementor/pricing-plan.php:263
+msgid "Arrow Icon"
+msgstr ""
+
+#. Author of the plugin
+msgid "Axilthemes"
+msgstr ""
+
+#: include/common-functions.php:572
+msgid "Background"
+msgstr ""
+
+#: include/common-functions.php:509 include/common-functions.php:777
+#: include/common-functions.php:835 include/elementor/process-box-two.php:94
+msgid "Background Color"
+msgstr ""
+
+#: include/elementor/testimonials.php:54
+msgid "Background Shape"
+msgstr ""
+
+#: include/elementor/banner-style-3.php:36 include/elementor/banner.php:36
+msgid "Banner"
+msgstr ""
+
+#: include/common-functions.php:788 include/common-functions.php:846
+#: include/elementor/portfolio.php:116 include/elementor/teams.php:77
+msgid "Border Color"
+msgstr ""
+
+#: include/common-functions.php:800
+msgid "Border Radius"
+msgstr ""
+
+#: include/elementor/project-brief.php:104
+msgid "Bottom"
+msgstr ""
+
+#: include/elementor/corporate-agency-banner.php:101
+msgid "Box Horizontal Position"
+msgstr ""
+
+#: include/elementor/followers.php:94
+msgid "Box Shadow"
+msgstr ""
+
+#: include/elementor/corporate-agency-banner.php:81
+msgid "Box Vertical Position"
+msgstr ""
+
+#: include/elementor/brand-carousel.php:15
+msgid "Brand Carousel"
+msgstr ""
+
+#: include/elementor/brand-carousel.php:79
+#: include/elementor/brand-carousel.php:81
+#: include/elementor/clients-brand.php:80
+#: include/elementor/clients-brand.php:82
+msgid "Brand Name"
+msgstr ""
+
+#: include/elementor/process-box-two.php:143
+msgid "Build"
+msgstr ""
+
+#: include/elementor/banner-style-3.php:45 include/elementor/banner.php:45
+msgid "Build stunning websites & apps."
+msgstr ""
+
+#: include/elementor/funfact.php:66 include/elementor/personal-banner.php:45
+msgid "Button"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:203
+msgid "Button Link link"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:181
+msgid "Button Link Text"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:191
+msgid "Button Link Type"
+msgstr ""
+
+#: include/common-functions.php:708 include/elementor/case-studies.php:193
+#: include/elementor/pricing-plan.php:248
+msgid "Button Size"
+msgstr ""
+
+#: include/common-functions.php:694 include/elementor/case-studies.php:180
+#: include/elementor/pricing-plan.php:235
+msgid "Button Style"
+msgstr ""
+
+#: include/elementor/call-to-action-style-2.php:37
+#: include/elementor/call-to-action.php:15
+#: include/elementor/call-to-action.php:38
+msgid "Call To Action"
+msgstr ""
+
+#: include/elementor/case-studies.php:19 include/elementor/case-studies.php:45
+msgid "Case Study"
+msgstr ""
+
+#: include/elementor/case-studies-project.php:15
+msgid "Case Study Project"
+msgstr ""
+
+#: include/elementor/case-studies.php:296
+msgid "Case Study Thumbnail"
+msgstr ""
+
+#: include/elementor/case-studies.php:222
+msgid "CaseStudy Funfact One Number"
+msgstr ""
+
+#: include/elementor/case-studies.php:232
+msgid "CaseStudy Funfact One Number Sup"
+msgstr ""
+
+#: include/elementor/case-studies.php:246
+msgid "CaseStudy Funfact One Title"
+msgstr ""
+
+#: include/elementor/case-studies.php:262
+msgid "CaseStudy Funfact Two Number"
+msgstr ""
+
+#: include/elementor/case-studies.php:272
+msgid "CaseStudy Funfact Two Number Sup"
+msgstr ""
+
+#: include/elementor/case-studies.php:286
+msgid "CaseStudy Funfact Two Title"
+msgstr ""
+
+#: include/elementor/case-studies.php:148
+msgid "CaseStudy Link link"
+msgstr ""
+
+#: include/elementor/case-studies.php:126
+msgid "CaseStudy Link Text"
+msgstr ""
+
+#: include/elementor/case-studies.php:136
+msgid "CaseStudy Link Type"
+msgstr ""
+
+#: include/elementor/case-studies.php:307
+msgid "CaseStudys List"
+msgstr ""
+
+#: include/common-functions.php:420
+msgid "Category"
+msgstr ""
+
+#: include/common-functions.php:356
+msgid "Center"
+msgstr ""
+
+#: include/elementor/banner.php:115
+msgid "Choose Banner Box Image"
+msgstr ""
+
+#: include/elementor/banner.php:104
+msgid "Choose Banner Top Image"
+msgstr ""
+
+#: include/custom-post-type-base.php:138
+msgid "Choose from the most used"
+msgstr ""
+
+#: include/elementor/project-brief.php:50 include/elementor/video-popup.php:43
+msgid "Choose Image"
+msgstr ""
+
+#: include/elementor/banner-style-3.php:102
+msgid "Choose Image One"
+msgstr ""
+
+#: include/elementor/banner-style-3.php:114
+msgid "Choose Image Two"
+msgstr ""
+
+#: include/elementor/personal-banner.php:61
+msgid "Choose Your Image"
+msgstr ""
+
+#: include/elementor/personal-banner.php:73
+msgid "Choose Your Marque Image"
+msgstr ""
+
+#: include/elementor/clients-brand.php:15
+msgid "Client Brands"
+msgstr ""
+
+#: include/elementor/brand-carousel.php:37
+#: include/elementor/clients-brand.php:38
+msgid "Client Logo"
+msgstr ""
+
+#: include/common-functions.php:499 include/elementor/followers.php:83
+#: include/elementor/process-box-two.php:84
+msgid "Color"
+msgstr ""
+
+#: include/elementor/our-office.php:201
+msgid "Columbia"
+msgstr ""
+
+#: include/common-functions.php:882
+msgid "Columns for Desktop"
+msgstr ""
+
+#: include/common-functions.php:902
+msgid "Columns for Laptop"
+msgstr ""
+
+#: include/common-functions.php:942
+msgid "Columns for Mobile"
+msgstr ""
+
+#: include/common-functions.php:922
+msgid "Columns for Tablet"
+msgstr ""
+
+#: include/elementor/corporate-agency-banner.php:64
+msgid "Contact Form"
+msgstr ""
+
+#: include/elementor/contact-form-with-into-box.php:15
+#: include/elementor/contact-form-with-into-box.php:53
+msgid "Contact FWSB"
+msgstr ""
+
+#: include/widgets/about-widget.php:122
+msgid "Content:"
+msgstr ""
+
+#: include/elementor/corporate-agency-banner.php:15
+msgid "Corporate Agency Banner"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:345
+msgid "Corporate Business"
+msgstr ""
+
+#: include/elementor/banner.php:90
+msgid ""
+"Create live segments and target the right people for\n"
+"                messages based on their behaviors."
+msgstr ""
+
+#: include/elementor/banner-style-3.php:90
+msgid ""
+"Create live segments and target the right people for messages based on their "
+"behaviors."
+msgstr ""
+
+#: include/elementor/pricing-plan.php:284
+msgid "Create new line by Enter"
+msgstr ""
+
+#: include/elementor/banner-style-2.php:15
+msgid "Creative Agency Banner"
+msgstr ""
+
+#: include/elementor/call-to-action-style-2.php:15
+msgid "CTA - Style Two"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:62
+msgid "Currency"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:67
+msgctxt "Currency Symbol"
+msgid "Baht"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:68
+msgctxt "Currency Symbol"
+msgid "BD Taka"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:69
+msgctxt "Currency Symbol"
+msgid "Dollar"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:70
+msgctxt "Currency Symbol"
+msgid "Euro"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:71
+msgctxt "Currency Symbol"
+msgid "Franc"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:72
+msgctxt "Currency Symbol"
+msgid "Guilder"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:73
+msgctxt "Currency Symbol"
+msgid "Krona"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:74
+msgctxt "Currency Symbol"
+msgid "Lira"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:75
+msgctxt "Currency Symbol"
+msgid "Peseta"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:76
+msgctxt "Currency Symbol"
+msgid "Peso"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:77
+msgctxt "Currency Symbol"
+msgid "Pound Sterling"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:78
+msgctxt "Currency Symbol"
+msgid "Real"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:79
+msgctxt "Currency Symbol"
+msgid "Ruble"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:80
+msgctxt "Currency Symbol"
+msgid "Rupee"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:81
+msgctxt "Currency Symbol"
+msgid "Rupee (Indian)"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:82
+msgctxt "Currency Symbol"
+msgid "Shekel"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:83
+msgctxt "Currency Symbol"
+msgid "Won"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:84
+msgctxt "Currency Symbol"
+msgid "Yen/Yuan"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:85
+msgid "Custom"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:108
+msgid "Custom Symbol"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:163
+msgid "Default Period"
+msgstr ""
+
+#: include/common-functions.php:338 include/elementor/about-us.php:114
+#: include/elementor/about-with-accordion.php:150
+#: include/elementor/case-studies.php:114 include/elementor/faq.php:55
+#: include/elementor/portfolio-details.php:142
+#: include/elementor/process-box-two.php:113
+#: include/elementor/process-box.php:149 include/elementor/services.php:160
+msgid "Description"
+msgstr ""
+
+#: include/elementor/about-with-accordion.php:169
+#: include/elementor/portfolio-details.php:161
+msgid "Design"
+msgstr ""
+
+#: include/elementor/about-with-accordion.php:173
+#: include/elementor/portfolio-details.php:165
+#: include/elementor/process-box-two.php:138
+msgid "Development"
+msgstr ""
+
+#: include/elementor/banner.php:15
+msgid "Digital Agency Banner"
+msgstr ""
+
+#: include/elementor/process-box-two.php:128
+msgid "Discover"
+msgstr ""
+
+#: include/elementor/portfolio.php:90
+msgid "Discover More Projects"
+msgstr ""
+
+#: include/widgets/recent-posts.php:147
+msgid "Display post date?"
+msgstr ""
+
+#: include/widgets/recent-posts.php:151
+msgid "Display Read Time?"
+msgstr ""
+
+#: include/elementor/process-box.php:166 include/elementor/process-box.php:171
+#: include/elementor/process-box.php:176 include/elementor/testimonials.php:190
+#: include/elementor/testimonials.php:195
+msgid ""
+"Donec metus lorem, vulputate at sapien sit amet, auctor iaculis lorem. In "
+"vel hendrerit nisi. Vestibulum eget risus velit."
+msgstr ""
+
+#: include/elementor/case-studies.php:313
+#: include/elementor/case-studies.php:318
+#: include/elementor/case-studies.php:323
+#: include/elementor/process-box-two.php:130
+#: include/elementor/process-box-two.php:135
+#: include/elementor/process-box-two.php:140
+#: include/elementor/process-box-two.php:145
+msgid ""
+"Donec metus lorem, vulputate at sapien sit amet, auctor iaculis lorem. In "
+"vel hendrerit nisi. Vestibulum eget risus velit. Aliquam tristique libero at "
+"dui sodales, et placerat orci lobortis. Maecenas ipsum neque, elementum id "
+"dignissim et, imperdiet vitae mauris."
+msgstr ""
+
+#: include/elementor/case-studies.php:346
+#: include/elementor/contact-form-with-into-box.php:70
+msgid "Doted Shape ?"
+msgstr ""
+
+#: include/widgets/about-widget.php:55
+msgid "E."
+msgstr ""
+
+#: include/custom-post-type-base.php:53
+msgid "Edit Item"
+msgstr ""
+
+#: include/elementor/contact-form-with-into-box.php:259
+msgid "Email"
+msgstr ""
+
+#: include/elementor/contact-form-with-into-box.php:277
+msgid "Email Number"
+msgstr ""
+
+#: include/elementor/contact-form-with-into-box.php:189
+msgid "Email Number Box"
+msgstr ""
+
+#: include/widgets/about-widget.php:130
+msgid "Email:"
+msgstr ""
+
+#: include/common-functions.php:619 include/elementor/case-studies.php:129
+#: include/elementor/our-office.php:134 include/elementor/pricing-plan.php:184
+#: include/elementor/services.php:173
+msgid "Enter button text"
+msgstr ""
+
+#: include/elementor/case-studies.php:225
+#: include/elementor/case-studies.php:265
+msgid "Enter funfact number"
+msgstr ""
+
+#: include/elementor/case-studies.php:249
+msgid "Enter funfact One Title"
+msgstr ""
+
+#: include/elementor/case-studies.php:289
+msgid "Enter funfact Two Title"
+msgstr ""
+
+#: include/elementor/testimonials.php:132
+msgid "Enter link text"
+msgstr ""
+
+#: include/elementor/banner-style-3.php:93 include/elementor/banner.php:94
+msgid "Enter your sub title content here."
+msgstr ""
+
+#: include/elementor/banner-style-3.php:47 include/elementor/banner.php:47
+msgid "Enter your title here."
+msgstr ""
+
+#: include/elementor/project-brief.php:74 include/elementor/video-popup.php:67
+msgid "Enter your youtube video url hare"
+msgstr ""
+
+#: include/elementor/contact-form-with-into-box.php:279
+msgid "example@gmail.com"
+msgstr ""
+
+#: include/elementor/latest-stories.php:54
+msgid "Excerpt Limit"
+msgstr ""
+
+#: include/common-functions.php:430
+msgid "Exclude"
+msgstr ""
+
+#: include/elementor/testimonials.php:189
+#: include/elementor/testimonials.php:194
+msgid "Executive Chairman @ Google"
+msgstr ""
+
+#: include/common-functions.php:711 include/elementor/case-studies.php:196
+#: include/elementor/pricing-plan.php:251
+msgid "Extra Large"
+msgstr ""
+
+#: include/elementor/latest-stories.php:39 include/elementor/portfolio.php:46
+#: include/elementor/teams.php:46
+msgid "Extra Options"
+msgstr ""
+
+#: include/social-share.php:20 include/elementor/banner-style-3.php:138
+#: include/elementor/banner-style-3.php:181
+msgid "Facebook"
+msgstr ""
+
+#: include/elementor/faq.php:15
+msgid "FAQ"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:297
+msgid "Featured"
+msgstr ""
+
+#: include/custom-post-type-base.php:59
+msgid "Featured Image"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:283
+msgid "Features List"
+msgstr ""
+
+#: include/elementor/portfolio.php:52
+msgid "Filter ?"
+msgstr ""
+
+#: include/custom-post-type-base.php:67
+msgid "Filter items list"
+msgstr ""
+
+#: include/elementor/case-studies-project.php:56
+msgid "First Case Study Featured?"
+msgstr ""
+
+#: include/elementor/followers.php:19 include/elementor/followers.php:43
+msgid "Followers"
+msgstr ""
+
+#: include/elementor/followers.php:53
+msgid "Followers Title"
+msgstr ""
+
+#: include/widget-area-register.php:13
+msgid "Footer 1"
+msgstr ""
+
+#: include/widget-area-register.php:14
+msgid "Footer 2"
+msgstr ""
+
+#: include/widget-area-register.php:15
+msgid "Footer 3"
+msgstr ""
+
+#: include/widget-area-register.php:16
+msgid "Footer 4"
+msgstr ""
+
+#: include/widget-area-register.php:17
+msgid "Footer 5"
+msgstr ""
+
+#: include/widget-area-register.php:18
+msgid "Footer 6"
+msgstr ""
+
+#: include/elementor/funfact.php:19
+msgid "Funfact"
+msgstr ""
+
+#: include/elementor/funfact.php:45
+msgid "Funfact Layout"
+msgstr ""
+
+#: include/elementor/funfact.php:79
+msgid "Funfact List"
+msgstr ""
+
+#: include/elementor/funfact.php:175
+msgid "Funfact Title"
+msgstr ""
+
+#: include/elementor/funfact.php:209
+msgid "Funfacts List"
+msgstr ""
+
+#: include/common-functions.php:306 include/elementor/about-us.php:82
+#: include/elementor/banner-style-3.php:57 include/elementor/banner.php:57
+#: include/elementor/case-studies.php:80 include/elementor/need-designer.php:83
+msgid "H1"
+msgstr ""
+
+#: include/common-functions.php:310 include/elementor/about-us.php:86
+#: include/elementor/banner-style-3.php:61 include/elementor/banner.php:61
+#: include/elementor/case-studies.php:84 include/elementor/need-designer.php:87
+msgid "H2"
+msgstr ""
+
+#: include/common-functions.php:314 include/elementor/about-us.php:90
+#: include/elementor/banner-style-3.php:65 include/elementor/banner.php:65
+#: include/elementor/case-studies.php:88 include/elementor/need-designer.php:91
+msgid "H3"
+msgstr ""
+
+#: include/common-functions.php:318 include/elementor/about-us.php:94
+#: include/elementor/banner-style-3.php:69 include/elementor/banner.php:69
+#: include/elementor/case-studies.php:92 include/elementor/need-designer.php:95
+msgid "H4"
+msgstr ""
+
+#: include/common-functions.php:322 include/elementor/about-us.php:98
+#: include/elementor/banner-style-3.php:73 include/elementor/banner.php:73
+#: include/elementor/case-studies.php:96 include/elementor/need-designer.php:99
+msgid "H5"
+msgstr ""
+
+#: include/common-functions.php:326 include/elementor/about-us.php:102
+#: include/elementor/banner-style-3.php:77 include/elementor/banner.php:77
+#: include/elementor/case-studies.php:100
+#: include/elementor/need-designer.php:103
+msgid "H6"
+msgstr ""
+
+#: include/common-functions.php:729 include/elementor/case-studies.php:211
+#: include/elementor/pricing-plan.php:266
+#: include/elementor/project-brief.php:84
+msgid "Hide"
+msgstr ""
+
+#: include/common-functions.php:818
+msgid "Hover"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://axilthemes.com/"
+msgstr ""
+
+#: include/common-functions.php:644 include/elementor/banner-style-3.php:147
+#: include/elementor/brand-carousel.php:66
+#: include/elementor/case-studies.php:153
+#: include/elementor/clients-brand.php:67 include/elementor/followers.php:62
+#: include/elementor/our-office.php:158 include/elementor/pricing-plan.php:208
+#: include/elementor/services.php:197 include/elementor/testimonials.php:156
+msgid "https://your-link.com"
+msgstr ""
+
+#: include/elementor/about-with-accordion.php:72
+#: include/elementor/contact-form-with-into-box.php:101
+#: include/elementor/contact-form-with-into-box.php:202
+#: include/elementor/funfact.php:95 include/elementor/our-office.php:56
+#: include/elementor/portfolio-details.php:64
+#: include/elementor/process-box.php:61 include/elementor/services.php:75
+msgid "Icon"
+msgstr ""
+
+#: include/elementor/funfact.php:162
+msgid "Icon Background Color"
+msgstr ""
+
+#: include/elementor/funfact.php:148
+msgid "Icon Color"
+msgstr ""
+
+#: include/elementor/about-with-accordion.php:71
+#: include/elementor/contact-form-with-into-box.php:100
+#: include/elementor/contact-form-with-into-box.php:201
+#: include/elementor/funfact.php:94 include/elementor/our-office.php:55
+#: include/elementor/portfolio-details.php:63
+#: include/elementor/process-box.php:60 include/elementor/services.php:74
+msgid "Image"
+msgstr ""
+
+#: include/elementor/project-brief.php:43 include/elementor/video-popup.php:36
+msgid "Image and Video"
+msgstr ""
+
+#: include/custom-post-type-base.php:63
+msgid "Insert into item"
+msgstr ""
+
+#: include/custom-post-type-base.php:47
+msgid "Item Archives"
+msgstr ""
+
+#: include/custom-post-type-base.php:65
+msgid "Items list"
+msgstr ""
+
+#: include/custom-post-type-base.php:66
+msgid "Items list navigation"
+msgstr ""
+
+#: theme-helper.php:57
+msgid "Keystroke Addons"
+msgstr ""
+
+#. Name of the plugin
+msgid "Keystroke Core"
+msgstr ""
+
+#. Description of the plugin
+msgid "Keystroke core."
+msgstr ""
+
+#: include/widgets/about-widget.php:18
+msgid "Keystroke: Info"
+msgstr ""
+
+#: include/widgets/about-widget.php:14
+msgid "Keystroke: info here"
+msgstr ""
+
+#: include/widgets/recent-posts.php:17
+msgid "Keystroke: Recent Post"
+msgstr ""
+
+#: include/widgets/recent-posts.php:13
+msgid "Keystroke: Recent post here"
+msgstr ""
+
+#: include/common-functions.php:712 include/elementor/case-studies.php:197
+#: include/elementor/pricing-plan.php:252
+msgid "Large"
+msgstr ""
+
+#: include/elementor/latest-stories.php:15
+msgid "Latest Stories"
+msgstr ""
+
+#: include/elementor/portfolio-details.php:37
+msgid "Launch The Site Button"
+msgstr ""
+
+#: include/elementor/services.php:231 include/elementor/services.php:236
+#: include/elementor/services.php:241 include/elementor/services.php:246
+#: include/elementor/services.php:251 include/elementor/services.php:256
+msgid "Learn More"
+msgstr ""
+
+#: include/common-functions.php:352 include/elementor/project-brief.php:96
+msgid "Left"
+msgstr ""
+
+#: include/elementor/about-with-accordion.php:187
+msgid "Left Content"
+msgstr ""
+
+#: include/common-functions.php:699 include/elementor/banner-style-3.php:145
+#: include/elementor/followers.php:60
+msgid "Link"
+msgstr ""
+
+#: include/social-share.php:28 include/elementor/banner-style-3.php:189
+msgid "Linkedin"
+msgstr ""
+
+#: include/elementor/portfolio.php:76
+msgid "Load More Button ?"
+msgstr ""
+
+#: include/elementor/our-office.php:113
+msgid "Location name"
+msgstr ""
+
+#: include/elementor/brand-carousel.php:47
+#: include/elementor/clients-brand.php:48
+msgid "Logo"
+msgstr ""
+
+#: include/elementor/case-studies.php:312
+msgid "Logo, identity & web design for Uber #1"
+msgstr ""
+
+#: include/elementor/case-studies.php:317
+msgid "Logo, identity & web design for Uber #2"
+msgstr ""
+
+#: include/elementor/case-studies.php:322
+msgid "Logo, identity & web design for Uber #3"
+msgstr ""
+
+#: include/common-functions.php:540 include/common-functions.php:592
+#: include/common-functions.php:740
+msgid "Margin"
+msgstr ""
+
+#: include/elementor/testimonials.php:104
+#: include/elementor/testimonials.php:112
+#: include/elementor/testimonials.php:188
+#: include/elementor/testimonials.php:193
+msgid "Martha Maldonado"
+msgstr ""
+
+#: include/common-functions.php:713 include/elementor/case-studies.php:198
+#: include/elementor/pricing-plan.php:253
+msgid "Medium"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:167
+msgid "Monthly"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:147
+msgid "Monthly Period Label"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:122
+msgid "Monthly Price"
+msgstr ""
+
+#: include/elementor/portfolio.php:88
+msgid "More Projects Button Label"
+msgstr ""
+
+#: include/elementor/need-designer.php:53
+msgid "Need a designer?"
+msgstr ""
+
+#: include/elementor/need-designer.php:15
+msgid "Need Designed"
+msgstr ""
+
+#: include/elementor/our-office.php:196
+msgid "Nevada"
+msgstr ""
+
+#: include/custom-post-type-base.php:52
+msgid "New Item"
+msgstr ""
+
+#: include/elementor/our-office.php:206
+msgid "New Mexico"
+msgstr ""
+
+#: include/elementor/banner.php:131 include/elementor/banner.php:144
+#: include/elementor/banner.php:156
+#: include/elementor/case-studies-project.php:59
+#: include/elementor/case-studies.php:349
+#: include/elementor/contact-form-with-into-box.php:73
+#: include/elementor/personal-banner.php:88 include/elementor/portfolio.php:55
+#: include/elementor/portfolio.php:79 include/elementor/pricing-plan.php:99
+#: include/elementor/pricing-plan.php:300 include/elementor/testimonials.php:57
+msgid "No"
+msgstr ""
+
+#: include/elementor/about-us.php:43
+#: include/elementor/about-with-accordion.php:43
+#: include/elementor/contact-form-with-into-box.php:43
+#: include/elementor/corporate-agency-banner.php:43
+#: include/elementor/need-designer.php:43
+msgid "No contact form found"
+msgstr ""
+
+#: include/widgets/recent-posts.php:136
+msgid "No. of Item of posts to show:"
+msgstr ""
+
+#: include/elementor/case-studies.php:236
+#: include/elementor/case-studies.php:276 include/elementor/funfact.php:197
+#: include/elementor/pricing-plan.php:66 include/elementor/pricing-plan.php:311
+msgid "None"
+msgstr ""
+
+#: include/common-functions.php:760
+msgid "Normal"
+msgstr ""
+
+#: include/custom-post-type-base.php:141
+msgid "Not Found"
+msgstr ""
+
+#: include/custom-post-type-base.php:57
+msgid "Not found"
+msgstr ""
+
+#: include/custom-post-type-base.php:58
+msgid "Not found in Trash"
+msgstr ""
+
+#: include/elementor/about-with-accordion.php:93
+#: include/elementor/funfact.php:183 include/elementor/portfolio-details.php:85
+#: include/elementor/process-box-two.php:65
+#: include/elementor/process-box.php:82
+msgid "Number"
+msgstr ""
+
+#: include/elementor/our-office.php:153
+msgid "Office location Link link"
+msgstr ""
+
+#: include/elementor/our-office.php:131
+msgid "Office location Link Text"
+msgstr ""
+
+#: include/elementor/our-office.php:141
+msgid "Office location Link Type"
+msgstr ""
+
+#: include/elementor/our-office.php:41
+msgid "Office locations"
+msgstr ""
+
+#: include/elementor/our-office.php:185
+msgid "Office Locations List"
+msgstr ""
+
+#: include/elementor/our-office.php:15
+msgid "Offices Location"
+msgstr ""
+
+#: include/common-functions.php:448
+msgid "Offset"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:312
+msgid "Offset 1 column"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:321
+msgid "Offset 10 column"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:322
+msgid "Offset 11 column"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:323
+msgid "Offset 12 column"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:313
+msgid "Offset 2 column"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:314
+msgid "Offset 3 column"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:315
+msgid "Offset 4 column"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:316
+msgid "Offset 5 column"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:317
+msgid "Offset 6 column"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:318
+msgid "Offset 7 column"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:319
+msgid "Offset 8 column"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:320
+msgid "Offset 9 column"
+msgstr ""
+
+#: include/common-functions.php:466
+msgid "Order"
+msgstr ""
+
+#: include/common-functions.php:456
+msgid "Order By"
+msgstr ""
+
+#: include/elementor/case-studies-project.php:39
+msgid "Others Options"
+msgstr ""
+
+#: include/elementor/process-box-two.php:76
+msgid "our four step process"
+msgstr ""
+
+#: include/common-functions.php:697 include/elementor/case-studies.php:183
+#: include/elementor/pricing-plan.php:238
+msgid "Outline"
+msgstr ""
+
+#: include/common-functions.php:528 include/common-functions.php:580
+msgid "Padding"
+msgstr ""
+
+#: include/custom-post-type-base.php:129
+msgid "Parent Item"
+msgstr ""
+
+#: include/custom-post-type-base.php:48 include/custom-post-type-base.php:130
+msgid "Parent Item:"
+msgstr ""
+
+#: include/elementor/case-studies.php:237
+#: include/elementor/case-studies.php:277 include/elementor/funfact.php:199
+msgid "Percentage(%)"
+msgstr ""
+
+#: include/elementor/personal-banner.php:19
+msgid "Personal Portfolio Banner"
+msgstr ""
+
+#: include/elementor/contact-form-with-into-box.php:158
+msgid "Phone"
+msgstr ""
+
+#: include/elementor/contact-form-with-into-box.php:176
+msgid "Phone Number"
+msgstr ""
+
+#: include/elementor/contact-form-with-into-box.php:88
+msgid "Phone Number Box"
+msgstr ""
+
+#: include/widgets/about-widget.php:134
+msgid "Phone:"
+msgstr ""
+
+#: include/elementor/about-us.php:176
+#: include/elementor/contact-form-with-into-box.php:303
+#: include/elementor/corporate-agency-banner.php:197
+#: include/elementor/need-designer.php:179
+msgid "Please Select contact form."
+msgstr ""
+
+#: include/elementor/funfact.php:198
+msgid "Plus(+)"
+msgstr ""
+
+#: include/elementor/portfolio-details.php:15
+msgid "Portfolio Details"
+msgstr ""
+
+#: include/common-functions.php:440
+msgid "Posts Per Page"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:274
+msgid "Pricing Button Below Text"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:94
+msgid "Pricing Period Switcher"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:15 include/elementor/pricing-plan.php:38
+msgid "Pricing Plan"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:334
+msgid "Pricing table"
+msgstr ""
+
+#: include/elementor/process-box-two.php:46
+#: include/elementor/process-box.php:46
+msgid "Process"
+msgstr ""
+
+#: include/elementor/process-box.php:19
+msgid "Process Box"
+msgstr ""
+
+#: include/elementor/process-box-two.php:19
+msgid "Process Box Two"
+msgstr ""
+
+#: include/elementor/process-box.php:128
+msgid "Process Icon Background Color"
+msgstr ""
+
+#: include/elementor/process-box-two.php:123
+#: include/elementor/process-box.php:159
+msgid "Process List"
+msgstr ""
+
+#: include/elementor/process-box-two.php:105
+#: include/elementor/process-box.php:141
+msgid "Process Title"
+msgstr ""
+
+#: include/elementor/portfolio.php:18
+msgid "Project"
+msgstr ""
+
+#: include/elementor/portfolio.php:110
+msgid "Project Box"
+msgstr ""
+
+#: include/elementor/project-brief.php:15
+msgid "Project Brief"
+msgstr ""
+
+#: include/elementor/funfact.php:218
+msgid "Projects deliverd"
+msgstr ""
+
+#: include/elementor/process-box-two.php:133
+msgid "Prototype"
+msgstr ""
+
+#: include/elementor/case-studies.php:314
+#: include/elementor/case-studies.php:319
+#: include/elementor/case-studies.php:324
+msgid "Read Case Study"
+msgstr ""
+
+#: include/widgets/recent-posts.php:36
+msgid "Recent Posts"
+msgstr ""
+
+#: include/elementor/personal-banner.php:74
+msgid "Recommended image height 465px"
+msgstr ""
+
+#: include/elementor/personal-banner.php:62
+msgid "Recommended image size 1013X917px"
+msgstr ""
+
+#: include/custom-post-type-base.php:61
+msgid "Remove featured image"
+msgstr ""
+
+#: include/elementor/faq.php:65
+msgid "Repeater Accordion"
+msgstr ""
+
+#: include/elementor/banner-style-3.php:176 include/elementor/followers.php:110
+msgid "Repeater Followers"
+msgstr ""
+
+#: include/elementor/testimonials.php:119
+msgid "Review Content"
+msgstr ""
+
+#: include/elementor/testimonials.php:151
+msgid "Review Link link"
+msgstr ""
+
+#: include/elementor/testimonials.php:129
+msgid "Review Link Text"
+msgstr ""
+
+#: include/elementor/testimonials.php:139
+msgid "Review Link Type"
+msgstr ""
+
+#: include/elementor/testimonials.php:70 include/elementor/testimonials.php:183
+msgid "Review List"
+msgstr ""
+
+#: include/elementor/testimonials.php:38 include/elementor/testimonials.php:44
+msgid "Review Source Logo"
+msgstr ""
+
+#: include/elementor/testimonials.php:81
+msgid "Reviewer Image"
+msgstr ""
+
+#: include/elementor/testimonials.php:102
+msgid "Reviewer Name"
+msgstr ""
+
+#: include/elementor/testimonials.php:110
+msgid "Reviewer Title"
+msgstr ""
+
+#: include/common-functions.php:360 include/elementor/project-brief.php:100
+msgid "Right"
+msgstr ""
+
+#: include/common-functions.php:923
+msgid "Screen width equal to or greater than 576px"
+msgstr ""
+
+#: include/common-functions.php:903
+msgid "Screen width equal to or greater than 768px"
+msgstr ""
+
+#: include/common-functions.php:883
+msgid "Screen width equal to or greater than 992px"
+msgstr ""
+
+#: include/common-functions.php:943
+msgid "Screen width less than 576px"
+msgstr ""
+
+#: include/custom-post-type-base.php:56
+msgid "Search Item"
+msgstr ""
+
+#: include/elementor/services-navigation.php:51
+msgid "Section ID"
+msgstr ""
+
+#: include/elementor/services-navigation.php:45
+msgid "Section Name"
+msgstr ""
+
+#: include/elementor/services-navigation.php:66
+msgid "Section Name #1"
+msgstr ""
+
+#: include/elementor/services-navigation.php:69
+msgid "Section Name #2"
+msgstr ""
+
+#: include/elementor/services-navigation.php:72
+msgid "Section Name #3"
+msgstr ""
+
+#: include/elementor/services-navigation.php:75
+msgid "Section Name #4"
+msgstr ""
+
+#: include/common-functions.php:276
+msgid "Section Title"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:223
+msgid "Select Button Link Page"
+msgstr ""
+
+#: include/elementor/case-studies.php:168
+msgid "Select CaseStudy Link Page"
+msgstr ""
+
+#: include/elementor/about-us.php:37 include/elementor/about-us.php:123
+#: include/elementor/about-with-accordion.php:37
+#: include/elementor/about-with-accordion.php:193
+#: include/elementor/contact-form-with-into-box.php:37
+#: include/elementor/contact-form-with-into-box.php:60
+#: include/elementor/corporate-agency-banner.php:37
+#: include/elementor/corporate-agency-banner.php:71
+#: include/elementor/need-designer.php:37
+#: include/elementor/need-designer.php:123
+msgid "Select Form"
+msgstr ""
+
+#: include/elementor/funfact.php:193
+msgid "Select Funfact Number Sup"
+msgstr ""
+
+#: include/elementor/about-with-accordion.php:67
+#: include/elementor/contact-form-with-into-box.php:96
+#: include/elementor/contact-form-with-into-box.php:197
+#: include/elementor/funfact.php:90 include/elementor/our-office.php:51
+#: include/elementor/portfolio-details.php:59
+#: include/elementor/process-box.php:56 include/elementor/services.php:70
+msgid "Select Icon Type"
+msgstr ""
+
+#: include/elementor/case-studies.php:333 include/elementor/funfact.php:51
+#: include/elementor/services.php:44 include/elementor/services.php:265
+msgid "Select Layout"
+msgstr ""
+
+#: include/elementor/our-office.php:173
+msgid "Select office location Link Page"
+msgstr ""
+
+#: include/elementor/testimonials.php:171
+msgid "Select Review Link Page"
+msgstr ""
+
+#: include/elementor/services.php:212
+msgid "Select Service Link Page"
+msgstr ""
+
+#: include/custom-post-type-base.php:136
+msgid "Separate items with commas"
+msgstr ""
+
+#: include/elementor/services.php:130
+msgid "Service Icon Background Color"
+msgstr ""
+
+#: include/elementor/services.php:142
+msgid "Service Icon Background Shape Color"
+msgstr ""
+
+#: include/elementor/services.php:192
+msgid "Service Link link"
+msgstr ""
+
+#: include/elementor/services.php:170
+msgid "Service Link Text"
+msgstr ""
+
+#: include/elementor/services.php:180
+msgid "Service Link Type"
+msgstr ""
+
+#: include/elementor/services.php:152
+msgid "Service Title"
+msgstr ""
+
+#: include/elementor/services.php:15 include/elementor/services.php:60
+msgid "Services"
+msgstr ""
+
+#: include/elementor/services.php:38
+msgid "Services Layout"
+msgstr ""
+
+#: include/elementor/services.php:224
+msgid "Services List"
+msgstr ""
+
+#: include/elementor/services-navigation.php:15
+#: include/elementor/services-navigation.php:36
+msgid "Services Navigation"
+msgstr ""
+
+#: include/elementor/services-navigation.php:61
+msgid "Services Navigations"
+msgstr ""
+
+#: include/custom-post-type-base.php:60
+msgid "Set featured image"
+msgstr ""
+
+#: include/elementor/banner.php:128
+msgid "Shape One"
+msgstr ""
+
+#: include/elementor/banner.php:153
+msgid "Shape Three"
+msgstr ""
+
+#: include/elementor/banner.php:141
+msgid "Shape Two"
+msgstr ""
+
+#: include/common-functions.php:728 include/elementor/case-studies.php:210
+#: include/elementor/pricing-plan.php:265
+#: include/elementor/project-brief.php:83
+msgid "Show"
+msgstr ""
+
+#: include/elementor/personal-banner.php:85
+msgid "Show Scroll Down Button Icon"
+msgstr ""
+
+#: include/common-functions.php:714 include/elementor/case-studies.php:199
+#: include/elementor/pricing-plan.php:254
+msgid "Small"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:47 include/elementor/pricing-plan.php:339
+msgid "Small Business"
+msgstr ""
+
+#: include/elementor/banner-style-3.php:128
+msgid "Social Networks"
+msgstr ""
+
+#: include/common-functions.php:698 include/elementor/case-studies.php:184
+#: include/elementor/pricing-plan.php:239
+msgid "Solid"
+msgstr ""
+
+#: include/elementor/funfact.php:222
+msgid "Specialist"
+msgstr ""
+
+#: include/elementor/banner-style-3.php:15
+msgid "Startup Banner"
+msgstr ""
+
+#: include/elementor/about-with-accordion.php:165
+#: include/elementor/portfolio-details.php:157
+msgid "Strategy"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:357
+msgid "Style"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:361
+msgid "Style One"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:362
+msgid "Style Two"
+msgstr ""
+
+#: include/elementor/banner-style-3.php:88 include/elementor/banner.php:88
+#: include/elementor/pricing-plan.php:53
+msgid "Sub Title"
+msgstr ""
+
+#: include/widgets/about-widget.php:60
+msgid "T."
+msgstr ""
+
+#: include/common-functions.php:282 include/elementor/about-us.php:58
+#: include/elementor/case-studies.php:56 include/elementor/need-designer.php:59
+#: include/elementor/process-box-two.php:74
+msgid "Tag Line"
+msgstr ""
+
+#: include/elementor/our-team-intro.php:15
+msgid "Team Intro"
+msgstr ""
+
+#: include/elementor/our-team-intro.php:39
+msgid "Team Intro Button"
+msgstr ""
+
+#: include/elementor/our-team-intro.php:52
+#: include/elementor/our-team-intro.php:58
+msgid "Team Intro Image"
+msgstr ""
+
+#: include/elementor/teams.php:18
+msgid "Teams"
+msgstr ""
+
+#: include/elementor/teams.php:71
+msgid "Teams Box"
+msgstr ""
+
+#: include/elementor/testimonials.php:15
+msgid "Testimonials"
+msgstr ""
+
+#: include/elementor/about-with-accordion.php:73
+#: include/elementor/portfolio-details.php:65
+#: include/elementor/process-box.php:62
+msgid "Text"
+msgstr ""
+
+#: include/common-functions.php:765 include/common-functions.php:823
+msgid "Text Color"
+msgstr ""
+
+#: include/common-functions.php:253
+#, php-format
+msgid "This input field has support for the following HTML tags: %1$s"
+msgstr ""
+
+#: include/elementor/faq.php:48
+msgid "This is accordion item title"
+msgstr ""
+
+#: include/elementor/faq.php:70
+msgid "This is accordion item title #1"
+msgstr ""
+
+#: include/elementor/faq.php:73
+msgid "This is accordion item title #2"
+msgstr ""
+
+#: include/elementor/faq.php:76
+msgid "This is accordion item title #3"
+msgstr ""
+
+#: include/elementor/case-studies.php:238
+#: include/elementor/case-studies.php:278 include/elementor/funfact.php:200
+msgid "Thousand(K)"
+msgstr ""
+
+#: include/elementor/personal-banner.php:55
+msgid "Thumbnail"
+msgstr ""
+
+#: include/elementor/project-brief.php:81
+msgid "Thumbnail Background Shape?"
+msgstr ""
+
+#: include/elementor/project-brief.php:92
+msgid "Thumbnail Position"
+msgstr ""
+
+#: include/common-functions.php:292 include/elementor/about-us.php:68
+#: include/elementor/about-with-accordion.php:140
+#: include/elementor/banner-style-3.php:43
+#: include/elementor/banner-style-3.php:136 include/elementor/banner.php:43
+#: include/elementor/case-studies.php:66
+#: include/elementor/contact-form-with-into-box.php:156
+#: include/elementor/contact-form-with-into-box.php:257
+#: include/elementor/followers.php:51 include/elementor/funfact.php:173
+#: include/elementor/need-designer.php:69 include/elementor/our-office.php:111
+#: include/elementor/portfolio-details.php:132
+#: include/elementor/pricing-plan.php:45
+#: include/elementor/process-box-two.php:103
+#: include/elementor/process-box.php:139
+#: include/elementor/services-navigation.php:43
+#: include/elementor/services.php:150
+msgid "Title"
+msgstr ""
+
+#: include/elementor/services.php:229
+msgid "Title #1"
+msgstr ""
+
+#: include/elementor/services.php:234
+msgid "Title #2"
+msgstr ""
+
+#: include/elementor/services.php:239
+msgid "Title #3"
+msgstr ""
+
+#: include/elementor/services.php:244
+msgid "Title #4"
+msgstr ""
+
+#: include/elementor/services.php:249
+msgid "Title #5"
+msgstr ""
+
+#: include/elementor/services.php:254
+msgid "Title #6"
+msgstr ""
+
+#: include/common-functions.php:302 include/elementor/about-us.php:78
+#: include/elementor/banner-style-3.php:53 include/elementor/banner.php:53
+#: include/elementor/case-studies.php:76 include/elementor/need-designer.php:79
+msgid "Title HTML Tag"
+msgstr ""
+
+#: include/widgets/recent-posts.php:141
+msgid "Title Word"
+msgstr ""
+
+#: include/widgets/about-widget.php:109 include/widgets/recent-posts.php:131
+msgid "Title:"
+msgstr ""
+
+#: include/elementor/our-team-intro.php:72
+msgid "Total Team Member"
+msgstr ""
+
+#: include/social-share.php:24 include/elementor/banner-style-3.php:185
+msgid "Twitter"
+msgstr ""
+
+#: include/elementor/portfolio.php:67
+msgid "Type all project button label here"
+msgstr ""
+
+#: include/elementor/teams.php:55
+msgid "Type all team button label here"
+msgstr ""
+
+#: include/common-functions.php:285 include/elementor/process-box-two.php:77
+msgid "Type Before Heading Text"
+msgstr ""
+
+#: include/elementor/case-studies.php:117
+msgid "Type casestudy description here"
+msgstr ""
+
+#: include/elementor/portfolio.php:91
+msgid "Type Discover More Projects label here"
+msgstr ""
+
+#: include/common-functions.php:295 include/elementor/about-us.php:71
+#: include/elementor/case-studies.php:69 include/elementor/need-designer.php:72
+msgid "Type Heading Text"
+msgstr ""
+
+#: include/elementor/about-us.php:61 include/elementor/case-studies.php:59
+#: include/elementor/need-designer.php:62
+msgid "Type Pre Heading Text"
+msgstr ""
+
+#: include/common-functions.php:341 include/elementor/about-us.php:117
+msgid "Type section description here"
+msgstr ""
+
+#: include/elementor/our-team-intro.php:75
+msgid "Type total number of team member here"
+msgstr ""
+
+#: include/elementor/contact-form-with-into-box.php:170
+#: include/elementor/contact-form-with-into-box.php:271
+#: include/elementor/our-office.php:125
+msgid "Type your address here"
+msgstr ""
+
+#: include/elementor/about-with-accordion.php:154
+#: include/elementor/portfolio-details.php:146
+#: include/elementor/process-box-two.php:117
+#: include/elementor/process-box.php:153 include/elementor/services.php:164
+msgid "Type your description here"
+msgstr ""
+
+#: include/elementor/testimonials.php:123
+msgid "Type your review content here"
+msgstr ""
+
+#: include/common-functions.php:520
+msgid "Typography"
+msgstr ""
+
+#: include/custom-post-type-base.php:54
+msgid "Update Item"
+msgstr ""
+
+#: include/elementor/case-studies-project.php:66
+msgid "Upload Featured Case Study Brand Image"
+msgstr ""
+
+#: include/elementor/about-with-accordion.php:80
+#: include/elementor/contact-form-with-into-box.php:109
+#: include/elementor/contact-form-with-into-box.php:210
+#: include/elementor/funfact.php:103 include/elementor/our-office.php:63
+#: include/elementor/portfolio-details.php:72
+#: include/elementor/process-box-two.php:56
+#: include/elementor/process-box.php:69 include/elementor/services.php:82
+msgid "Upload Image"
+msgstr ""
+
+#: include/widgets/about-widget.php:114
+msgid "Upload Logo"
+msgstr ""
+
+#: include/custom-post-type-base.php:64
+msgid "Uploaded to this item"
+msgstr ""
+
+#: include/custom-post-type-base.php:62
+msgid "Use as featured image"
+msgstr ""
+
+#: include/elementor/project-brief.php:70 include/elementor/video-popup.php:63
+msgid "Video Link"
+msgstr ""
+
+#: include/elementor/video-popup.php:15
+msgid "Video Popup"
+msgstr ""
+
+#: include/custom-post-type-base.php:55
+msgid "View Item"
+msgstr ""
+
+#: include/elementor/our-office.php:193 include/elementor/our-office.php:198
+#: include/elementor/our-office.php:203 include/elementor/our-office.php:208
+msgid "View on Map"
+msgstr ""
+
+#: include/elementor/banner-style-2.php:38
+#: include/elementor/corporate-agency-banner.php:55
+msgid "View Showcase Button"
+msgstr ""
+
+#: include/elementor/our-office.php:191
+msgid "Virginia-HQ"
+msgstr ""
+
+#: include/elementor/services.php:230 include/elementor/services.php:235
+#: include/elementor/services.php:240 include/elementor/services.php:245
+#: include/elementor/services.php:250 include/elementor/services.php:255
+msgid ""
+"We design professional looking yet simple websites. Our designs are search "
+"engine and user friendly."
+msgstr ""
+
+#: include/elementor/brand-carousel.php:61
+#: include/elementor/clients-brand.php:62
+msgid "Website Url"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:168
+msgid "Yearly"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:155
+msgid "Yearly Period Label"
+msgstr ""
+
+#: include/elementor/pricing-plan.php:133
+msgid "Yearly Price"
+msgstr ""
+
+#: include/elementor/funfact.php:214 include/elementor/funfact.php:226
+msgid "Years of operation"
+msgstr ""
+
+#: include/elementor/banner.php:130 include/elementor/banner.php:143
+#: include/elementor/banner.php:155
+#: include/elementor/case-studies-project.php:58
+#: include/elementor/case-studies.php:348
+#: include/elementor/contact-form-with-into-box.php:72
+#: include/elementor/personal-banner.php:87 include/elementor/portfolio.php:54
+#: include/elementor/portfolio.php:78 include/elementor/pricing-plan.php:98
+#: include/elementor/pricing-plan.php:299 include/elementor/testimonials.php:56
+msgid "Yes"
+msgstr ""

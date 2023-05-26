@@ -1,0 +1,17 @@
+.pointer {
+    cursor: pointer;
+}
+.container__mod{
+    max-width: unset !important;
+    margin-left: 35px;
+    margin-right: 35px;
+}
+
+
+
+
+@media (max-width: 992px){
+    #collapse-navbar{
+        display: none !important;
+    }
+}

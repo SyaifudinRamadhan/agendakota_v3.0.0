@@ -1,0 +1,47 @@
+body { 
+    background-color: #f1f5f9;
+}
+.top-bar {
+    background-color: #fff;
+    position: fixed;
+    top: 0px;left: 0px;right: 0px;
+    height: 65px;
+}
+.top-bar .title {
+    margin: 0px;
+    font-size: 22px;
+}
+.top-bar nav {
+    margin-left: 20px;
+}
+.top-bar nav li {
+    list-style: none;
+    padding: 0px 25px;
+    font-size: 14px;
+    color: #777;
+}
+
+.content {
+    position: absolute;
+    top: 0px;left: 10%;right: 10%;bottom: 0px;
+}
+.content h2 {
+    color: #111;
+    font-size: 48px;
+}
+.content img {
+    border-radius: 20px;
+}
+.content .image-border {
+    top: 30px;left: 30px;
+    width: 99%;
+    height: 300px;
+    border-width: 5px;
+    border-radius: 20px;
+}
+
+.bottom {
+    position: absolute;
+    top: 100%;left: 0%;right: 0%;
+    background-color: #fff;
+}

@@ -1,0 +1,32 @@
+
+.main-container{
+    position: absolute;
+    height: calc(100% - 66px);
+    overflow: scroll;
+    width: 75%;
+}
+
+.modal-info .modal-dialog{
+    max-width: 70%;
+}
+
+.modal-info ul li{
+    font-size: 13pt;
+}
+
+.modal-info span{
+    font-size: 13pt;
+}
+
+.modal-info p{
+    font-size: 13pt;
+}
+
+@media (max-width: 992px){
+    #sidebar{
+        display: none !important;
+    }
+    .main-container{
+        width: 100%;
+    }
+}

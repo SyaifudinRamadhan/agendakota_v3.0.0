@@ -1,0 +1,81 @@
+.ticket {
+    margin-top: 10%;
+    position: relative;
+    border: 1.5pt solid #E1E5E8;
+    display: inline-block;
+    padding: 1em 2em;
+    width: 90%;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 0px 5px 35px 20px rgba(213, 187, 187, 0.19) !important;
+}
+.ticket:before, .ticket:after {
+    content: '';
+    position: absolute;
+    top: 60%;
+    height: 30px;
+    width: 30px;
+    border: 2px solid #ddd;
+    border-radius: 900px;
+    background-color: #fff;
+}
+.ticket:before {
+    left: -2.5%;
+    border-left-color: white;
+}
+.ticket:after {
+    right: -2.5%;
+    border-right-color: white;
+}
+.garis-tiket {
+    border-top: 2px dashed;
+    margin-top: 73px;
+}
+.price {
+    font-size: 15px;
+    color: #e5214f; /*#EB597B*/
+    margin-top: -5%;
+    height: 19px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.ticket-name {
+    font-size: 20px;
+    color: black;
+    text-transform: uppercase;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+    height: 28px;
+}
+.row-ticket {
+    height: 258px;
+}
+.teks-kecil {
+    height: 44px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px !important;
+}
+.pilih-ticket {
+    border-radius: 15px !important;
+}
+.bawah-garis {
+    margin-top: 0px !important;
+}
+.teks-bawah-garis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 30px;
+    font-size: 18px !important;
+}
+.desc-ticket {
+    width: calc(100% - 30%) !important;
+}
+hr {
+    margin-bottom: 3px !important;
+}
+body {
+    background: white;
+}

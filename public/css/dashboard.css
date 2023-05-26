@@ -1,0 +1,105 @@
+body {
+    background-color: #fff;
+}
+header {
+    position: fixed;
+    top: 0px;left: 0px;right: 0px;
+    /* border-bottom: 1px solid #ddd; */
+    background-color: #e74c3c;
+    color: #fff;
+    line-height: 70px;
+    z-index: 1;
+}
+header #menuBtn {
+    float: left;
+    margin-left: 5%;
+    font-size: 20px;
+    cursor: pointer;
+}
+header h1 {
+    float: left;
+    margin: 0px;
+    margin-left: 2.5%;
+    font-size: 22px;
+    font-family: 'Inter', sans-serif !important;
+}
+header .profile {
+    margin-right: 5%;
+    float: right;
+}
+header .profile ul {
+    position: fixed;
+    right: 2.5%;top: -100%;
+    background-color: #fff;
+    color: #444;
+    width: 180px;
+    transition: 0.4s;
+}
+header .profile ul.active {
+    top: 40px;
+}
+header .profile a { color: #444; }
+header .profile ul {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 15px 30px;
+}
+header .profile ul li {
+    list-style: none;
+    line-height: 40px;
+}
+header .profile ul li div {
+    display: inline-block;
+}
+header .profile ul li .icon { width: 35px; }
+
+nav {
+    position: fixed;
+    top: 70px;bottom: 0px;left: -100%;
+    width: 25%;
+    transition: 0.4s;
+}
+nav.active {
+    left: 0px;
+}
+nav a {
+    color: #444;
+}
+nav a li {
+    list-style: none;
+    line-height: 55px;
+    box-sizing: border-box;
+    padding-left: 50px;
+    width: 80%;
+    border-top-right-radius: 90px;
+    border-bottom-right-radius: 90px;
+    margin: 10px 0px;
+}
+nav a li.active {
+    background-color: #e74c3c30;
+    color: #e74c3c;
+    font-family: 'Inter', sans-serif !important;
+}
+nav a li div {
+    display: inline-block;
+}
+nav a li .icon { width: 40px; }
+
+.container {
+    position: absolute;
+    top: 115px;right: 5%;left: 5%;
+    transition: 0.4s;
+    color: #555;
+}
+.container.active {
+    left: 30%;
+}
+
+button#cta {
+    width: 65px;
+    height: 65px;
+    border-radius: 90px;
+    padding: 0px;
+    position: fixed;
+    bottom: 7%;right: 3%;
+}

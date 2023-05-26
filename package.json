@@ -1,0 +1,60 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production"
+    },
+    "devDependencies": {
+        "@babel/preset-react": "^7.13.13",
+        "@popperjs/core": "^2.10.2",
+        "axios": "^0.21",
+        "bootstrap": "^5.2.3",
+        "jquery": "^3.2",
+        "laravel-mix": "^6.0.6",
+        "lodash": "^4.17.19",
+        "popper.js": "^1.12",
+        "postcss": "^8.1.14",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
+        "resolve-url-loader": "^5.0.0",
+        "sass": "^1.32.11",
+        "sass-loader": "^11.0.1",
+        "vue-loader": "^15.9.5"
+    },
+    "name": "agendakota",
+    "description": "<p align=\"center\"><a href=\"https://laravel.com\" target=\"_blank\"><img src=\"https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg\" width=\"400\"></a></p>",
+    "version": "1.0.0",
+    "main": "webpack.mix.js",
+    "directories": {
+        "test": "tests"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/haloriyan/agendakota.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/haloriyan/agendakota/issues"
+    },
+    "homepage": "https://github.com/haloriyan/agendakota#readme",
+    "dependencies": {
+        "bootstrap-icons": "^1.10.3",
+        "media-switcher": "^1.0.5",
+        "peerjs": "^1.4.7",
+        "react-bootstrap": "^2.7.2",
+        "react-bootstrap-icons": "^1.10.2",
+        "react-bootstrap-validation": "^0.1.11",
+        "react-draggable": "^4.4.5",
+        "socket.io": "^4.6.1",
+        "socket.io-client": "^4.6.1",
+        "video-stream-merger": "^4.0.1",
+        "video.js": "^8.0.4",
+        "videojs-errors": "^6.0.0"
+    }
+}

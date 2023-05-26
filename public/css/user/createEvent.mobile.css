@@ -1,0 +1,199 @@
+@media (max-width: 480px) {
+    #modalLogin .modal-body,
+    #modalRegister .modal-body,
+    #modalOtp .modal-body,
+    #modalError .modal-body,
+    #modalTopic .modal-body,
+    #modalTicket .modal-body,
+    #modalDateTime .modal-body,
+    #modalOrganizer .modal-body,
+    #modalLocation .modal-body,
+    #modalBreakdown .modal-body,
+    #modalExecutionType .modal-body {
+        width: 90% !important;
+    }
+
+    #modalLogin .modal-content,
+    #modalRegister .modal-content,
+    #modalOtp .modal-content,
+    #modalError .modal-content,
+    #modalTopic .modal-content,
+    #modalTicket .modal-content,
+    #modalDateTime .modal-content,
+    #modalOrganizer .modal-content,
+    #modalLocation .modal-content,
+    #modalBreakdown .modal-content,
+    #modalExecutionType .modal-content {
+        padding: 35px;
+    }
+
+    .event-type-area {
+        /* gap: 10px; */
+    }
+    .event-type-item {
+        flex-basis: 45.5%;
+        padding: 10px 20px;
+    }
+    .event-type-item img {
+        height: 35px;
+    }
+    .event-type-name,
+    .footer .footer-info h3 {
+        font-size: 12px;
+    }
+    .event-type-description,
+    .footer .footer-info p {
+        font-size: 10px;
+    }
+
+    .content {
+        left: 5%;right: 5%;
+        top: 50px;
+    }
+
+    .footer {
+        padding: 0px 15px;
+    }
+    .footer button {
+        padding: 0px;
+        width: 40px;
+        height: 40px;
+        border-radius: 99px;
+    }
+
+    .modal h2 {
+        font-size: 20px;
+    }
+
+    #ticketing {
+        width: 100% !important;
+    }
+    .ticket-area,
+    .ticket-sales-dates {
+        flex-direction: column !important;
+    }
+    .ticket-sales-dates > div {
+        padding: 0px;
+    }
+    .ticket {
+        width: 95%;
+        margin-bottom: 20px;
+    }
+    #ticket_type_display {
+        font-size: 10px;
+    }
+    #modalTicket .close {
+        height: 30px;
+    }
+    #renderTicketArea {
+        margin-bottom: 50px;
+    }
+    .ticket .TopCircle,
+    .ticket .BottomCircle {
+        left: 60px;
+        width: 20px !important;
+        height: 10px !important;
+    }
+    .ticket .barcode {
+        padding-right: 15px;
+        left: 22px;
+    }
+    .HalfCircle {
+        width: 30px !important;
+        height: 15px !important;
+    }
+    .ticket .detail {
+        left: 90px;
+    }
+    .ticket .ticket_name {
+        font-size: 13px;
+    }
+    .ticket .label { font-size: 8px; }
+
+    .setting-name {
+        font-size: 14px !important;
+    }
+    .setting-description {
+        font-size: 11px !important;
+    }
+    #BreakdownLeft {
+        width: 100% !important;
+        margin-bottom: 20px;
+    }
+    .breakdown-section {
+        flex-direction: column !important;
+    }
+    .breakdown-area {
+        gap: 10px;
+        width: 100%;
+    }
+    .breakdown-item {
+        width: 100%;
+    }
+    .visibility_type,
+    .execution_type {
+        font-size: 12px;
+    }
+    .execution_type_area,
+    .visibility_type_area {
+        border: 0px;
+    }
+
+    #basicInfo .top-area {
+        flex-direction: column;
+    }
+    #basicInfo .top-area .left {
+        margin: 0px;
+    }
+    #UploadArea {
+        height: 141px;
+        padding: 20px;
+    }
+    #UploadArea h2 {
+        font-size: 20px;
+    }
+    #UploadArea .upload_description {
+        font-size: 12px;
+    }
+    #UploadArea i.bx {
+        font-size: 50px !important;
+    }
+
+    .BoxInput {
+        padding: 20px;
+    }
+
+    .flex.mobile-column {
+        flex-direction: column !important;
+    }
+    .mobile-full-width {
+        width: 100%;
+        padding: 0px;
+    }
+
+    .modal p {
+        line-height: 26px;
+        font-size: 14px;
+    }
+    #modalBreakdown .flex.row {
+        flex-direction: column !important;
+    }
+    #modalBreakdown .flex.row .flex {
+        width: 100%;
+    }
+    #modalOrganizer #createOrganizer {
+        flex-wrap: wrap;
+    }
+    #modalOrganizer #createOrganizer input {
+        width: auto;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    #modalOrganizer #createOrganizer button {
+        width: 100%;
+    }
+
+    #renderTicketArea {
+        flex-direction: column;
+    }
+}

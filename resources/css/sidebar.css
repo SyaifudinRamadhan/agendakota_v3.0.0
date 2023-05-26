@@ -1,0 +1,21 @@
+.sidebar-container{
+    position: absolute;
+    height: calc(100% - 66px);
+    overflow: scroll;
+    width: 23%;
+}
+
+.fs-sidebar{
+    font-size: 17px !important;
+    font-weight: 400;
+    color: #666;
+}
+
+.fs-sidebar i{
+    line-height: unset;
+}
+
+.fs-sidebar-cat{
+    font-size: 12px;
+    color: #999;
+}

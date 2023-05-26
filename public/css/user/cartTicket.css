@@ -1,0 +1,187 @@
+.ticket-2 {
+  font-size: 20px;
+  position: relative;
+  background: #fff;
+  float: left;
+  border:4px dotted #000;
+}
+
+.ticket-2:after,
+.ticket-2:before,
+.ticket-2 div:after,
+.ticket-2 div:before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 15px;
+    height: 15px;
+    background: 
+      linear-gradient(#fff,#fff) padding-box,
+      #000;
+}
+.ticket-2:after {
+  top: -5px;
+  left: -5px;
+  border-right: #fff 5px dotted;
+  border-bottom: #fff 5px dotted;
+  border-radius: 0 0 20px 0;
+}
+
+.ticket-2:before {
+  top: -5px;
+  right: -5px;
+  border-left: #fff 5px dotted;
+  border-bottom: #fff 5px dotted;
+  border-radius: 0 0 0 20px;
+}
+
+.ticket-2 div {
+  padding: 35px;
+  text-decoration: none;
+  color: #000;
+}
+
+.ticket-2 div:after {
+  bottom: -5px;
+  left: -5px;
+  border-right: #fff 5px dotted;
+  border-top: #fff 5px dotted;
+  border-radius: 0 20px 0 0;
+}
+
+.ticket-2 div:before {
+  bottom: -5px;
+  right: -5px;
+  border-left: #fff 5px dotted;
+  border-top: #fff 5px dotted;
+  border-radius: 20px 0 0 0;
+}
+
+.ticket-3 {
+  font-size: 20px;
+  position: relative;
+  background: #eb597b2b;
+  float: left;
+  border:4px dotted red;
+  border-left: unset;
+  padding-top: 30px !important;
+  padding-bottom: 20px !important;
+}
+
+.ticket-3:after,
+.ticket-3:before,
+.ticket-3 label:after,
+.ticket-3 label:before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    width: 15px;
+    height: 15px;
+    background: 
+      linear-gradient(#fff,#fff) padding-box,
+      red;
+}
+.ticket-3:after {
+  top: -5px;
+  left: -5px;
+  border-right: #fff 5px dotted;
+  border-bottom: #fff 5px dotted;
+  border-radius: 0 0 20px 0;
+}
+
+.ticket-3:before {
+  top: -5px;
+  right: -5px;
+  border-left: #fff 5px dotted;
+  border-bottom: #fff 5px dotted;
+  border-radius: 0 0 0 20px;
+}
+
+.ticket-3 label {
+  padding: 35px;
+  text-decoration: none;
+  color: #000;
+}
+
+.ticket-3 label:after {
+  bottom: -5px;
+  left: -5px;
+  border-right: #fff 5px dotted;
+  border-top: #fff 5px dotted;
+  border-radius: 0 20px 0 0;
+}
+
+.ticket-3 label:before {
+  bottom: -5px;
+  right: -5px;
+  border-left: #fff 5px dotted;
+  border-top: #fff 5px dotted;
+  border-radius: 20px 0 0 0;
+}
+.w-100{
+    width: 100%;
+}
+.w-75{
+    width: 75%;
+}
+.w-50{
+    width: 50%;
+}
+.w-25{
+    width: 25%;
+}
+hr {
+  border-top: 1px dashed #696767;
+  clear:both;
+  display:block;
+  width: 96%;               
+  background-color:#fff0;
+  height: 1px;
+}
+.strip{
+    border-right: 2px dashed black;
+}
+.strip-2{
+    border-left: 2px dashed black;
+}
+.ticket-name {
+    font-size: 17px !important;
+    color: black;
+    text-transform: uppercase;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+    height: 24px;
+}
+.fs-12{
+    font-size: 12px !important;
+}
+.fs-13{
+    font-size: 13px !important;
+}
+.fs-14{
+    font-size: 14px !important;
+}
+.fs-15{
+    font-size: 15px !important;
+}
+.fs-16{
+    font-size: 16px !important;
+}
+.fs-21{
+    font-size: 21px !important;
+}
+.row-no-margin{
+    margin: unset !important;
+}
+.font-weight-bold{
+    font-weight: bolder !important;
+}
+.text-rotate-90{
+    margin-top: 20px;
+    transform: rotate(90deg);
+    overflow-wrap: anywhere;
+}
+.lebar-100{
+    width: 100%;
+}

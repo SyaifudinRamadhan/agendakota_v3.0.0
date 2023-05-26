@@ -1,0 +1,184 @@
+.ck.ck-toolbar > .ck-toolbar__items {
+    display: none;
+}
+
+.ck.ck-toolbar {
+    border: none;
+}
+
+.ck.ck-editor__main > .ck-editor__editable:not(.ck-focused) {
+    border-color: white;
+}
+.ck.ck-editor__editable_inline {
+    overflow: auto;
+    padding: unset;
+    border: 1px solid transparent;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+#content-stream::-webkit-scrollbar {
+    width: 5px !important;
+}
+
+#content-stream::-webkit-scrollbar-thumb {
+    width: 5px !important;
+    background: #e5214f !important; /*#eb597b*/
+}
+#content-stream::-webkit-scrollbar-track {
+    border-radius: 4px !important;
+}
+.ReactModalPortal {
+    display: none;
+}
+
+.ReactModal__Overlay{
+    background-color: unset !important;
+}
+
+/* #zmmtg-root{
+    position: unset;
+}
+.meeting-app{
+    width: 100% !important;
+    height: 100% !important;
+}
+.meeting-client{
+    position: unset;
+}
+.meeting-client-inner{
+    position: unset;
+}
+#wc-content{
+    position: unset;
+}
+.meeting-info-container{
+    position: unset;
+}
+.gallery-video-container__wrap{
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: 16 / 9 !important;
+}
+.gallery-video-container__canvas{
+    height: 100% !important;
+    width: 100% !important;
+    aspect-ratio: 16 / 9 !important;
+} */
+#zmmtg-root {
+    height: 100%;
+    position: fixed;
+    /* top: 60px; */
+    display: none;
+}
+
+.zmmtg-root-att {
+    width: 88.5% !important;
+    left: 11.5% !important;
+    background-color: black;
+    margin-top: 100px;
+}
+
+.meeting-client {
+    height: 100%;
+    position: fixed;
+    top: 60px;
+}
+
+.meeting-client-add {
+    width: 88.5%;
+    left: 11.5%;
+}
+
+.meeting-client-inner {
+    height: calc(100% - 60px);
+    position: fixed;
+    top: 60px;
+}
+
+.meeting-client-inner-add {
+    width: 88.5%;
+    left: 11.5%;
+}
+
+.sharee-container {
+    /* position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center; */
+    margin-left: 16.5%;
+}
+
+.chat-container__chat-control{
+    display: none;
+}
+.chat-box__chat-textarea {
+    font-size: 15px;
+}
+/* .undefined{
+    display: none;
+} */
+.more-button{
+    display: none;
+}
+.footer__leave-btn-container{
+    display: none;
+}
+.participants-item__item-layout{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.dialog-rename-container{
+    display: block !important;
+}
+/* .zm-modal-legacy{
+    display: none;
+} */
+.zm-modal.zm-modal-legacy {
+    border-radius: 4px;
+    -webkit-box-shadow: 0 5px 15px rgb(0 0 0 / 50%);
+    box-shadow: 17px 20px 15px 20px rgb(0 0 0);
+    border: 1px solid rgb(0 0 0 / 50%);
+    padding: 0;
+}
+.participants-item__buttons{
+    display: block;
+}
+.banner-home{
+    height: unset;
+    width: 100%;
+    aspect-ratio: 5 / 2;
+}
+
+/* CSS Overwrap zoom page */
+
+#__vconsole{
+    display: none;
+}
+
+.more-button{
+    display: none !important;
+}
+
+[aria-label="Settings"]{
+    display: none;
+}
+
+#chatReceiverMenu{
+    display: none !important;
+}
+
+.sharing-entry-button-container{
+    display: none !important;
+}
+
+/* ---------------------- */

@@ -1,0 +1,16 @@
+.top-bar {
+    position: fixed;
+    top: 0px;left: 0px;right: 0px;
+    height: 65px;
+}
+
+.content {
+    position: absolute;
+    top: 65px;
+}
+.content.home {
+    left: 20%;right: 20%;
+}
+.content.dashboard {
+    left: 5%;right: 5%;
+}

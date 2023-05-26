@@ -1,0 +1,356 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#multiple-conference {
+    position: fixed;
+    top: 66px;
+    height: calc(100% - 66px);
+    width: 100%;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: "Roboto", sans-serif;
+}
+
+#video-grids {
+    /* display: flex; */
+    /* flex-wrap: wrap; */
+    /* justify-content: center; */
+    height: 100%;
+    display: flex;
+    /* flex-wrap: wrap; */
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    /* overflow-x: hidden; */
+}
+
+.btn-left-slide {
+    position: absolute;
+    z-index: 2;
+    opacity: 40%;
+    top: 40%;
+}
+
+.btn-right-slide {
+    position: absolute;
+    right: 0;
+    z-index: 2;
+    opacity: 40%;
+    top: 40%;
+}
+
+.btn-left-slide:hover {
+    opacity: 100%;
+}
+
+.btn-right-slide:hover {
+    opacity: 100%;
+}
+
+.video-slide {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    height: calc(100% - 60px);
+    /* align-items: center; */
+    overflow-y: auto;
+    align-content: center;
+}
+
+a,
+a:hover,
+a:focus,
+a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+.video-grid {
+    /* position: relative; */
+    /* display: flex; */
+    position: relative;
+    justify-content: center;
+    display: flex;
+    /* height: 100%; */
+    /* width: 100%; */
+    align-items: center;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    background-color: rgb(49, 49, 49);
+    /* padding: 10px; */
+    margin: 5px;
+    aspect-ratio: 16 / 9;
+    width: calc(33.33% - 30px);
+    border-radius: 7px;
+    overflow: hidden;
+}
+
+/* h1 {
+    position: absolute;
+    bottom: 0;
+    left: 40%;
+} */
+
+.video-grid h1 {
+    /* height: 100%; */
+    position: absolute;
+    bottom: 0;
+    /* display: flex; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* position: absolute; */
+    background: rgba(65, 55, 91, 0.8);
+    color: white;
+    bottom: 0;
+    left: 0;
+    /* width: 80%; */
+    /* height: 30%; */
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+    z-index: 1;
+    /* margin-top: 10%; */
+}
+
+.video-grid .label {
+    /* height: 100%; */
+    position: absolute;
+    bottom: 0;
+    /* display: flex; */
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    /* position: absolute; */
+    background-image: linear-gradient(360deg, #000000d6, transparent);
+    color: white;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20%;
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+    z-index: 1;
+}
+
+.label p {
+    margin: 0;
+}
+
+video {
+    display: block;
+    flex: 1;
+    /* object-fit: cover; */
+    /* border: 5px solid #000; */
+    /* max-width: 600px; */
+    /* border-radius: 25px; */
+    width: 100%;
+    aspect-ratio: 16 / 9;
+}
+
+.video-grid video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    /* object-fit: contain; */
+}
+
+/* pengganti */
+.video-grid img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+}
+
+.mainclone {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.main_left {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.main_right {
+    display: flex;
+    flex: 0.2;
+    flex-direction: column;
+    background-color: #242324;
+}
+
+.main_controls_block {
+    flex-direction: row;
+    display: flex;
+}
+
+.main_controls {
+    display: flex;
+    flex-direction: row;
+    background-color: #1C1E20;
+    color: white;
+    padding: 10px;
+    justify-content: space-between
+}
+
+.main_controls_button {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    padding: 3px 10px;
+    min-width: 80px;
+    align-items: center;
+    justify-content: center;
+}
+
+.main_videos {
+    /* flex-grow: 1;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px; */
+    /* position: absolute; */
+    background-color: black;
+    height: calc(100% - 60px);
+    width: 100%;
+    overflow: hidden;
+}
+
+.leave_red {
+    color: white;
+    background-color: red;
+    border-radius: 5%;
+}
+
+.main__message_container {
+    padding: 20px 15px;
+    display: flex;
+}
+
+.main__message_container input {
+    flex-grow: 1;
+    background-color: transparent;
+    color: white;
+    border: none;
+    outline: none
+}
+
+.main__chat_window {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.main_controls_button:hover {
+    background-color: #686666;
+    border-radius: 25px;
+}
+
+.main_right_header {
+    color: white;
+    text-align: center;
+    font-size: 20px;
+    padding: 10px;
+    border-bottom: 2px solid #3d3d42;
+}
+
+.message {
+    color: white;
+    list-style-type: none;
+    border: 2px solid #3d3d42;
+    margin-bottom: 5px
+}
+
+.main_right_header h6 {
+    animation: animate 20s linear infinite;
+    background-image: linear-gradient(to right, #f00, #ff0, #0ff, #0f0, #00f);
+    background-size: 1000%;
+}
+
+.cam-cover {
+    width: 100%;
+    height: 100%;
+    background-color: #505050;
+    display: flex;
+    border-radius: 8px;
+}
+
+.cam-cover-overlay {
+    width: 100%;
+    height: 100%;
+    background-color: #5050501f;
+    display: none;
+    z-index: 2;
+    border-radius: 8px;
+}
+
+
+.avatar {
+    width: 30%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    display: flex;
+    margin: auto;
+}
+
+.text-avatar {
+    margin: auto;
+    text-align: center;
+    font-size: 5em;
+    color: #fff
+}
+
+.avatar-pin{
+    width: 10%;
+    cursor: pointer;
+}
+
+.font-pin{
+    font-size: 3em;
+}
+
+.video-grid:hover .cam-cover-overlay{
+    display: flex;
+}
+
+/* .pin-share-screen .cam-cover-overlay{
+    display: none !important;
+} */
+.pop-up-raise-hand{
+    cursor: move;
+}
+
+.pop-upp-raise-hand-size{
+    width: 300px;
+    max-height: 250px;
+    overflow-x: auto;
+}
+
+@keyframes animate {
+    0% {
+        background-position: 0% 100%;
+    }
+
+    50% {
+        background-position: 100% 0%;
+    }
+
+    100% {
+        background-position: 0% 100%;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    #multiple-conference {
+        height: calc(100% - 150px);
+    }
+}

@@ -1,0 +1,270 @@
+body {
+    background-color: #eee;
+}
+
+.TopBar {
+    position: fixed;
+    top: 0px;left: 0px;right: 0px;
+    height: 110px;
+    z-index: 4;
+    transition: 0.4s;
+}
+.TopBar i, .TopBar .text { color: #fff;}
+.TopBar #menuToggle { display: none; }
+.PagesArea {
+    height: 40px;
+    background-color: #fff;
+    font-size: 14px;
+}
+.PagesArea a {
+    color: #252525;
+}
+.PagesArea li {
+    list-style: none;
+    padding: 0px 20px;
+}
+.TopBar .Header {
+    height: 80px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.TopBar .Header .logo {
+    height: 40px;
+}
+.TopBar form {
+    background-color: #fff;
+    height: 45px;
+}
+.TopBar form input {
+    margin: 0px;
+    background: none;
+    border: none;
+    color: #252525;
+    padding: 0px;
+    height: 45px;
+}
+.TopBar form button#search {
+    background: none;
+    padding: 0px;
+    width: 60px;
+}
+.TopBar form button#search i { color: #252525; }
+.TopBar button {
+    padding: 12px 25px;
+    font-size: 14px;
+}
+.TopBar #RegisterButton {
+    background: none;
+    border: 2px solid #fff;
+    color: #fff;
+}
+.TopBar .ProfilePicture {
+    height: 50px;
+    cursor: pointer;
+    border: 3px solid #fff;
+}
+
+.content {
+    position: absolute;
+    top: 110px;left: 0px;right: 0px;
+}
+
+footer {
+    padding: 50px;
+    background-color: var(--primaryDark);
+    color: #fff;
+}
+footer .Company img {
+    width: 300px;
+}
+footer a {
+    color: #fff;
+}
+footer h3 {
+    font-size: 24px;
+}
+footer li {
+    list-style: none;
+    height: 35px;
+    flex-direction: row;
+    align-items: center;
+}
+
+.ScrollableArea {
+    overflow: auto;
+    display: flex;
+    flex-wrap: nowrap;
+    min-width: 100%;
+    height: 100%;
+}
+
+.ProfileArea {
+    z-index: 3;
+    top: 110px;right: -50%;bottom: 0px;
+    width: 27.5%;
+    border-left: 1px solid #ddd;
+}
+.ProfileArea.active {
+    right: 0px;
+}
+
+.EventCard {
+    border-radius: 10px;
+    background-color: #fff;
+    margin: 20px;
+    max-width: 100%;
+    height: 390px;
+    flex-shrink: 1;
+    flex-basis: 460px;
+    aspect-ratio: 4 / 5;
+}
+.EventCard.IB {
+    display: flex;
+    flex-direction: column;
+    /* flex-basis: 14.2%; */
+    max-width: 21.2%;
+    flex-grow: 0 !important;
+    flex-shrink: 0;
+    /* height: auto; */
+    aspect-ratio: 4 / 5 !important;
+}
+.EventCard.explore {
+    max-width: 238px;
+    height: 370px;
+}
+.EventCard .cover {
+    width: 100%;
+    aspect-ratio: 5 / 2;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.EventCard .OrganizerLogo {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 999px;
+}
+.EventCard .EventInfo {
+    height: 160px;
+}
+
+#Features h3 {
+    font-size: 22px;
+    font-weight: 600;
+}
+#Features h4 { 
+    font-size: 20px;
+    font-weight: 600;
+}
+.social-login-button {
+    border: 1px solid var(--primary);
+    height: 50px;
+    border-radius: 6px;
+}
+.social-login-button img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+.separator-area {
+    background-color: #ddd;
+    width: 100%;
+    height: 1px;
+    margin-top: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.separator-area .separator-text {
+    background-color: #fff;
+    padding: 5px 20px;
+    position: absolute;
+    top: -13px;
+    font-size: 13px;
+    color: #666;
+}
+
+@media (max-width: 480px) {
+    .TopBar .PagesArea {
+        justify-content: center;
+        flex-direction: row;
+        display: flex;
+    }
+    .TopBar .PagesArea li {
+        padding: 0px 15px;
+        flex-grow: 1;
+        display: flex;
+        font-size: 12px;
+    }
+    .TopBar .text,
+    .TopBar i {
+        color: #252525;
+    }
+    .TopBar .buttons {
+        position: fixed;
+        top: 110px;right: -155%;bottom: 0px;
+        width: 100%;
+        background-color: #fff;
+        color: #252525;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .TopBar .buttons div.flex.row,
+    .TopBar .buttons button {
+        height: 60px;
+        margin-bottom: 20px;
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        justify-content: center;
+    }
+    .TopBar .buttons button {
+        width: 100%;
+    }
+    .TopBar .buttons #RegisterButton {
+        background-color: var(--primary);
+        color: #fff;
+    }
+    .TopBar .Header .Left {
+        width: 100%;
+    }
+    .TopBar .Header form {
+        position: fixed;
+        top: 140px;right: -155%;
+        width: 90%;
+        z-index: 3;
+        border: 1px solid #ddd;
+        transition: 0.4s;
+    }
+    .TopBar .Header form.active
+    .TopBar .Header .buttons.active {
+        right: 0%;
+    }
+    .TopBar .Header form,
+    .TopBar .Header input {
+        height: 60px;
+    }
+    .TopBar #menuToggle {
+        display: flex;
+        flex-grow: 1;
+        justify-content: flex-end;
+        font-size: 24px;
+    }
+    .TopBar #menuToggle i { color: #fff; }
+
+    footer,
+    footer .Links {
+        flex-direction: column !important;
+    }
+    footer .Company,
+    footer .Links,
+    footer .Links .side {
+        width: 100% !important;
+    }
+    .EventCard.IB {
+        /* flex-basis: 90%; */
+        max-width: 90%;
+    }
+}

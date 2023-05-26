@@ -1,0 +1,388 @@
+input.special {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    font-weight: 600;
+    font-size: 35px;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0px;left: 0px;right: 0px;
+    height: 80px;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    padding: 0px 50px;
+    z-index: 2;
+}
+.footer button {
+    height: 50px;
+    padding: 0px;
+    padding: 0px 50px;
+}
+.footer .footer-info h3 {
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+.footer .footer-info p {
+    font-size: 14px;
+}
+
+.content {
+    position: absolute;
+    top: 50px;left: 12.5%;right: 12.5%;
+    padding-bottom: 100px;
+}
+
+/* .event-type {
+    flex-basis: 33.3%;
+    flex-grow: 1;
+}
+.event-type div.active {
+    background-color: var(--primary);
+    color: #fff;
+} */
+
+.separator-area {
+    background-color: #ddd;
+    width: 100%;
+    height: 1px;
+    margin-top: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.separator-area .separator-text {
+    background-color: #fff;
+    padding: 5px 20px;
+    position: absolute;
+    top: -13px;
+    font-size: 13px;
+    color: #666;
+}
+
+.social-login-button {
+    border: 1px solid var(--primary);
+    padding: 10px;
+    border-radius: 7px;
+    color: var(--primary);
+    cursor: pointer;
+}
+.social-login-button img {
+    width: 25px;
+    height: 25px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+.social-login-button:hover {
+    background-color: var(--primaryTransparent);
+    border-color: var(--primaryTransparent);
+}
+
+.otp-input {
+    width: 50px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin: 0px 10px;
+    padding: 0px;
+    text-align: center;
+}
+
+.ticket {
+    /* width: 350px; */
+    width: 33.33%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    margin: 0px 10px;
+    cursor: pointer;
+}
+.HalfCircle {
+    width: 50px;
+    height: 25px;
+    background-color: #fff;
+    border-top-left-radius: 35px;
+    border-top-right-radius: 35px; /* 100px of height + 10px of border */
+    border: 1px solid #ddd;
+    border-bottom: 0;
+}
+.ticket .LeftCircle {
+    margin-left: -9.7px;
+    transform: rotate(90deg);
+    width: 35px;
+    height: 18px;
+}
+.ticket .TopCircle {
+    width: 20px;
+    height: 10px;
+    position: absolute;
+    top: -1px;left: 75px;
+    transform: rotate(180deg);
+}
+.ticket .BottomCircle {
+    width: 20px;
+    height: 10px;
+    position: absolute;
+    bottom: -1px;left: 75px;
+}
+.ticket .barcode {
+    position: absolute;
+    left: 30px;
+    padding-right: 24px;
+    border-right: 2px dashed #ddd;
+}
+.ticket .barcode-line {
+    background-color: #ddd;
+    width: 30px;
+    height: 1px;
+    margin-bottom: 2px;
+}
+.ticket .barcode-line.bold {
+    height: 3px;
+}
+.ticket .ticket_name {
+    font-size: 16px;
+    transition: 0.2s;
+}
+.ticket .label {
+    font-size: 10px;
+}
+.ticket .detail {
+    position: absolute;
+    left: 105px;right: 20px;
+    top: 20px;
+}
+.ticket .outer-add {
+    background-color: #ddd;
+    width: 60px;
+    height: 60px;
+    border-radius: 99px;
+}
+.ticket .add-button {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #ccc;
+    background-color: #fff;
+}
+.ticket:hover {
+    background-color: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+.ticket:hover .muted { color: #fff; }
+.ticket:hover .add-button {
+    color: var(--primary);
+}
+
+.event-type-item {
+    flex-grow: 1;
+    flex-basis: 45%;
+    color: #444;
+}
+.event-type-item img {
+    height: 50px;
+    margin-right: 20px;
+}
+.event-type-item.active {
+    background-color: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+    font-weight: 700;
+}
+.event-type-item.active .muted { 
+    color: #fff;
+    font-weight: 500;
+}
+
+#UploadArea {
+    background-color: #ecf0f1;
+    height: 385px;
+    width: 100%;
+    border-radius: 8px;
+}
+#EventTitle {
+    border: none;
+    color: var(--primary);
+    font-size: 32px;
+    font-weight: 800;
+    padding: 0px;
+    height: auto;
+    outline: none;
+    opacity: 0.4;
+}
+#EventTitle::placeholder {
+    color: var(--primaryTransparent);
+}
+#EventDescription {
+    border: none;
+    padding: 0px;
+    line-height: 150%;
+}
+
+.execution_type.active,
+.visibility_type.active {
+    background-color: var(--primary);
+    color: #fff;
+}
+
+.breakdown-item {
+    flex-basis: 48%;
+    cursor: pointer;
+}
+.breakdown-item i {
+    font-size: 42px;
+    color: #aaa;
+}
+.breakdown-item.active {
+    background-color: var(--primaryTransparent);
+    color: var(--primary);
+    border-color: var(--primary);
+}
+.breakdown-item.active i { color: var(--primary); }
+
+.TicketDisplay {
+    border: 1px solid #ddd;
+    height: auto;
+    width: 350px;
+    position: relative;
+    padding: 20px 45px;
+    border-radius: 10px;
+    margin: 0px 10px;
+}
+.TicketDisplay .HalfCircle {
+    position: absolute;
+    top: 70px;
+}
+.TicketDisplay .LeftCircle {
+    left: -14px;
+    transform: rotate(90deg);
+}
+.TicketDisplay .RightCircle {
+    right: -14px;
+    transform: rotate(270deg);
+}
+.TicketDisplay .info {
+    border-bottom: 1px dashed #ddd;
+    padding-bottom: 20px;
+}
+
+.QuantityControl {
+    height: 53px;
+    width: 53px;
+    padding: 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 23px;
+}
+
+.topic-item.active {
+    background-color: var(--primaryTransparent);
+    color: var(--primary);
+    border-width: 0px;
+}
+
+.modal p {
+    line-height: 30px;
+}
+
+#loading {
+    position: fixed;
+    top: 0px;left: 0px;right: 0px;bottom: 80px;
+}
+
+.load-wrapp {
+    width: 100px;
+    height: 100px;
+    margin: 0 10px 10px 0;
+    padding: 20px 20px 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+.line {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    background-color: var(--primary);
+  }
+.load-3 .line:nth-last-child(1) {
+    animation: loadingC 0.6s 0.1s linear infinite;
+}
+.load-3 .line:nth-last-child(2) {
+    animation: loadingC 0.6s 0.2s linear infinite;
+}
+.load-3 .line:nth-last-child(3) {
+    animation: loadingC 0.6s 0.3s linear infinite;
+}
+.load-3 .line:nth-last-child(1) {
+    animation: loadingC 0.6s 0.1s linear infinite;
+}
+.load-3 .line:nth-last-child(2) {
+    animation: loadingC 0.6s 0.2s linear infinite;
+}
+@keyframes loadingC {
+    0% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(0, 15px);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
+}
+
+.tab-item.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+    font-weight: 700;
+}
+.label-text {
+    height: 50px;
+    border-left: 5px solid #5C0D20;
+    border-top: 5px solid #fff;
+    border-bottom: 5px solid #fff;
+    padding-left: 10px;
+}
+.label-text i {
+    font-size: 24px;
+}
+.label-text .text { margin-left: 10px; }
+
+@media only screen and (max-width: 450px) {
+    .part-left{
+        padding-right: 5px;
+        margin-left: 5px;
+    }
+    .part-right{
+        margin-left: 10px;
+    }
+    .part-left-2{
+        margin-top: 20px;
+    }
+    .part-right-2{
+        margin-top: 20px;
+    }
+    .breakdown-item{
+        flex-basis: unset;
+    }
+    .row-sm{
+        flex-direction: column !important;
+    }
+    .btn-next{
+        font-size: 7pt;
+    }
+    .btn-next i{
+        font-size: 15pt;
+    }
+}

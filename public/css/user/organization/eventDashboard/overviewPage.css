@@ -1,0 +1,115 @@
+.container-cadangan {
+    width: 75%;
+}
+.card-text-1 {
+    color: #828D99;
+    padding-left: 24px !important;
+    padding-bottom: 25px !important;
+    font-size: 14pt !important;
+    height: 33px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: calc(100% - 15px);
+}
+.card-text-2 {
+    color: #304156;
+    display: inline-block !important;
+    font-size: 14pt !important;
+    height: 27px;
+    overflow: hidden;
+    position: absolute;
+    margin-top: 21px;
+    text-overflow: ellipsis;
+    width: calc(100% - 120px);
+}
+.card-text-4 {
+    color: #304156;
+    padding-left: 24px;
+    padding-top: 20px;
+    margin-bottom: 0px !important;
+    font-size: 32pt !important;
+    height: 66px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: calc(100% - 15px);
+}
+.card-text-3 {
+    color: #304156;
+    padding-left: 24px;
+    padding-top: 20px;
+    margin-bottom: 0px !important;
+    font-size: 22pt !important;
+    height: 63px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: calc(100% - 15px);
+}
+.mt-divid-card {
+    margin-top: 32.9px !important;
+}
+.card-1-attdn {
+    padding-top: 3px;
+}
+.title-ticket {
+    color: #304156;
+    padding-top: 20px;
+    padding-left: 20px;
+    font-size: 14pt !important;
+}
+.price-ticket {
+    color: #828D99;
+    font-size: 10pt !important;
+    padding-top: 2px;
+    padding-left: 20px;
+}
+.text-progressbar {
+    color: #828D99;
+    float: right;
+    font-size: 13pt !important;
+    padding-top: 2px;
+    padding-right: 20px;
+}
+.progress {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+.progress-bar-1 {
+    background-color: #e5214f; /*#EB597B*/
+}
+.text-notif {
+    padding-top: 33.67px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-wrap: anywhere;
+}
+.fs-14 {
+    font-size: 14px !important;
+}
+.card-link {
+    height: 392.9px;
+}
+.row-dual-card {
+    margin-top: 222.7px;
+}
+.input-link {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.input-link-2 {
+    margin-right: 35px;
+    margin-left: 35px;
+    margin-top: 20px;
+    width: calc(100% - 70px);
+}
+
+/* Responsive card */
+@media (max-width: 845px){
+    .card-link {
+        height: unset;
+        padding-bottom: 10%;
+    }
+}

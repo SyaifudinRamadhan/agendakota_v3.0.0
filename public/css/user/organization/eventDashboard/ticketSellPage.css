@@ -1,0 +1,30 @@
+.text-no-pay{
+    float: right !important;
+    background: #575757 !important;
+    border-radius: 25px !important;
+    color: #FFFFFF !important;
+    height: 25px !important;
+    aspect-ratio: 1/1 !important;
+}
+.text-payed{
+    float: right !important;
+    background: limegreen !important;
+    border-radius: 25px !important;
+    color: #FFFFFF !important;
+    height: 25px !important;
+    aspect-ratio: 1/1 !important;
+}
+.form-control{
+    width: 30%;
+    border-radius: 8px;
+}
+.page-link{
+    color: #e5214f; /*#eb597b*/
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #e5214f !important; /*#eb597b*/
+    border-color: #e5214f !important; /*#eb597b*/
+}

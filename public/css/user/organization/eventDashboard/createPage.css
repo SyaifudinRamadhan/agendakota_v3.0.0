@@ -1,0 +1,135 @@
+.container-cadangan {
+    width: 75%;
+    margin-left: -3%;
+}
+.wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    width: 100%;
+    height: 90%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+}
+.check-breakdown{
+    /* width: 20px; 
+    height:20px;  */
+    margin-left:5%; 
+    margin-right:3%;
+}
+.text-breakdown{
+    padding:2%; 
+    text-align: center
+}
+.icon-breakdown{
+    font-size: 20pt; 
+    color:grey; 
+    margin-left: auto;
+    margin-right: 5%;
+}
+.breakdowns b {
+    font-size: 20px;
+}
+.breakdowns p {
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+}
+.breakdowns.active {
+    border: 1px solid #E6286E;
+    color: #E6286E;
+    background-color: #EB597B08;
+}
+.breakdowns .icon i {
+    font-size: 30px !important;
+}
+.square {
+    float: right;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+}
+.medsos {
+    border-radius: 8px 0px 0px 8px !important;
+    border-width: 1px 0px 1px 1px !important;
+}
+.contentbar {
+    width: 80%;
+    margin-left: 13%;
+    margin-right: 24%;
+}
+.box {
+    border-radius: 8px;
+    background: none !important;
+}
+.form-control {
+    border-radius: 8px;
+}
+@media (max-width: 845px) {
+    .contentbar {
+        width: 100%;
+        margin-left: 5%;
+        margin-right: auto;
+    }
+}
+.uploadArea {
+    background-color: #F9F9F9 !important;
+    border-radius: 18px !important;
+    padding: 13% 0px;
+}
+.ck-toolbar_grouping {
+    border-top-left-radius: 8px !important;
+    border-top-right-radius: 8px !important;
+    background-color: none !important;
+}
+.ck-editor__editable {
+    border-bottom-left-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
+}
+.ck {
+    background: white !important;
+}
+.submit-btn {
+    margin-left: 5%;
+    border-radius: 6px;
+}
+.btn-submit {
+    height: 40px;
+    padding: 8px;
+}
+.btn-submit-2 {
+    height: 40px;
+    padding: 8px;
+    width: 180px;
+    margin-left: calc(50% - 80px);
+}
+.img-preview{
+    width: 100%; 
+    height: 100% !important; 
+    aspect-ratio: 5/2; 
+    margin-top:30px; 
+    border-radius: 18px;
+}
+.btn-del-img-preview{
+    border: none; 
+    padding: 5px 8px; 
+    text-align: center; 
+    text-decoration: none; 
+    display: inline-block; 
+    font-size: 16px; 
+    border-radius: 8px;
+}
+.ck-editor__editable{
+    height: 128px !important;
+}
+.text-note{
+    height: 48px !important;
+}
+.mt-5_0{
+    margin-top: 50px !important;
+}

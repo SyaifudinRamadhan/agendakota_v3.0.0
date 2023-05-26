@@ -1,0 +1,97 @@
+
+.img-5-2-loading {
+    aspect-ratio: 5/2;
+    width: 100%;
+    background: linear-gradient(102deg, #bbb3b3 8%, #cfcfcf 18%, #bbb3b3 30%);
+    animation: 1.5s shine linear infinite;
+    background-size: 200%;
+    opacity: 70%;
+}
+.img-4-1-loading {
+    aspect-ratio: 4/1;
+    width: 100%;
+    background: linear-gradient(102deg, #bbb3b3 8%, #cfcfcf 18%, #bbb3b3 30%);
+    animation: 1.5s shine linear infinite;
+    background-size: 200%;
+    opacity: 70%;
+}
+.img-1-1-loading{
+    aspect-ratio: 1/1;
+    width: 100%;
+    background: linear-gradient(102deg, #bbb3b3 8%, #cfcfcf 18%, #bbb3b3 30%);
+    animation: 1.5s shine linear infinite;
+    background-size: 200%;
+    opacity: 70%;
+}
+.btn-pill-100-px-loading{
+    width: 112px;
+    height: 36px;
+    padding: 6px 12px;
+    background: linear-gradient(102deg, #bbb3b3 8%, #cfcfcf 18%, #bbb3b3 30%);
+    animation: 1.5s shine linear infinite;
+    background-size: 200%;
+    opacity: 70%;
+    border-radius: 50rem;
+}
+.text-1-loading{
+    width: 100%;
+    height: 20px;
+    background: linear-gradient(102deg, #bbb3b3 8%, #cfcfcf 18%, #bbb3b3 30%);
+    animation: 1.5s shine linear infinite;
+    background-size: 200%;
+    border-radius: 15px;
+    opacity: 70%;
+}
+
+.text-2-loading{
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(102deg, #bbb3b3 8%, #cfcfcf 18%, #bbb3b3 30%);
+    animation: 1.5s shine linear infinite;
+    background-size: 200%;
+    border-radius: 15px;
+    opacity: 70%;
+}
+
+.text-3-loading{
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(102deg, #bbb3b3 8%, #cfcfcf 18%, #bbb3b3 30%);
+    animation: 1.5s shine linear infinite;
+    background-size: 200%;
+    border-radius: 15px;
+    opacity: 70%;
+}
+
+.circle-icon-loading-1{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.circle-icon-loading-2{
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}
+
+.circle-icon-loading-3{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.circle-icon-loading-relative{
+    width: 100%;
+    border-radius: 50%;
+}
+
+.img-card-loading{
+    border-top-left-radius: 15px;
+}
+
+@keyframes shine {
+    to {
+        background-position-x: -200%;
+    }
+}
