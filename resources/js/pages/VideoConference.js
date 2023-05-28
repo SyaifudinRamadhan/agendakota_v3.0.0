@@ -1243,6 +1243,16 @@ function VideoConference() {
             let userTeam = document.getElementById('user-team');
             let token = document.getElementById('token');
 
+            let userData = JSON.parse(myData.value)
+            let orgData = JSON.parse(org.value)
+            if(userData.id === orgData.user_id){
+                userData.organizations = [
+                    orgData
+                ]
+            }else{
+                userData.organizations = []
+            }
+
             setUrl(url.value);
             setRoom(room.value);
             setName(name.value);
@@ -1272,7 +1282,7 @@ function VideoConference() {
             console.log(peer, room);
             peer.on("open", id => {
                 console.log("peerjs open ", id);
-                ioSc.emit("join-room", room.value, id, name.value, JSON.parse(myData.value));
+                ioSc.emit("join-room", room.value, id, name.value, userData);
                 console.log(peer._open);
             });
 
