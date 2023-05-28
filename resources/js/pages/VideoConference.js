@@ -1272,7 +1272,7 @@ function VideoConference() {
             console.log(peer, room);
             peer.on("open", id => {
                 console.log("peerjs open ", id);
-                ioSc.emit("join-room", room.value, id, name.value, myData.value);
+                ioSc.emit("join-room", room.value, id, name.value, JSON.parse(myData.value));
                 console.log(peer._open);
             });
 
