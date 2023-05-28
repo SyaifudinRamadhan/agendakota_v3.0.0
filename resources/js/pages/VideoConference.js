@@ -1251,7 +1251,7 @@ function VideoConference() {
             setTeam(JSON.parse(userTeam.value))
             setToken(token.value)
 
-            let ioSc = io.connect(`http://${process.env.MIX_PEER_HOST}:${process.env.MIX_MANAGE_STREAM_SERVER_PORT}`, {
+            let ioSc = io.connect(`https://${process.env.MIX_PEER_HOST}:${process.env.MIX_MANAGE_STREAM_SERVER_PORT}`, {
                 reconnectionDelayMax: 10000,
                 cors: {
                     withCredentials: true
