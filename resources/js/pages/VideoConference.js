@@ -595,6 +595,7 @@ const RemoveUnusedDivs = videoGrids => {
         for (let i = 0; i < classLists.length; i++) {
             if (classLists[i] == "pin-share-screen") {
                 isExecute = false;
+                setLayoutSharePinning(slides[removedPosition - 1])
             }
         }
         if (isExecute) {
