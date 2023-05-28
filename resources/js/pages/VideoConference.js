@@ -731,6 +731,7 @@ const addVideoStream = (videoGrids, videoEl, stream, name, id, peerHostId, socke
 
 function VideoConference() {
     const [peerjs, setPeer] = useState(null);
+    const [peerjsOpen, setPeerOpen] = useState(false);
     const [room, setRoom] = useState(null);
     const [username, setName] = useState(null);
     const [socket, setSocket] = useState(null);
@@ -964,7 +965,8 @@ function VideoConference() {
             peerjs !== null &&
             room !== null &&
             username !== null &&
-            socket !== null
+            socket !== null &&
+            peerjsOpen
         ) {
             if (loopSet === 0) {
                 console.log("setup peerjs on calls");
@@ -1006,7 +1008,7 @@ function VideoConference() {
                 loopSet++;
             }
         }
-    }, [peerjs, room, username, socket]);
+    }, [peerjs, peerjsOpen, room, username, socket]);
 
     useEffect(() => {
         if (
@@ -1281,6 +1283,7 @@ function VideoConference() {
             console.log(ioSc);
             console.log(peer, room);
             peer.on("open", id => {
+                setPeerOpen(true);
                 console.log("peerjs open ", id);
                 ioSc.emit("join-room", room.value, id, name.value, userData);
                 console.log(peer._open);
