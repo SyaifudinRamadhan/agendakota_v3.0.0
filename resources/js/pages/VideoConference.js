@@ -731,7 +731,7 @@ const addVideoStream = (videoGrids, videoEl, stream, name, id, peerHostId, socke
 
 function VideoConference() {
     const [peerjs, setPeer] = useState(null);
-    const [peerjsOpen, setPeerOpen] = useState(false);
+    const [peerjsOpen, setPeerOpen] = useState(null);
     const [room, setRoom] = useState(null);
     const [username, setName] = useState(null);
     const [socket, setSocket] = useState(null);
@@ -966,7 +966,7 @@ function VideoConference() {
             room !== null &&
             username !== null &&
             socket !== null &&
-            peerjsOpen
+            peerjsOpen !== null
         ) {
             if (loopSet === 0) {
                 console.log("setup peerjs on calls");
@@ -1078,6 +1078,8 @@ function VideoConference() {
             socket.on("msg-audio-on", (id, username) => {
                 setLabelMic({ peerId: id });
             });
+
+            socket.emit("join-room", room, peerjsOpen, username, userData);            
         }
     }, [userMediaStream, socket, peerjs, username]);
 
@@ -1258,7 +1260,7 @@ function VideoConference() {
             setUrl(url.value);
             setRoom(room.value);
             setName(name.value);
-            setUser(JSON.parse(myData.value));
+            setUser(userData);
             setOrg(JSON.parse(org.value));
             setTeam(JSON.parse(userTeam.value))
             setToken(token.value)
@@ -1283,9 +1285,9 @@ function VideoConference() {
             console.log(ioSc);
             console.log(peer, room);
             peer.on("open", id => {
-                setPeerOpen(true);
+                setPeerOpen(id);
                 console.log("peerjs open ", id);
-                ioSc.emit("join-room", room.value, id, name.value, userData);
+                // ioSc.emit("join-room", room.value, id, name.value, userData);
                 console.log(peer._open);
             });
 
