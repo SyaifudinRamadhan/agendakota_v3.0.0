@@ -147,7 +147,7 @@ const pinnedLayout = async (stream, name, videoEl, videoGrids, idGrid) => {
         let videoSlide = document.createElement("div");
         videoSlide.classList.add("video-slide");
         videoSlide.classList.add("pin-share-screen");
-        videoSlide.classList.add(idGrid.split('~!@!~')[0])
+        videoSlide.classList.add(idGrid.split('--xcvcx--')[0])
         videoSlide.appendChild(videoGrid);
         videoGrids.current
             .querySelectorAll(".video-slide")[0]
@@ -634,7 +634,13 @@ const connectToNewUser = (
 
     let storage = JSON.parse(localStorage.getItem('pinning-tmp'))
     if(storage !== null){
-        socket.emit('command-auto-pinning', storage)
+        // socket.emit('command-auto-pinning', storage)
+        localStorage.removeItem('pinning-tmp')
+        for (let i = 0; i < storage.length; i++) {
+            if(document.getElementById(storage[i].targetId)){
+                remotePinning(storage[i].targetId, peer.id, socket, true)
+            }
+        }
     }
 
     console.log(peers);
@@ -911,7 +917,7 @@ function VideoConference() {
                     console.log(`Selected media device is ${deviceId}`);
                     console.log("share button di click");
                     let peer = new Peer(
-                        `${peerjs.id}~!@!~${idShare}-universal-media-share-name ${username}`,
+                        `${peerjs.id}--xcvcx--${idShare}-universal-media-share-name ${username}`,
                         {
                             host: process.env.MIX_PEER_HOST,
                             path: process.env.MIX_PEER_PATH,
@@ -1134,24 +1140,26 @@ function VideoConference() {
     useEffect(() => {
         if(dataPin !== null && userConnect === peers.length && peerjs && userAdded){
             console.log('set localstr', dataPin);
-            let newTmpPinning  = []
+            // let newTmpPinning  = []
+            localStorage.removeItem('pinning-tmp')
             for (let i = 0; i < dataPin.length; i++) {
                 console.log(document.getElementById(dataPin[i].targetId))
-                pinVideo(dataPin[i].targetId, videoGrids, dataPin[i].hostId, socket, isHost);
+                // pinVideo(dataPin[i].targetId, videoGrids, peerjs.id, socket, isHost);
                 if(document.getElementById(dataPin[i].targetId)){
-                    newTmpPinning.push(dataPin[i])
+                    // newTmpPinning.push(dataPin[i])
+                    remotePinning(dataPin[i].targetId, peerjs.id, socket, isHost)
                 }
             }
-            if(isHost){
-                if(newTmpPinning.length > 0){
-                    localStorage.setItem('pinning-tmp', JSON.stringify(newTmpPinning))
-                }else{
-                    localStorage.removeItem('pinning-tmp')
-                }
-            }
+            // if(isHost){
+            //     if(newTmpPinning.length > 0){
+            //         localStorage.setItem('pinning-tmp', JSON.stringify(newTmpPinning))
+            //     }else{
+            //         localStorage.removeItem('pinning-tmp')
+            //     }
+            // }
             // emit sockket change classname slide with new peerjsID
             // socket.emit('command-rename-class-slide', dataPin[0].hostId, peerjs.id)
-            socket.emit('command-auto-pinning', newTmpPinning)
+            // socket.emit('command-auto-pinning', newTmpPinning)
         }
         setUserAdd(false)
     }, [dataPin, userConnect, peerjs, socket, userAdded])
