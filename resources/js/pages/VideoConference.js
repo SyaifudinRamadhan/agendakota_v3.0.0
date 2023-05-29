@@ -133,16 +133,7 @@ const pinnedLayout = async (stream, name, videoEl, videoGrids, idGrid) => {
 
     let indexTarget
     let slides = videoGrids.current.getElementsByClassName("pin-share-screen");
-        // for (let i = 0; i < slides.length; i++) {
-        //     let grids = slides[i].getElementsByClassName('video-grid')
-        //     for (let j = 0; j < grids.length; j++) {
-        //         if(idGrid.match(grids[j].id)){
-        //             indexTarget = i
-        //             j = grids.length
-        //             i = slides.length
-        //         }
-        //     }
-        // }
+       
     for (let i = 0; i < slides.length; i++) {
         slides[i].classList.forEach(classText => {
             if(idGrid.match(classText)){
@@ -1097,16 +1088,16 @@ function VideoConference() {
                             );
                             peers[call.peer] = call;
                             console.log("Masuk univerasl medoa  share screen");
+                            
+                            call.on("close", callIn => {
+                                video.remove();
+                                console.log(callIn);
+                                console.log("peer close remove divs");
+                                RemoveUnusedDivs(videoGrids);
+                                delete peers[call.peer]
+                            });
                         }
                     } else {
-                        console.log(
-                            mode,
-                            mode === undefined || mode === "guest",
-                            (lastMediaId === undefined ||
-                                remoteStream.id !== lastMediaId) &&
-                                call.peer !== peerjs.id &&
-                                remoteStream.id !== myVideoStream.id
-                        );
                         if (
                             (lastMediaId === undefined ||
                                 remoteStream.id !== lastMediaId) &&
@@ -1130,15 +1121,16 @@ function VideoConference() {
                             lastMediaId = remoteStream.id;
                             peers[call.peer] = call;
                             mode = "host";
+
+                            call.on("close", callIn => {
+                                video.remove();
+                                console.log(callIn);
+                                console.log("peer close remove divs");
+                                RemoveUnusedDivs(videoGrids);
+                                delete peers[call.peer]
+                            });
                         }
                     }
-                });
-                call.on("close", callIn => {
-                    video.remove();
-                    console.log(callIn);
-                    console.log("peer close remove divs");
-                    RemoveUnusedDivs(videoGrids);
-                    delete peers[call.peer]
                 });
             } catch (error) {
                 console.log(error);
