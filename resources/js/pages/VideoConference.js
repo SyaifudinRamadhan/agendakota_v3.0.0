@@ -147,7 +147,7 @@ const pinnedLayout = async (stream, name, videoEl, videoGrids, idGrid) => {
         let videoSlide = document.createElement("div");
         videoSlide.classList.add("video-slide");
         videoSlide.classList.add("pin-share-screen");
-        videoSlide.classList.add(idGrid.replaceAll(' ', '-'))
+        videoSlide.classList.add(idGrid.split('~!@!~')[0])
         videoSlide.appendChild(videoGrid);
         videoGrids.current
             .querySelectorAll(".video-slide")[0]
@@ -423,9 +423,6 @@ const pinVideo = (idTarget, videoGrids, peerIdHost, socket, isHost) => {
             "video"
         )[0].srcObject = videogrid.getElementsByTagName("video")[0].srcObject;
         clone.getElementsByTagName("video")[0].play();
-        // clone.getElementsByTagName('i')[0].classList.remove('bi-pin')
-        // clone.getElementsByTagName('i')[0].classList.add('bi-pin-angle')
-        // console.log(clone.querySelector(`.font-pin`));
         if(isHost){
             clone.getElementsByClassName(`font-pin`)[0].innerHTML = '<i class="bi bi-pin-angle"></i>'
         }
@@ -440,16 +437,7 @@ const pinVideo = (idTarget, videoGrids, peerIdHost, socket, isHost) => {
                 }
                 i = slide.length
             }
-            // for (let j = 0; j < grids.length; j++) {
-            //     if(grids[j].id.match(peerIdHost)){
-            //         indexTarget = i
-            //         if(grids.length >= 6){
-            //             maxPinned = true
-            //         }
-            //         j = grids.length
-            //         i = slide.length
-            //     }
-            // }
+            
         }
 
         if(maxPinned === false){
@@ -477,7 +465,6 @@ const pinVideo = (idTarget, videoGrids, peerIdHost, socket, isHost) => {
             }
             if(isHost){
                 clone.getElementsByClassName(`font-pin`)[0].onclick = () => {
-                    // removePin(slide, clone)
                     remoteRemovePin(clone.id, slide.classList[2], socket)
                 }
             }
@@ -559,6 +546,11 @@ const RemoveUnusedDivs = videoGrids => {
             if (target == 0) {
                 let id = grids[j].id
                 grids[j].remove();
+
+                let slideSameClass = videoGrids.current.getElementsByClassName(id);
+                if(slideSameClass.length === 1){
+                    slideSameClass[0].remove()
+                }
 
                 let duplicate = document.getElementById(id)
                 if(duplicate){
@@ -919,7 +911,7 @@ function VideoConference() {
                     console.log(`Selected media device is ${deviceId}`);
                     console.log("share button di click");
                     let peer = new Peer(
-                        `${peerjs.id}-${idShare}-universal-media-share-name ${username}`,
+                        `${peerjs.id}~!@!~${idShare}-universal-media-share-name ${username}`,
                         {
                             host: process.env.MIX_PEER_HOST,
                             path: process.env.MIX_PEER_PATH,
@@ -1016,6 +1008,7 @@ function VideoConference() {
             socket.on("user-connected", (id, usernameSc) => {
                 console.log("userid:" + id);
                 setId(id);
+                socket.emit("tellName", username);
                 connectToNewUser(
                     peerjs,
                     id,
@@ -1026,7 +1019,6 @@ function VideoConference() {
                     socket,
                     isHost
                 );
-                socket.emit("tellName", username);
             });
 
             socket.on("user-disconnected", id => {
@@ -1071,7 +1063,6 @@ function VideoConference() {
                 console.log(callAns, call);
                 setCallingAns(callAns);
 
-                const video = document.createElement("video");
                 // video.id = call.peer;
                 call.on("stream", remoteStream => {
                     if (call.peer.match(/universal-media-share/gi)) {
@@ -1079,6 +1070,7 @@ function VideoConference() {
                             peers[call.peer] == undefined ||
                             peers[call.peer] == null
                         ) {
+                            const video = document.createElement("video");
                             pinnedLayout(
                                 remoteStream,
                                 call.peer.split("name")[1],
@@ -1104,6 +1096,7 @@ function VideoConference() {
                             call.peer !== peerjs.id &&
                             remoteStream.id !== myVideoStream.id
                         ) {
+                            const video = document.createElement("video");
                             console.log(remoteStream);
                             console.log(userMediaStreamAns);
                             console.log("Menerima panggilan dari host");
@@ -1157,7 +1150,7 @@ function VideoConference() {
                 }
             }
             // emit sockket change classname slide with new peerjsID
-            socket.emit('command-rename-class-slide', dataPin[0].hostId, peerjs.id)
+            // socket.emit('command-rename-class-slide', dataPin[0].hostId, peerjs.id)
             socket.emit('command-auto-pinning', newTmpPinning)
         }
         setUserAdd(false)
@@ -1196,13 +1189,23 @@ function VideoConference() {
             })
 
             // io on rename slide classname by new peerjsID from new Host connection
-            socket.on('rename-class-slide', (old, newName) => {
-                let el = document.getElementsByClassName(old)
-                if(el.length > 0){
-                    el[0].classList.add(newName)
-                    el[0].classList.remove(old)
-                }
-            })
+            // socket.on('rename-class-slide', (old, newName) => {
+            //     let el = document.getElementsByClassName(old)
+            //     if(el.length > 0){
+            //         el[0].classList.add(newName)
+            //         el[0].classList.remove(old)
+            //     }else{
+            //         let slides = document.getElementsByClassName('pin-share-screen')
+            //         for (let i = 0; i < slides.length; i++) {
+            //             slides[i].classList.forEach(slideClass => {
+            //                 if(slideClass.match(old)){
+            //                     slides[i].classList.add(newName)
+            //                     slides[i].classList.remove(old)
+            //                 }
+            //             })
+            //         }
+            //     }
+            // })
 
             socket.on('auto-pinning', data => {
                 setDataPin(data)
