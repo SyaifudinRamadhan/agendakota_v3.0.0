@@ -1068,7 +1068,7 @@ function VideoConference() {
                 setLabelMic({ peerId: id });
             });
 
-            // socket.emit("join-room", room, peerjsOpen, username, userData);            
+            socket.emit("join-room", room, peerjsOpen, username, userData);            
         }
     }, [userMediaStream, socket, peerjs, username]);
 
@@ -1276,7 +1276,7 @@ function VideoConference() {
             peer.on("open", id => {
                 setPeerOpen(id);
                 console.log("peerjs open ", id);
-                ioSc.emit("join-room", room.value, id, name.value, userData);
+                // ioSc.emit("join-room", room.value, id, name.value, userData);
                 console.log(peer._open);
             });
 
