@@ -21,7 +21,7 @@ let loopSet = 0;
 let loopSetShare = 0;
 let loopSetShare2 = 0;
 let idShare = 0;
-let otherUsername = "";
+const otherUsername = [];
 let myVideoStream;
 const peers = [];
 let lastMediaId = undefined;
@@ -98,7 +98,7 @@ const pinnedLayout = async (stream, name, videoEl, videoGrids, idGrid) => {
     // label.innerHTML = name;
     // videoGrid.appendChild(label);
 
-    if(!navigator.userAgent.match(/firefox|fxios/i)){
+    if (!navigator.userAgent.match(/firefox|fxios/i)) {
         let cover = document.createElement("div");
         cover.classList.add("cam-cover-overlay");
         cover.classList.add("position-absolute");
@@ -108,17 +108,20 @@ const pinnedLayout = async (stream, name, videoEl, videoGrids, idGrid) => {
                 </p>
             </div>`;
         cover.onclick = function() {
-            if('pictureInPictureEnabled' in document){
-                if(document.pictureInPictureElement){
+            if ("pictureInPictureEnabled" in document) {
+                if (document.pictureInPictureElement) {
                     document.exitPictureInPicture().catch(err => {
                         console.log(err);
-                    })
-                }else{
-                    videoEl.requestPictureInPicture().then(()=>{
-                        videoEl.play()
-                    }).catch(err => {
-                        console.log(err);
-                    })
+                    });
+                } else {
+                    videoEl
+                        .requestPictureInPicture()
+                        .then(() => {
+                            videoEl.play();
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
                 }
             }
         };
@@ -131,39 +134,40 @@ const pinnedLayout = async (stream, name, videoEl, videoGrids, idGrid) => {
     videoGrid.style.height = "unset";
     videoGrid.style.aspectRatio = "16/9";
 
-    let indexTarget
+    let indexTarget;
     let slides = videoGrids.current.getElementsByClassName("pin-share-screen");
-       
+
     for (let i = 0; i < slides.length; i++) {
         slides[i].classList.forEach(classText => {
-            if(idGrid.match(classText)){
-                indexTarget = i
-                i = slides.length
+            if (idGrid.match(classText)) {
+                indexTarget = i;
+                i = slides.length;
             }
-        })
+        });
     }
 
-    if(indexTarget === undefined){
+    if (indexTarget === undefined) {
         let videoSlide = document.createElement("div");
         videoSlide.classList.add("video-slide");
         videoSlide.classList.add("pin-share-screen");
-        videoSlide.classList.add(idGrid.split('--xcvcx--')[0])
+        videoSlide.classList.add(idGrid.split("-x-")[0]);
         videoSlide.appendChild(videoGrid);
         videoGrids.current
             .querySelectorAll(".video-slide")[0]
             .insertAdjacentElement("beforebegin", videoSlide);
-        
+
         videoGrids.current.style.transform = "translate(0, 0)";
         nowPos = 0;
-        
-    }else{
-        slides[indexTarget].getElementsByClassName('video-grid')[0].insertAdjacentElement('beforebegin', videoGrid)
+    } else {
+        slides[indexTarget]
+            .getElementsByClassName("video-grid")[0]
+            .insertAdjacentElement("beforebegin", videoGrid);
 
-        videoGrids.current.style.transform = `translate(-${indexTarget * 100}%, 0)`;
+        videoGrids.current.style.transform = `translate(-${indexTarget *
+            100}%, 0)`;
         nowPos = -(indexTarget * 100);
         setLayoutSharePinning(slides[indexTarget]);
     }
-   
 };
 
 const shareMedia = async (
@@ -235,7 +239,7 @@ const shareMedia = async (
                     video = null;
                     videoEl.remove();
                     fnSetShareState(false);
-                    RemoveUnusedDivs(videoGrids)
+                    RemoveUnusedDivs(videoGrids);
                 }
             };
             video.getVideoTracks()[0].onended = endVideo;
@@ -257,7 +261,7 @@ const shareMedia = async (
                 video = null;
                 videoEl.remove();
                 fnSetShareState(false);
-                RemoveUnusedDivs(videoGrids)
+                RemoveUnusedDivs(videoGrids);
             });
 
             const calling = id => {
@@ -396,57 +400,57 @@ const setLayoutSharePinning = slide => {
 };
 
 const removePin = (slide, videoGrid) => {
-    videoGrid.remove()
-    if(slide.getElementsByTagName('video').length == 0){
-        slide.remove()
+    videoGrid.remove();
+    if (slide.getElementsByTagName("video").length == 0) {
+        slide.remove();
     }
-    setLayoutSharePinning(slide)
-}
+    setLayoutSharePinning(slide);
+};
 
 const pinVideo = (idTarget, videoGrids, peerIdHost, socket, isHost) => {
     // Belum sempurna. Sesuaikan id grid share screen dalam slide dengan id peer yang melakukan pinning
-    let videogrid = []
-    let allVideoGrid = document.querySelectorAll('.video-grid')
-    let maxPinned = false
+    let videogrid = [];
+    let allVideoGrid = document.querySelectorAll(".video-grid");
+    let maxPinned = false;
     allVideoGrid.forEach(videoGrid => {
         // console.log(videoGrid.id, idTarget);
-        if(videoGrid.id == idTarget){
-            videogrid.push(videoGrid)
+        if (videoGrid.id == idTarget) {
+            videogrid.push(videoGrid);
         }
-    })
+    });
     if (videogrid.length < 2 && videogrid.length > 0) {
         console.log(videogrid);
-        let indexTarget
+        let indexTarget;
         videogrid = videogrid[0];
         let clone = videogrid.cloneNode(true);
         clone.getElementsByTagName(
             "video"
         )[0].srcObject = videogrid.getElementsByTagName("video")[0].srcObject;
         clone.getElementsByTagName("video")[0].play();
-        if(isHost){
-            clone.getElementsByClassName(`font-pin`)[0].innerHTML = '<i class="bi bi-pin-angle"></i>'
+        if (isHost) {
+            clone.getElementsByClassName(`font-pin`)[0].innerHTML =
+                '<i class="bi bi-pin-angle"></i>';
         }
 
         let slide = document.getElementsByClassName("pin-share-screen");
         for (let i = 0; i < slide.length; i++) {
             // let grids = slide[i].getElementsByClassName('video-grid')
-            if(slide[i].classList.toString().indexOf(peerIdHost) != -1){
-                indexTarget = i
-                if(slide[i].getElementsByClassName('video-grid').length >= 6){
-                    maxPinned = true
+            if (slide[i].classList.toString().indexOf(peerIdHost) != -1) {
+                indexTarget = i;
+                if (slide[i].getElementsByClassName("video-grid").length >= 6) {
+                    maxPinned = true;
                 }
-                i = slide.length
+                i = slide.length;
             }
-            
         }
 
-        if(maxPinned === false){
-            if(indexTarget == undefined){
-                slide = []
+        if (maxPinned === false) {
+            if (indexTarget == undefined) {
+                slide = [];
             }
-    
+
             if (slide.length == 0) {
-                // clone.id = peerIdHost    
+                // clone.id = peerIdHost
                 let videoSlide = document.createElement("div");
                 videoSlide.classList.add("video-slide");
                 videoSlide.classList.add("pin-share-screen");
@@ -459,14 +463,15 @@ const pinVideo = (idTarget, videoGrids, peerIdHost, socket, isHost) => {
                 nowPos = 0;
                 slide = videoSlide;
             } else {
-                videoGrids.current.style.transform = `translate(-${indexTarget * 100}%, 0)`;
+                videoGrids.current.style.transform = `translate(-${indexTarget *
+                    100}%, 0)`;
                 nowPos = -(indexTarget * 100);
                 slide = slide[indexTarget];
             }
-            if(isHost){
+            if (isHost) {
                 clone.getElementsByClassName(`font-pin`)[0].onclick = () => {
-                    remoteRemovePin(clone.id, slide.classList[2], socket)
-                }
+                    remoteRemovePin(clone.id, slide.classList[2], socket);
+                };
             }
             slide.appendChild(clone);
             setLayoutSharePinning(slide);
@@ -475,48 +480,48 @@ const pinVideo = (idTarget, videoGrids, peerIdHost, socket, isHost) => {
 };
 
 const remotePinning = (idTarget, peerIdHost, socket, isHost) => {
-    if(isHost){
-        let storage = JSON.parse(localStorage.getItem('pinning-tmp'))
-        let findId = false
-        if(storage !== null){
+    if (isHost) {
+        let storage = JSON.parse(localStorage.getItem("pinning-tmp"));
+        let findId = false;
+        if (storage !== null) {
             for (let i = 0; i < storage.length; i++) {
-                if(storage[i].targetId === idTarget){
-                    findId = true
+                if (storage[i].targetId === idTarget) {
+                    findId = true;
                 }
             }
-        }else{
-            storage = []
+        } else {
+            storage = [];
         }
 
-        if((storage.length < 6 && findId === false) || storage.length === 0){
+        if ((storage.length < 6 && findId === false) || storage.length === 0) {
             storage.push({
                 targetId: idTarget,
                 hostId: peerIdHost
-            })
-            localStorage.setItem('pinning-tmp', JSON.stringify(storage))
-            socket.emit('command-pinning', idTarget, peerIdHost)
-        }else{
-            console.log('Notify fialed remoting');
+            });
+            localStorage.setItem("pinning-tmp", JSON.stringify(storage));
+            socket.emit("command-pinning", idTarget, peerIdHost);
+        } else {
+            console.log("Notify fialed remoting");
         }
     }
-}
+};
 
 const remoteRemovePin = (idTarget, peerIdHost, socket) => {
-    let storage = JSON.parse(localStorage.getItem('pinning-tmp'))
-    if(storage !== null){
+    let storage = JSON.parse(localStorage.getItem("pinning-tmp"));
+    if (storage !== null) {
         for (let i = 0; i < storage.length; i++) {
-            if(storage[i].targetId === idTarget){
-                storage.splice(i, 1)
-                socket.emit('command-rm-pinning', idTarget, peerIdHost)   
+            if (storage[i].targetId === idTarget) {
+                storage.splice(i, 1);
+                socket.emit("command-rm-pinning", idTarget, peerIdHost);
             }
         }
-        if(storage.length === 0){
-            localStorage.removeItem('pinning-tmp')
-        }else{
-            localStorage.setItem('pinning-tmp', JSON.stringify(storage))
+        if (storage.length === 0) {
+            localStorage.removeItem("pinning-tmp");
+        } else {
+            localStorage.setItem("pinning-tmp", JSON.stringify(storage));
         }
-    } 
-}
+    }
+};
 
 const changeSize = () => {
     // console.log(event.target);
@@ -525,8 +530,8 @@ const changeSize = () => {
 
     let slides = document.querySelectorAll(".video-slide");
     slides.forEach(slide => {
-        let listClass = slide.classList.toString()
-        if(listClass.indexOf('pin-share-screen') == -1){
+        let listClass = slide.classList.toString();
+        if (listClass.indexOf("pin-share-screen") == -1) {
             let videoGrids = slide.querySelectorAll(".video-grid");
             videoGrids.forEach(videoGrid => {
                 changeLayout(width, height, videoGrid, videoGrids.length);
@@ -544,17 +549,19 @@ const RemoveUnusedDivs = videoGrids => {
         for (let j = 0; j < grids.length; j++) {
             let target = grids[j].getElementsByTagName("video").length;
             if (target == 0) {
-                let id = grids[j].id
+                let id = grids[j].id;
                 grids[j].remove();
 
-                let slideSameClass = videoGrids.current.getElementsByClassName(id);
-                if(slideSameClass.length === 1){
-                    slideSameClass[0].remove()
+                let slideSameClass = videoGrids.current.getElementsByClassName(
+                    id
+                );
+                if (slideSameClass.length === 1) {
+                    slideSameClass[0].remove();
                 }
 
-                let duplicate = document.getElementById(id)
-                if(duplicate){
-                    duplicate.remove()
+                let duplicate = document.getElementById(id);
+                if (duplicate) {
+                    duplicate.remove();
                 }
                 removedPosition = i + 1;
             }
@@ -566,7 +573,7 @@ const RemoveUnusedDivs = videoGrids => {
         for (let i = 0; i < classLists.length; i++) {
             if (classLists[i] == "pin-share-screen") {
                 isExecute = false;
-                setLayoutSharePinning(slides[removedPosition - 1])
+                setLayoutSharePinning(slides[removedPosition - 1]);
             }
         }
         if (isExecute) {
@@ -580,8 +587,8 @@ const RemoveUnusedDivs = videoGrids => {
     // remove blank slide
     for (let i = 0; i < slides.length; i++) {
         let grids = slides[i].getElementsByClassName("video-grid");
-        if(grids.length === 0){
-            slides[i].remove()
+        if (grids.length === 0) {
+            slides[i].remove();
         }
     }
 
@@ -626,85 +633,96 @@ const connectToNewUser = (
     call.on("close", () => {
         video.remove();
         RemoveUnusedDivs(videoGrids);
-        delete peers[call.peer]
+        delete peers[call.peer];
     });
     peers[userId] = call;
-    
-    socket.emit('user-count', peers.length);
 
-    let storage = JSON.parse(localStorage.getItem('pinning-tmp'))
-    if(storage !== null){
-        // socket.emit('command-auto-pinning', storage)
-        localStorage.removeItem('pinning-tmp')
-        for (let i = 0; i < storage.length; i++) {
-            if(document.getElementById(storage[i].targetId)){
-                remotePinning(storage[i].targetId, peer.id, socket, true)
-            }
-        }
+    socket.emit("user-count", peers.length);
+
+    let storage = JSON.parse(localStorage.getItem("pinning-tmp"));
+    if (storage !== null) {
+        socket.emit("command-auto-pinning", storage);
+        // localStorage.removeItem('pinning-tmp')
+        // for (let i = 0; i < storage.length; i++) {
+        //     if(document.getElementById(storage[i].targetId)){
+        //         remotePinning(storage[i].targetId, peer.id, socket, true)
+        //     }
+        // }
     }
 
     console.log(peers);
 };
 
-const addVideoStream = (videoGrids, videoEl, stream, name, id, peerHostId, socket, isHost) => {
-    console.log(videoEl, stream);
-    videoEl.srcObject = stream;
-    videoEl.addEventListener("loadedmetadata", () => {
-        videoEl.play();
-    });
-    videoEl.style.display = "unset";
-    const videoGrid = document.createElement("div");
-    videoGrid.id = id;
-    videoGrid.classList.add("video-grid");
-    const label = document.createElement("p");
-    label.classList.add("label");
-    label.innerHTML = `<i class="bi bi-mic" style="font-style: normal"> ${name}</i>`;
-    videoGrid.appendChild(label);
+const addVideoStream = (
+    videoGrids,
+    videoEl,
+    stream,
+    name,
+    id,
+    peerHostId,
+    socket,
+    isHost
+) => {
+    if (document.getElementById(id) == undefined) {
+        console.log(videoEl, stream);
+        videoEl.srcObject = stream;
+        videoEl.addEventListener("loadedmetadata", () => {
+            videoEl.play();
+        });
+        videoEl.style.display = "unset";
+        const videoGrid = document.createElement("div");
+        videoGrid.id = id;
+        videoGrid.classList.add("video-grid");
+        const label = document.createElement("p");
+        label.classList.add("label");
+        label.innerHTML = `<i class="bi bi-mic" style="font-style: normal"> ${name}</i>`;
+        videoGrid.appendChild(label);
 
-    if(isHost){
-        let cover = document.createElement("div");
-        cover.classList.add("cam-cover-overlay");
-        cover.classList.add("position-absolute");
-        cover.classList.add('pin-remote');
-        cover.innerHTML = `<div class="avatar avatar-pin" style="background-color: #68656578">
-                <p id="${id}-pin-btn" class="text-avatar font-pin">
-                    <i class="bi bi-pin"></i>
-                </p>
-            </div>`;
-        cover.onclick = function() {
-            // pinVideo(id, videoGrids, peerHostId);
-            remotePinning(id, peerHostId, socket, isHost)
-        };
+        if (isHost) {
+            let cover = document.createElement("div");
+            cover.classList.add("cam-cover-overlay");
+            cover.classList.add("position-absolute");
+            cover.classList.add("pin-remote");
+            cover.innerHTML = `<div class="avatar avatar-pin" style="background-color: #68656578">
+                    <p id="${id}-pin-btn" class="text-avatar font-pin">
+                        <i class="bi bi-pin"></i>
+                    </p>
+                </div>`;
+            cover.onclick = function() {
+                // pinVideo(id, videoGrids, peerHostId);
+                remotePinning(id, peerHostId, socket, isHost);
+            };
 
-        videoGrid.appendChild(cover);
-    }
-
-    videoGrid.append(videoEl);
-    console.log(videoGrid);
-    let slides = [];
-    document.querySelectorAll(".video-slide").forEach(slide => {
-        let classlist = slide.classList;
-        if (classlist.length == 1) {
-            slides.push(slide);
+            videoGrid.appendChild(cover);
         }
-    });
-    let slidePos = Math.ceil(
-        (document.querySelectorAll(".video-grid").length + 1) / 6
-    );
-    let videoSlide;
 
-    if (slides.length < slidePos) {
-        videoSlide = document.createElement("div");
-        videoSlide.classList.add("video-slide");
-        videoSlide.appendChild(videoGrid);
+        videoGrid.append(videoEl);
+        console.log(videoGrid);
+        let slides = [];
+        document.querySelectorAll(".video-slide").forEach(slide => {
+            let classlist = slide.classList;
+            if (classlist.length == 1) {
+                slides.push(slide);
+            }
+        });
+        let slidePos = Math.ceil(
+            (document.querySelectorAll(".video-grid").length + 1) / 6
+        );
+        let videoSlide;
 
-        videoGrids.current.appendChild(videoSlide);
-    } else {
-        videoSlide = slides[slidePos - 1];
-        videoSlide.appendChild(videoGrid);
+        if (slides.length < slidePos) {
+            videoSlide = document.createElement("div");
+            videoSlide.classList.add("video-slide");
+            videoSlide.appendChild(videoGrid);
+
+            videoGrids.current.appendChild(videoSlide);
+        } else {
+            videoSlide = slides[slidePos - 1];
+            videoSlide.appendChild(videoGrid);
+        }
+
+        RemoveUnusedDivs(videoGrids);
     }
-
-    RemoveUnusedDivs(videoGrids);
 };
 
 function VideoConference() {
@@ -736,7 +754,7 @@ function VideoConference() {
     const [isStart, setStart] = useState(false);
     const [time, setTime] = useState(null);
     const [startTime, setStartTime] = useState(null);
-    const [endTime, setEndTime] = useState(null)
+    const [endTime, setEndTime] = useState(null);
 
     const videoGrids = useRef();
     const shareBtn = useRef();
@@ -750,7 +768,7 @@ function VideoConference() {
     console.log(peers);
 
     const shareMediaClick = mediaId => {
-        if(isHost){
+        if (isHost) {
             setSelectMedia(mediaId);
         }
     };
@@ -917,12 +935,12 @@ function VideoConference() {
                     console.log(`Selected media device is ${deviceId}`);
                     console.log("share button di click");
                     let peer = new Peer(
-                        `${peerjs.id}--xcvcx--${idShare}-universal-media-share-name ${username}`,
+                        `${peerjs.id}-x-${idShare}-universal-media-share-name ${username}`,
                         {
                             host: process.env.MIX_PEER_HOST,
                             path: process.env.MIX_PEER_PATH,
                             port: process.env.MIX_MANAGE_STREAM_SERVER_PORT,
-                            token: JSON.stringify({token: token, room: room})
+                            token: JSON.stringify({ token: token, room: room })
                         }
                     );
                     // setPeerShare(peer);
@@ -978,9 +996,8 @@ function VideoConference() {
                         myVideoStream = stream;
                     });
 
-                socket.on("AddName", username => {
-                    otherUsername = username;
-                    console.log(username);
+                socket.on("AddName", data => {
+                    otherUsername[data.id] = data.username
                 });
 
                 loopSet++;
@@ -1012,19 +1029,21 @@ function VideoConference() {
             lastMediaId = userMediaStream.id;
 
             socket.on("user-connected", (id, usernameSc) => {
-                console.log("userid:" + id);
-                setId(id);
-                socket.emit("tellName", username);
-                connectToNewUser(
-                    peerjs,
-                    id,
-                    userMediaStream,
-                    usernameSc,
-                    videoGrids,
-                    setCalling,
-                    socket,
-                    isHost
-                );
+                if (peerjs.id !== id) {
+                    socket.emit("tellName", {id: peerjs.id, username: username});
+                    console.log("userid:" + id);
+                    setId(id);
+                    connectToNewUser(
+                        peerjs,
+                        id,
+                        userMediaStream,
+                        usernameSc,
+                        videoGrids,
+                        setCalling,
+                        socket,
+                        isHost
+                    );
+                }
             });
 
             socket.on("user-disconnected", id => {
@@ -1057,7 +1076,7 @@ function VideoConference() {
                 setLabelMic({ peerId: id });
             });
 
-            // socket.emit("join-room", room, peerjsOpen, username, userData);            
+            // socket.emit("join-room", room, peerjsOpen, username, userData);
         }
     }, [userMediaStream, socket, peerjs, username]);
 
@@ -1086,13 +1105,13 @@ function VideoConference() {
                             );
                             peers[call.peer] = call;
                             console.log("Masuk univerasl medoa  share screen");
-                            
+
                             call.on("close", callIn => {
                                 video.remove();
                                 console.log(callIn);
                                 console.log("peer close remove divs");
                                 RemoveUnusedDivs(videoGrids);
-                                delete peers[call.peer]
+                                delete peers[call.peer];
                             });
                         }
                     } else {
@@ -1110,13 +1129,14 @@ function VideoConference() {
                                 videoGrids,
                                 video,
                                 remoteStream,
-                                otherUsername,
+                                otherUsername[call.peer],
                                 call.peer,
                                 peerjs.id,
                                 socket,
                                 isHost
                             );
-                            setUserAdd(true)
+
+                            setUserAdd(true);
                             lastMediaId = remoteStream.id;
                             peers[call.peer] = call;
                             mode = "host";
@@ -1126,7 +1146,8 @@ function VideoConference() {
                                 console.log(callIn);
                                 console.log("peer close remove divs");
                                 RemoveUnusedDivs(videoGrids);
-                                delete peers[call.peer]
+                                delete otherUsername[call.peer]
+                                delete peers[call.peer];
                             });
                         }
                     }
@@ -1138,63 +1159,82 @@ function VideoConference() {
     }, [userMediaStreamAns, peerjs, call]);
 
     useEffect(() => {
-        if(dataPin !== null && userConnect === peers.length && peerjs && userAdded){
-            console.log('set localstr', dataPin);
+        if (
+            dataPin !== null &&
+            userConnect === peers.length &&
+            peerjs &&
+            userAdded
+        ) {
+            console.log("set localstr", dataPin);
             // let newTmpPinning  = []
-            localStorage.removeItem('pinning-tmp')
+            localStorage.removeItem("pinning-tmp");
             for (let i = 0; i < dataPin.length; i++) {
-                console.log(document.getElementById(dataPin[i].targetId))
+                console.log(document.getElementById(dataPin[i].targetId));
                 // pinVideo(dataPin[i].targetId, videoGrids, peerjs.id, socket, isHost);
-                if(document.getElementById(dataPin[i].targetId)){
+                if (document.getElementById(dataPin[i].targetId)) {
                     // newTmpPinning.push(dataPin[i])
-                    remotePinning(dataPin[i].targetId, peerjs.id, socket, isHost)
-                }
-            }
-            // if(isHost){
-            //     if(newTmpPinning.length > 0){
-            //         localStorage.setItem('pinning-tmp', JSON.stringify(newTmpPinning))
-            //     }else{
-            //         localStorage.removeItem('pinning-tmp')
-            //     }
-            // }
-            // emit sockket change classname slide with new peerjsID
-            // socket.emit('command-rename-class-slide', dataPin[0].hostId, peerjs.id)
-            // socket.emit('command-auto-pinning', newTmpPinning)
-        }
-        setUserAdd(false)
-    }, [dataPin, userConnect, peerjs, socket, userAdded])
-
-    useEffect(() => {
-        if(userData && orgData && team){
-            if(userData.id === orgData.user_id){
-                setHost(true)
-            }else if(team.length > 0){
-                let match = false;
-                for (let i = 0; i < team.length; i++) {
-                    if(team[i].user_id === userData.id && team[i].organization_id === orgData.id){
-                        setHost(true);
-                        match = true;
-                        i = team.length
+                    remotePinning(
+                        dataPin[i].targetId,
+                        peerjs.id,
+                        socket,
+                        isHost
+                    );
+                    if (!isHost) {
+                        pinVideo(
+                            dataPin[i].targetId,
+                            videoGrids,
+                            dataPin[i].hostId,
+                            socket,
+                            isHost
+                        );
                     }
                 }
-                if(!match){
-                    setHost(false)
-                }
-            }else{
-                setHost(false)
             }
+            setUserAdd(false);
         }
-    }, [userData, orgData, team])
+        console.log(
+            "set localstr",
+            dataPin,
+            userConnect,
+            peers.length,
+            userAdded
+        );
+    }, [dataPin, userConnect, peerjs, socket, userAdded]);
 
     useEffect(() => {
-        if(isHost !== null && socket){
-            socket.on('pinning-request', (idTarget, idHost) => {
-                pinVideo(idTarget, videoGrids, idHost, socket, isHost);
-            })
+        if (userData && orgData && team) {
+            if (userData.id === orgData.user_id) {
+                setHost(true);
+            } else if (team.length > 0) {
+                let match = false;
+                for (let i = 0; i < team.length; i++) {
+                    if (
+                        team[i].user_id === userData.id &&
+                        team[i].organization_id === orgData.id
+                    ) {
+                        setHost(true);
+                        match = true;
+                        i = team.length;
+                    }
+                }
+                if (!match) {
+                    setHost(false);
+                }
+            } else {
+                setHost(false);
+            }
+        }
+    }, [userData, orgData, team]);
 
-            socket.on('set-user-count', value => {
-                setCounUserConnect(value)
-            })
+    useEffect(() => {
+        if (isHost !== null && socket) {
+            socket.on("pinning-request", (idTarget, idHost) => {
+                pinVideo(idTarget, videoGrids, idHost, socket, isHost);
+            });
+
+            socket.on("set-user-count", value => {
+                setCounUserConnect(value);
+            });
 
             // io on rename slide classname by new peerjsID from new Host connection
             // socket.on('rename-class-slide', (old, newName) => {
@@ -1215,38 +1255,36 @@ function VideoConference() {
             //     }
             // })
 
-            socket.on('auto-pinning', data => {
-                setDataPin(data)
-            })
+            socket.on("auto-pinning", data => {
+                setDataPin(data);
+            });
 
-            socket.on('rm-pinning', (idTarget, idHost) => {
-                let target = document.getElementById(idTarget)
-                let slide = document.getElementsByClassName(idHost)
-                if(target && slide.length > 0){
-                    removePin(slide[0], target)
+            socket.on("rm-pinning", (idTarget, idHost) => {
+                let target = document.getElementById(idTarget);
+                let slide = document.getElementsByClassName(idHost);
+                if (target && slide.length > 0) {
+                    removePin(slide[0], target);
                 }
-            })
+            });
         }
-    }, [isHost, socket])
+    }, [isHost, socket]);
 
     useEffect(() => {
         if (isStart) {
             let url = document.getElementById("url-server");
             let room = document.getElementById("room");
             let name = document.getElementById("name");
-            let myData = document.getElementById('myData');
-            let org = document.getElementById('organization');
-            let userTeam = document.getElementById('user-team');
-            let token = document.getElementById('token');
+            let myData = document.getElementById("myData");
+            let org = document.getElementById("organization");
+            let userTeam = document.getElementById("user-team");
+            let token = document.getElementById("token");
 
-            let userData = JSON.parse(myData.value)
-            let orgData = JSON.parse(org.value)
-            if(userData.id === orgData.user_id){
-                userData.organizations = [
-                    orgData
-                ]
-            }else{
-                userData.organizations = []
+            let userData = JSON.parse(myData.value);
+            let orgData = JSON.parse(org.value);
+            if (userData.id === orgData.user_id) {
+                userData.organizations = [orgData];
+            } else {
+                userData.organizations = [];
             }
 
             setUrl(url.value);
@@ -1254,23 +1292,26 @@ function VideoConference() {
             setName(name.value);
             setUser(userData);
             setOrg(JSON.parse(org.value));
-            setTeam(JSON.parse(userTeam.value))
-            setToken(token.value)
+            setTeam(JSON.parse(userTeam.value));
+            setToken(token.value);
 
-            let ioSc = io.connect(`https://${process.env.MIX_PEER_HOST}:${process.env.MIX_MANAGE_STREAM_SERVER_PORT}`, {
-                reconnectionDelayMax: 10000,
-                cors: {
-                    withCredentials: true
-                },
-                query: {token: token.value}
-            });
+            let ioSc = io.connect(
+                `https://${process.env.MIX_PEER_HOST}:${process.env.MIX_MANAGE_STREAM_SERVER_PORT}`,
+                {
+                    reconnectionDelayMax: 10000,
+                    cors: {
+                        withCredentials: true
+                    },
+                    query: { token: token.value }
+                }
+            );
             setSocket(ioSc);
 
             let peer = new Peer(undefined, {
                 host: process.env.MIX_PEER_HOST,
                 path: process.env.MIX_PEER_PATH,
                 port: process.env.MIX_MANAGE_STREAM_SERVER_PORT,
-                token: JSON.stringify({token: token.value, room: room.value})
+                token: JSON.stringify({ token: token.value, room: room.value })
             });
             setPeer(peer);
 
@@ -1310,48 +1351,57 @@ function VideoConference() {
                 setMediaDevices(devices);
             });
 
-            let storage = JSON.parse(localStorage.getItem('pinning-tmp'))
-            if(storage !== null){
+            let storage = JSON.parse(localStorage.getItem("pinning-tmp"));
+            if (storage !== null) {
                 // localStorage.removeItem('pinning-tmp')
-                setDataPin(storage)
+                setDataPin(storage);
             }
 
             document.getElementById("stream-blank").classList.add("d-none");
-            document.getElementById("multiple-conference").classList.remove("d-none");
-
-        }else{
+            document
+                .getElementById("multiple-conference")
+                .classList.remove("d-none");
+        } else {
             document.getElementById("stream-blank").classList.remove("d-none");
-            document.getElementById("multiple-conference").classList.add("d-none");
+            document
+                .getElementById("multiple-conference")
+                .classList.add("d-none");
         }
     }, [isStart]);
 
     useEffect(() => {
-        if(time && startTime && endTime){
-            if(startTime <= time && endTime >= time && isStart === false){
-                setStart(true)
+        if (time && startTime && endTime) {
+            if (startTime <= time && endTime >= time && isStart === false) {
+                setStart(true);
             }
         }
-    }, [time, startTime, endTime])
+    }, [time, startTime, endTime]);
 
     useEffect(() => {
-        if(loop == 0){
-            let startTime = document.getElementById('start-time');
-            let endTime = document.getElementById('end-time');
+        if (loop == 0) {
+            let startTime = document.getElementById("start-time");
+            let endTime = document.getElementById("end-time");
 
-            setTime(new Date())
+            setTime(new Date());
             setInterval(() => {
-                setTime(new Date())
-            }, 30000)
+                setTime(new Date());
+            }, 30000);
             setStartTime(new Date(startTime.value));
-            setEndTime(new Date(endTime.value))
+            setEndTime(new Date(endTime.value));
 
             loop++;
         }
-    })
+    });
 
     return (
         <div className="mainclone">
-            <PopUpRaiseHand title={"List of Raise Hand"} socket={socket} refBtnTrigger={raisehand} refBtnLower={lowerhand} username={username}></PopUpRaiseHand>
+            <PopUpRaiseHand
+                title={"List of Raise Hand"}
+                socket={socket}
+                refBtnTrigger={raisehand}
+                refBtnLower={lowerhand}
+                username={username}
+            ></PopUpRaiseHand>
             <div className="main_left">
                 <div className="main_videos">
                     <button
@@ -1400,7 +1450,11 @@ function VideoConference() {
                                 <BoxArrowInUp></BoxArrowInUp>
                                 <span>Share Media</span>
                             </div>
-                            <Dropdown className={isShare || isHost === false ? "d-none" : ""}>
+                            <Dropdown
+                                className={
+                                    isShare || isHost === false ? "d-none" : ""
+                                }
+                            >
                                 <Dropdown.Toggle
                                     variant="dark"
                                     id="dropdown-basic"
@@ -1426,17 +1480,25 @@ function VideoConference() {
                                 </Dropdown.Menu>
                             </Dropdown>
                             <div
-                                className={ `main_controls_button ${isShare && isHost ? "" : "d-none"}` }
+                                className={`main_controls_button ${
+                                    isShare && isHost ? "" : "d-none"
+                                }`}
                                 ref={stopShareBtn}
                             >
                                 <BoxArrowInUp></BoxArrowInUp>
                                 <span>Stop Share</span>
                             </div>
-                            <div className="main_controls_button" ref={raisehand}>
+                            <div
+                                className="main_controls_button"
+                                ref={raisehand}
+                            >
                                 <i className="fa-regular fa-hand"></i>
                                 <span>Raise Hand</span>
                             </div>
-                            <div className="main_controls_button d-none" ref={lowerhand}>
+                            <div
+                                className="main_controls_button d-none"
+                                ref={lowerhand}
+                            >
                                 <i className="fa-regular fa-hand"></i>
                                 <span>Lower Hand</span>
                             </div>

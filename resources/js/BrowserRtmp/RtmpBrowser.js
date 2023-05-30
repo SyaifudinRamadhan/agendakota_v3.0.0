@@ -53,7 +53,7 @@ export default class BrowserToRtmpClient {
         }
 
         if (options.host.indexOf("http://") === 0) {
-            options.host = "ws://" + options.host.substring("http://".length);
+            options.host = "https://" + options.host.substring("http://".length);
         }
 
         const socketOptions = {
