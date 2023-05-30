@@ -640,7 +640,7 @@ function StudioStream() {
                 `rtmp://${process.env.MIX_RTMP_HOST}:${process.env.MIX_RTMP_PORT}${process.env.MIX_RTMP_PATH}/${streamKey}?email=${myData.email}&password=${token}&session=${sessionId}`
             );
             rtmpClient = new BrowserToRtmpClient(progStream, {
-                host: process.env.MIX_RTMP_HOST,
+                host: `https://${process.env.MIX_RTMP_HOST}`,
                 rtmp: `rtmp://${process.env.MIX_RTMP_HOST}:${process.env.MIX_RTMP_PORT}${process.env.MIX_RTMP_PATH}/${streamKey}?email=${myData.email}&password=${token}&session=${sessionId}`, // RTMP endpoint
                 port: process.env.MIX_MANAGE_STREAM_SERVER_PORT,
                 socketio: {
