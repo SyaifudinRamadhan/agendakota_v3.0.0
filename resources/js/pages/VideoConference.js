@@ -600,15 +600,23 @@ const connectToNewUser = (
     userId,
     streams,
     myname,
+    username,
     videoGrids,
     fnSetCalling,
     socket,
-    isHost
+    isHost,
+    micState,
+    camState
 ) => {
     const call = peer.call(userId, streams);
     fnSetCalling(call);
     const video = document.createElement("video");
     call.on("stream", userVideoStream => {
+
+        // Memberikan status camera dan mic
+        camState ? socket.emit("video-close", peer.id, myname) : socket.emit("video-on", peer.id, myname);
+        micState ? socket.emit("audio-close", peer.id, myname) : socket.emit("audio-on", peer.id, myname);
+
         console.log(userVideoStream, call);
         if (
             (lastMediaId === undefined || userVideoStream.id !== lastMediaId) &&
@@ -621,7 +629,7 @@ const connectToNewUser = (
                 videoGrids,
                 video,
                 userVideoStream,
-                myname,
+                username,
                 call.peer,
                 peer.id,
                 socket,
@@ -642,12 +650,6 @@ const connectToNewUser = (
     let storage = JSON.parse(localStorage.getItem("pinning-tmp"));
     if (storage !== null) {
         socket.emit("command-auto-pinning", storage);
-        // localStorage.removeItem('pinning-tmp')
-        // for (let i = 0; i < storage.length; i++) {
-        //     if(document.getElementById(storage[i].targetId)){
-        //         remotePinning(storage[i].targetId, peer.id, socket, true)
-        //     }
-        // }
     }
 
     console.log(peers);
@@ -991,6 +993,11 @@ function VideoConference() {
             if (loopSet === 0) {
                 console.log("setup peerjs on calls");
                 peerjs.on("call", call => {
+
+                    // Memberikan status camera dan mic
+                    camState ? socket.emit("video-close", peerjs.id, username) : socket.emit("video-on", peerjs.id, username);
+                    micState ? socket.emit("audio-close", peerjs.id, username) : socket.emit("audio-on", peerjs.id, username);
+
                     console.log("peerjs receive calling from host");
                     console.log(call.peer, peerjs.id);
                     console.log(
@@ -1061,11 +1068,14 @@ function VideoConference() {
                         peerjs,
                         id,
                         userMediaStream,
+                        username,
                         usernameSc,
                         videoGrids,
                         setCalling,
                         socket,
-                        isHost
+                        isHost,
+                        micState,
+                        videoState
                     );
                 }
             });
