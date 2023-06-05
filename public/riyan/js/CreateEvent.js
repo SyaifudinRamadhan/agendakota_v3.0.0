@@ -5,6 +5,7 @@ let state = {
     google_action: 'login',
     event_types: JSON.parse(select("input#event_types").value),
     currentScreen: 0,
+    historyScreen: 0,
     mapboxAccessToken: 'pk.eyJ1IjoiaGFsb3JpeWFuIiwiYSI6ImNrdzBiMmFqNjR4amkzMG8wanBjNXFheGQifQ.ED3-QJwwgbEvOb1ZBsBC0w',
     gmapsToken: 'AIzaSyAiX4DuzinqgbzRWhn60HEPLdFmBNmpp2E',
     execution_type_description: {
@@ -35,7 +36,7 @@ let state = {
         event_description: "",
         tagline: "",
         snk: "",
-        breakdowns: ["Stage and Session"],
+        breakdowns: [],
         execution_type: 'offline',
         province: "",
         city: "",
@@ -48,6 +49,7 @@ let state = {
         end_date: "",
         start_time: "",
         end_time: "",
+        sessions: []
     },
 }; 
 
@@ -157,11 +159,6 @@ if (localStorage.getItem('event_data') != null) {
         }
     }
 
-    if (state.field.tickets.length > 0) {
-        select("#renderedTicketTitle").classList.remove('d-none');
-        renderCreatedTickets();
-    }
-
     bindDivWithImage();
 }
 
@@ -223,8 +220,45 @@ let screens = [
                 state.error_context = "organizer";
                 return writeError('Kamu harus memilih atau membuat organizer dulu');
             }
-            if (field.breakdowns.length == 0) {
-                state.field.breakdowns.push('Stage and Session');
+            // if (field.breakdowns.length == 0) {
+            //     state.field.breakdowns.push('Stage and Session');
+            // }
+            return true;
+        }
+    },
+    {
+        id: "session-config",
+        footer: [state.field.execution_type === 'offline' ? '' : 'Media Streaming yang Digunakan dalam Eventmmu'],
+        callback: () => {
+            if(state.field.execution_type === 'online' || state.field.execution_type == 'hybrid'){
+                setNavigatorSession(state.field.breakdowns, state.field.execution_type)
+                writeFooter('Media Streaming yang Digunakan dalam Eventmmu', 'Sesuaikan sesi - sesi dalam event online / hybrid beserta dengan media streaming yang ingin kamu gunakan');
+            }else{
+                setAutoOfflineSession();
+                console.log(screens[state.historyScreen].id );
+                if(screens[state.historyScreen].id == 'ticketing'){
+                    previousScreen()
+                }else{
+                    nextScreen()
+                }
+            }
+        },
+        validation: () => {
+            if((state.field.execution_type === 'online' || state.field.execution_type == 'hybrid') && state.field.sessions.length === 0){
+                state.error_context = null
+                return writeError('Eventmu harus memiliki setidaknya 1 sesi')
+            }else if((state.field.execution_type === 'online' || state.field.execution_type == 'hybrid') && state.field.sessions.length > 0){
+                let sessions  = state.field.sessions
+                for (let i = 0; i < sessions.length; i++) {
+                    if(sessions[i].streamOption == null){
+                        if(state.field.breakdowns.includes("Stage and Session")){
+                            state.error_context = `session_err_~!@!~${i}`
+                        }else{
+                            state.error_context = null;
+                        }
+                        return writeError(`Sesi eventmu dengan judul ${sessions[i].title} belum kamu atur media streamingnnya nih !`)   
+                    }
+                }
             }
             return true;
         }
@@ -234,6 +268,8 @@ let screens = [
         footer: ["Cara untuk Berpartisipasi dalam Eventmu", "Sesuaikan cara orang-orang untuk bisa hadir pada eventmu"],
         callback: () => {
             writeFooter('Cara untuk Berpartisipasi dalam Eventmu', 'Sesuaikan cara orang-orang untuk bisa hadir pada eventmu');
+            select("#renderedTicketTitle").classList.remove('d-none');
+            renderCreatedTickets();
         },
         validation: () => {
             if (state.field.tickets.length == 0) {
@@ -281,6 +317,10 @@ const previousScreen = () => {
         select("button.prev").classList.add('d-none');
     }
 
+    if(screens[state.currentScreen].id != "ticketing"){
+        select('.footer #next').innerHTML = "Selanjutnya"
+    }
+
     let theScreen = screens[state.currentScreen];
     let screenDom = select(`.screen-item#${theScreen.id}`);
     selectAll(".screen-item").forEach(screen => {
@@ -290,6 +330,9 @@ const previousScreen = () => {
     screenDom.classList.remove('d-none');
     screenDom.classList.add('flex');
     screens[state.currentScreen].callback();
+    if(state.historyScreen != 0){
+        state.historyScreen--
+    }
 }
 const nextScreen = () => {
     if (!screens[state.currentScreen].validation()) {
@@ -297,12 +340,10 @@ const nextScreen = () => {
     }
     select("button.prev").classList.remove('d-none');
 
-    if (state.currentScreen + 1 == screens.length) {
-        // state.currentScreen = 0;
-        // alert('sudah terakhir');
-    } else {
+    if (state.currentScreen + 1 != screens.length) {
         state.currentScreen++;
-    }
+    } 
+
     if (screens[state.currentScreen].id == "loading") {
         select(".footer").style.display = "none";
         submit();
@@ -319,6 +360,10 @@ const nextScreen = () => {
     screenDom.classList.remove('d-none');
     screenDom.classList.add('flex');
     screens[state.currentScreen].callback();
+
+    if (state.historyScreen + 1 != screens.length) {
+        state.historyScreen++;
+    }
 }
 
 const writeFooter = (title, description) => {
@@ -626,7 +671,14 @@ const closeError = () => {
         modal('#modalDateTime').show();
     } else if (state.error_context == "organizer") {
         modal('#modalOrganizer').show();
+    } else if (state.error_context.match('session_err')) {
+        autoOpenEdit(state.error_context.split('~!@!~')[1]);
+    } else if(state.error_context == "err_add_session") {
+        modal("#modal-add-session-multiple").show();
+    } else if(state.error_context == "error_add_ticket"){
+        modal("#modalTicket").show();
     }
+    state.error_context = null
 }
 const closeTopicModal = () => {
     let topics = state.field.topics;
@@ -814,12 +866,14 @@ const saveDateTime = (e = null) => {
         e.preventDefault();
     }
 }
-
+let form;
 const submit = () => {
     let formData = new FormData();
     for (let key in state.field) {
         if (key == 'tickets') {
             formData.append('tickets', btoa(JSON.stringify(state.field[key])));
+        } else if(key == 'sessions'){
+            formData.append('sessions', btoa(JSON.stringify(state.field[key])));
         } else {
             formData.append(key, state.field[key]);
         }
@@ -827,12 +881,12 @@ const submit = () => {
 
     // handle cover image
     formData.append('cover', select("input#cover").files[0]);
-
+    form = formData;
     let req = fetch('/api/event/buat', {
         method: "POST",
         body: formData
     })
-    .then(res => res.json())
+    .then( res => res.json() )
     .then(res => {
         // localStorage.removeItem('event_data');
         let ref = `${state.field.organizer_id}/event/${res.event_id}/event-overview`;

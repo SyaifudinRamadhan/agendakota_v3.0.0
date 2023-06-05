@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Log;
 use Str;
 use Hash;
+use Session;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use App\Models\BillingAccount;
@@ -49,6 +50,41 @@ class UserController extends Controller
             'myPackage' => $myPackage,
         ]);
     }
+    private function getAccessStreamManagement($myData, $request){
+        // Menghubungi express server untuk login
+        $url = env('STREAM_SERVER') . '/api/v1/login';
+        $json = json_encode([
+            "email" => $myData->email,
+            "password" => $request->password
+        ]);
+
+        $curl = curl_init();
+        //  curl_setopt($curl, CURLOPT_URL, $url);
+        //  curl_setopt($curl, CURLOPT_POST, true);
+        //  curl_setopt($curl, CURLOPT_HTTPHEADER, array("Accept: application/json"));
+        //  curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
+        //  curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => $json,
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json'
+            ),
+        )
+        );
+
+
+        $resp = curl_exec($curl);
+        curl_close($curl);
+
+        //  dd(json_decode($resp), $json);
+        if(Session::has('x-access-token')) Session::forget('x-access-token');
+        Session::put('x-access-token', json_decode($resp)->token);
+    }
     public function login(Request $request) {
         $data = User::where('email', $request->email);
         $user = $data->first();
@@ -67,6 +103,8 @@ class UserController extends Controller
         if ($user->is_active == 0 && $request->with_google == 1) {
             $data->update(['is_active' => 1]);
         }
+
+        $this->getAccessStreamManagement($user, $request);
 
         $updateData = $data->update(['token' => Str::random(32)]);
         $user = $data->first();

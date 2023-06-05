@@ -912,42 +912,43 @@ class UserController extends Controller
             'isSpeaker' => self::isSpeaker(),
         ]);
     }
-    public function myTicketsNew()
-    {
-        $myData = self::me();
-        $totalInvite = $this->getNotifyInvitation($myData->id);
-        $purchases = TicketPurchase::where('user_id', $myData->id)
-            ->with(['event', 'ticket'])
-            ->get();
+    // public function myTicketsNew()
+    // {
+    //     $myData = self::me();
+    //     $totalInvite = $this->getNotifyInvitation($myData->id);
+    //     $purchases = TicketPurchase::where('user_id', $myData->id)
+    //         ->with(['event', 'ticket'])
+    //         ->get();
 
-        return view('user.tickets', [
-            'myData' => $myData,
-            'purchases' => $purchases,
-            'totalInvite' => $totalInvite,
-            'useNewDependencies' => true
-        ]);
-    }
-    public function ticketDetail($purchaseID)
-    {
-        $myData = self::me();
-        $totalInvite = $this->getNotifyInvitation($myData->id);
-        $purchase = TicketPurchase::where('id', $purchaseID)
-            ->with(['event', 'ticket.session'])
-            ->first();
+    //     return view('user.tickets', [
+    //         'myData' => $myData,
+    //         'purchases' => $purchases,
+    //         'totalInvite' => $totalInvite,
+    //         'useNewDependencies' => true
+    //     ]);
+    // }
+    // public function ticketDetail($purchaseID)
+    // {
+    //     $myData = self::me();
+    //     $totalInvite = $this->getNotifyInvitation($myData->id);
+    //     $purchase = TicketPurchase::where('id', $purchaseID)
+    //         ->with(['event', 'ticket.session'])
+    //         ->first();
 
-        return view('user.ticketDetail', [
-            'myData' => $myData,
-            'totalInvite' => $totalInvite,
-            'purchase' => $purchase,
-            'event' => $purchase->event,
-            'useNewDependencies' => true
-        ]);
-    }
+    //     return view('user.ticketDetail', [
+    //         'myData' => $myData,
+    //         'totalInvite' => $totalInvite,
+    //         'purchase' => $purchase,
+    //         'event' => $purchase->event,
+    //         'useNewDependencies' => true
+    //     ]);
+    // }
     public function myTickets()
     {
         $myData = self::me();
 
         $objPayCtrl = new PaymentController();
+        // Get transaction => untuk reaload data transaksi jika ada perubahan status terbayarnya suatu purchase
         $payments = $objPayCtrl->getTransaction($myData);
 
         // ------- Jika ada tiket yang sudah dihapus dan belum terbayar ------------------------
@@ -976,6 +977,7 @@ class UserController extends Controller
             } else if ($newPayment == true) {
                 // Jika ada perubahan data payment (lakukan re checkout)
                 $checkoutCtrl = new CheckoutController();
+                // Re-Cheeckout => untuk memperbarui checkout data baik yang terbayar maupun belum bila terjadi penghapusan tiket oleh admin
                 $checkoutCtrl->reCheckout($payCheck, $myData);
             }
         }
@@ -985,6 +987,7 @@ class UserController extends Controller
         $eventID = "";
         $purchases = Purchase::where('user_id', $myData->id)->orWhere('send_from', $myData->id)->with(['users', 'tickets', 'events.organizer'])->orderBy('created_at', 'DESC')->get();
         $carts = CartController::cartCheckLoad($myData->id);
+        // Get Transaction Ulang dari sebelumnya untuk mengatasi apabila ada perubahan data purchase akibat penghapusan tiket oleh admin
         $payments = $objPayCtrl->getTransaction($myData);
 
         // --------------------------------------------------------------------------------

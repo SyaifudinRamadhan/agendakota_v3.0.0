@@ -2,7 +2,42 @@ let TicketTab = select("#modalTicket #TicketTab");
 const addTicket = (type) => {
     modal("#modalTicket").show();
     select("#modalTicket #ticket_type").value = type;
-    
+    select("#modalTicket #session_key").classList.add('d-none');
+    if(state.field.breakdowns.includes("Stage and Session") && state.field.execution_type != 'offline'){
+        select("#modalTicket #session_key").classList.remove('d-none');
+        let sessions = state.field.sessions
+        select('#modalTicket #session_key').innerHTML = '<option value="">-- Pilih Sesi --</option>';
+        sessions.forEach(session => {
+            select('#modalTicket #session_key').innerHTML += `<option value=${session.key}>${session.title} (${session.startSession.date} ${session.startSession.time} - ${session.endSession.date} ${session.endSession.time})</option>`
+        });
+    }else{
+        flatpickr("#ticket_start_date", {
+            dateFormat: 'Y-m-d',
+            maxDate: state.field.end_date == "" ? "" : state.field.end_date,
+            onChange: (selectedDate, dateStr) => {
+                select("#ticket_end_date").value = "";
+                flatpickr("#ticket_end_date", {
+                    dateFormat: 'Y-m-d',
+                    minDate: dateStr,
+                    maxDate: state.field.end_date
+                });
+            }
+        });
+        
+        flatpickr("#voucher_start", {
+            dateFormat: 'Y-m-d',
+            maxDate: state.field.end_date == "" ? "" : state.field.end_date,
+            onChange: (selectedDate, dateStr) => {
+                select("#voucher_end").value = "";
+                flatpickr("#voucher_end", {
+                    dateFormat: 'Y-m-d',
+                    maxDate: state.field.end_date == "" ? "" : state.field.end_date,
+                    minDate: dateStr
+                });
+            }
+        });
+    }
+
     if (type == 'gratis') {
         select("#modalTicket #ticketPriceArea").style.display = 'none';
         TicketTab.style.display = "none";
@@ -61,6 +96,17 @@ const createTicket = e => {
     let voucher_start = select("#modalTicket #voucher_start");
     let voucher_end = select("#modalTicket #voucher_end");
     let minimum_transaction = select("#modalTicket #minimum_transaction");
+    let session_key;
+
+    if(!state.field.breakdowns.includes("Stage and Session") || state.field.execution_type == 'offline'){
+        session_key = state.field.sessions[0].key;
+    }else if(state.field.breakdowns.includes("Stage and Session")){
+        session_key = select("#modalTicket #session_key").value;
+        if(session_key == undefined || session_key == ''){
+            modal("#modalTicket").hide();
+            return writeError('Kamu wajib memilih satu sesi event untuk ticketmu !', 'error_add_ticket');
+        }
+    }
 
     let toCreate = {
         key: generateRandomString(12),
@@ -71,6 +117,7 @@ const createTicket = e => {
         price: Currency(price.value).decode(),
         start_date: start_date.value,
         end_date: end_date.value,
+        session_key: session_key,
         voucher: null,
     };
 
@@ -122,28 +169,42 @@ const removeTicket = key => {
     localStorage.setItem('event_data', JSON.stringify(state.field));
 }
 
-flatpickr("#ticket_start_date", {
-    dateFormat: 'Y-m-d',
-    maxDate: state.field.end_date == "" ? "" : state.field.end_date,
-    onChange: (selectedDate, dateStr) => {
-        select("#ticket_end_date").value = "";
-        flatpickr("#ticket_end_date", {
-            dateFormat: 'Y-m-d',
-            minDate: dateStr,
-            maxDate: state.field.end_date
-        });
-    }
-});
+const setSession = (el) => {
+    let res = el.value;
+    let session;
+    state.field.sessions.forEach(s => {
+        if(s.key == res){
+            session = s;
+        }
+    })
 
-flatpickr("#voucher_start", {
-    dateFormat: 'Y-m-d',
-    maxDate: state.field.end_date == "" ? "" : state.field.end_date,
-    onChange: (selectedDate, dateStr) => {
-        select("#voucher_end").value = "";
-        flatpickr("#voucher_end", {
-            dateFormat: 'Y-m-d',
-            maxDate: state.field.end_date == "" ? "" : state.field.end_date,
-            minDate: dateStr
-        });
-    }
-});
+    select("#ticket_start_date").value = "";
+    select("#voucher_start").value = "";
+
+    flatpickr("#ticket_start_date", {
+        dateFormat: 'Y-m-d',
+        maxDate: session.endSession.date,
+        onChange: (selectedDate, dateStr) => {
+            select("#ticket_end_date").value = "";
+            flatpickr("#ticket_end_date", {
+                dateFormat: 'Y-m-d',
+                minDate: dateStr,
+                maxDate: session.endSession.date
+            });
+        }
+    });
+    
+    flatpickr("#voucher_start", {
+        dateFormat: 'Y-m-d',
+        maxDate: session.endSession.date,
+        onChange: (selectedDate, dateStr) => {
+            select("#voucher_end").value = "";
+            flatpickr("#voucher_end", {
+                dateFormat: 'Y-m-d',
+                maxDate: session.endSession.date,
+                minDate: dateStr
+            });
+        }
+    });
+}
+

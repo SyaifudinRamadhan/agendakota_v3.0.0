@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Log;
 use File;
 use Image;
+use DateTime;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
@@ -24,27 +25,192 @@ use App\Models\UserCheckin;
 
 class EventController extends Controller
 {
-    public function store(Request $request) {
+    private function checkLink($link)
+    {
+        $linkFor = "";
+        if (strpos($link, "zoom.us") == true) {
+            $linkFor = "zoom";
+        } else if (strpos($link, "youtube.com") == true) {
+            $linkFor = "youtube";
+        }
+
+        if ($linkFor == "zoom") {
+            $e = explode("?", $link);
+            if (count($e) == 0) {
+                return -1;
+            } else {
+                $p = explode("/", $e[0]);
+            }
+            $e = explode("?", $link);
+            if (count($p) == 0) {
+                return -1;
+            } else {
+                $id = $p[count($p) - 1];
+            }
+            if (count($e) == 0 || count($e) == 1) {
+                return -1;
+            } else {
+                $pass = explode("pwd=", $e[1]);
+            }
+            if (count($pass) == 0 || count($pass) == 1) {
+                return -1;
+            } else {
+                $password = $pass[1];
+            }
+            return $link;
+        } elseif ($linkFor == "youtube") {
+            $idVideo = "";
+
+            if (preg_match('/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/', $link)) {
+                $urlInput = explode('watch?v=', $link);
+                if (count($urlInput) == 1) {
+                    $urlInput = explode('youtu.be/', $link);
+                    if (count($urlInput) > 1) {
+                        $idVideo = $urlInput[1];
+                        $idEx = explode('&', $idVideo);
+                        if (count($idEx) == 1) {
+                            return ("https://www.youtube.com/embed/" . $idEx[0] . '?modestbranding=1&showinfo=0');
+                        } else {
+                            return ("https://www.youtube.com/embed/" . $idEx[0] . '?modestbranding=1&showinfo=0');
+                        }
+                    } else {
+                        $urlInput = explode('/embed/', $link);
+                        if (count($urlInput) > 1) {
+                            $idVideo = $urlInput[1];
+                            $idEx = explode('&', $idVideo);
+                            if (count($idEx) == 1) {
+                                return ("https://www.youtube.com/embed/" . $idEx[0] . '?modestbranding=1&showinfo=0');
+                            } else {
+                                return ("https://www.youtube.com/embed/" . $idEx[0] . '?modestbranding=1&showinfo=0');
+                            }
+                        }
+                    }
+                } else {
+                    $idVideo = $urlInput[1];
+                    $idEx = explode('&', $idVideo);
+                    if (count($idEx) == 1) {
+                        return ("https://www.youtube.com/embed/" . $idEx[0] . '?modestbranding=1&showinfo=0');
+                    } else {
+                        return ("https://www.youtube.com/embed/" . $idEx[0] . '?modestbranding=1&showinfo=0');
+                    }
+                }
+            }
+            return -1;
+        }
+    }
+
+    private function crdRTMPKey($sessionID, $endpoint)
+    {
+        $url = env('STREAM_SERVER') . $endpoint;
+        $json = json_encode([
+            "session" => $sessionID
+        ]);
+
+        $curl = curl_init();
+        //  curl_setopt($curl, CURLOPT_URL, $url);
+        //  curl_setopt($curl, CURLOPT_POST, true);
+        //  curl_setopt($curl, CURLOPT_HTTPHEADER, array("Accept: application/json"));
+        //  curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
+        //  curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL => $url,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => $json,
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json',
+                    'x-access-token: ' . session('x-access-token')
+                ),
+            )
+        );
+        curl_exec($curl);
+        curl_close($curl);
+    }
+
+    private function createRundownSession($session, $saveData, $execution)
+    {
+        // buat session
+        $sessionContext = [
+            'event_id' => $saveData->id,
+            'title' => $session->title,
+            'description' => $session->description,
+            'start_date' => $session->startSession->date,
+            'end_date' => $session->endSession->date,
+            'start_time' => $session->startSession->time . ":00",
+            'end_time' => $session->endSession->time . ":00",
+            'overview' => 1
+        ];
+
+        if ($execution != 'offline') {
+            $rundown = Rundown::create([
+                'event_id' => $saveData->id,
+                'start_date' => $session->startSession->date,
+                'end_date' => $session->endSession->date,
+                'start_time' => $session->startSession->time . ":00",
+                'end_time' => $session->endSession->time . ":00",
+                'duration' => (strtotime($session->endSession->date . ' ' . $session->endSession->time) - strtotime($session->startSession->date . ' ' . $session->startSession->time)) / 3600,
+                'name' => $session->title,
+                'description' => $session->description,
+            ]);
+
+            $sessionContext['start_rundown_id'] = $rundown->id;
+            $sessionContext['end_rundown_id'] = $rundown->id;
+            if ($session->streamOption == "youtube-embed" || $session->streamOption == "zoom-embed") {
+                $sessionContext['link'] = $session->streamUrl;
+            } else if ($session->streamOption == "rtmp-stream") {
+                $sessionContext['link'] = 'rtmp-stream-key';
+            } else if ($session->streamOption == 'video-conference') {
+                $now = new DateTime('now');
+                $sessionContext['link'] = 'webrtc-video-conference-' . Str::uuid()->toString() . $now->format('Y-m-d H:i:s');
+            }
+        }
+
+        $sessionData = Session::create($sessionContext);
+
+        return $sessionData;
+    }
+
+    // =======================================================================================
+    public function store(Request $request)
+    {
+        $tickets = json_decode(base64_decode($request->tickets));
+        $sessions = json_decode(base64_decode($request->sessions));
+
         $logo = $request->file('cover');
         $logoFileName = $logo->getClientOriginalName();
 
         $slug = Str::slug($request->event_name);
         $breakdowns = [];
-        
-        if ($request->breakdowns == "[]") {
-            $breakdowns = ["Stage and Session"];
-        }
+
         $execution = strtolower($request->execution_type);
         if ($execution != "offline") {
             $breakdowns = implode(" ", explode(",", $request->breakdowns));
+            foreach ($sessions as $session) {
+                if ($session->streamOption == 'zoom-embed' || $session->streamOption == 'youtube-embed') {
+                    $re = $this->checkLink($session->streamUrl);
+                    if ($re == -1) {
+                        return response()->json([
+                            'error' => "Stream URL isn't recognized"
+                        ], 403);
+                    }
+                } else if ($session->streamOption != "rtmp-stream" && $session->streamOption != "video-conference") {
+                    return response()->json([
+                        'error' => "Stream option not found"
+                    ], 403);
+                }
+            }
+        } else if ($execution == 'offline') {
+            $breakdowns = " ";
         }
-        
-        $tickets = json_decode(base64_decode($request->tickets));
 
         $organizer = Organization::where('id', $request->organizer_id)->with('user')->first();
 
         $snk = '';
-        if($request->snk){
+        if ($request->snk) {
             $snk = $request->snk;
         }
 
@@ -55,7 +221,7 @@ class EventController extends Controller
             'name' => $request->event_name,
             'description' => $request->event_description,
             'logo' => $logoFileName,
-            'location' => "<p>".$request->address."</p>",
+            'location' => "<p>" . $request->address . "</p>",
             'province' => $request->province,
             'city' => $request->city,
             'execution_type' => $execution,
@@ -74,34 +240,34 @@ class EventController extends Controller
             'deleted' => 0
         ]);
 
-        $filePath = public_path('storage/event_assets/'.$slug.'/event_logo/thumbnail');
+        $filePath = public_path('storage/event_assets/' . $slug . '/event_logo/thumbnail');
         $img = Image::make($logo->path());
         File::makeDirectory($filePath, $mode = 0777, true, true);
-        $img->resize(1020, 408)->save($filePath.'/'.$logoFileName);
+        $img->resize(1020, 408)->save($filePath . '/' . $logoFileName);
 
-        $rundown = Rundown::create([
-            'event_id' => $saveData->id,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-            'start_time' => $request->start_time . ":00",
-            'end_time' => $request->end_time . ":00",
-            'duration' => (strtotime($request->end_time)-strtotime($request->start_time))/3600,
-            'name' => $request->event_name,
-            'description' => $request->event_description,
-        ]);
+        $sessionSave = [];
 
-        $session = Session::create([
-            'event_id' => $saveData->id,
-            'start_rundown_id' => $rundown->id,
-            'end_rundown_id' => $rundown->id,
-            'title' => $request->event_name,
-            'description' => $request->event_description,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-            'start_time' => $request->start_time . ":00",
-            'end_time' => $request->end_time . ":00",
-            'overview' => 1
-        ]);
+        if (count($sessions) > 0 && preg_match("/Stage and Session/i", $breakdowns)) {
+            foreach ($sessions as $session) {
+                $sessionData = $this->createRundownSession($session, $saveData, $execution);
+                // array_push($sessionSave, $sessionData);
+                $sessionSave[$session->key] = $sessionData;
+
+                if ($session->streamOption == "rtmp-stream") {
+                    $this->crdRTMPKey($sessionData->id, "/api/v1/reg-stream");
+                }
+            }
+        } else if (count($sessions) > 0 && $execution != 'offline') {
+            // ambil hanya satu sesi, jika ada banyak sesi
+            $session = $sessions[0];
+            $sessionData = $this->createRundownSession($session, $saveData, $execution);
+            // array_push($sessionSave, $sessionData);
+            $sessionSave[$session->key] = $sessionData;
+
+            if ($session->streamOption == "rtmp-stream") {
+                $this->crdRTMPKey($sessionData->id, "/api/v1/reg-stream");
+            }
+        }
 
         $ticketTypes = [
             'gratis' => 0,
@@ -111,7 +277,7 @@ class EventController extends Controller
 
         foreach ($tickets as $ticket) {
             $saveTicket = Ticket::create([
-                'session_id' => $session->id,
+                'session_id' => $sessionSave[$ticket->session_key]->id,
                 'name' => $ticket->name,
                 'description' => $ticket->description,
                 'start_quantity' => $ticket->quantity,
@@ -142,7 +308,10 @@ class EventController extends Controller
             'organizer' => $organizer,
         ]);
     }
-    public static function getEventLowestPrice($eventsRaw) {
+
+    // =======================================================================================
+    public static function getEventLowestPrice($eventsRaw)
+    {
         $events = [];
         foreach ($eventsRaw as $e) {
             $cheapestTicketFound = null;
@@ -162,13 +331,14 @@ class EventController extends Controller
         }
         return $events;
     }
-    public function byCity(Request $request) {
+    public function byCity(Request $request)
+    {
         $events = Event::where([
             ['is_publish', 1],
-            ['city', 'LIKE', '%'.$request->city.'%'],
+            ['city', 'LIKE', '%' . $request->city . '%'],
         ])
-        ->with(['organizer'])
-        ->take(15)->orderBy('created_at', 'DESC')->get();
+            ->with(['organizer'])
+            ->take(15)->orderBy('created_at', 'DESC')->get();
         $events = self::getEventLowestPrice($events);
 
         return response()->json([
@@ -176,7 +346,8 @@ class EventController extends Controller
             'events' => $events
         ]);
     }
-    public function byTime(Request $request) {
+    public function byTime(Request $request)
+    {
         $filter = [['is_publish', 1]];
         $now = Carbon::now();
         $eventQuery = Event::where($filter);
@@ -190,9 +361,9 @@ class EventController extends Controller
             $nextWeek = $now->endOfWeek()->addDay();
             $startOfNextWeek = $nextWeek->format('Y-m-d');
             $endOfNextWeek = $nextWeek->endOfWeek()->format('Y-m-d');
-            
+
             $eventQuery = $eventQuery->whereBetween('start_date', [$startOfNextWeek, $endOfNextWeek])
-            ->where('start_date', '<=', $now->format('Y-m-d'));
+                ->where('start_date', '<=', $now->format('Y-m-d'));
         } else if ($request->timeframe == "this-month") {
             $eventQuery = $eventQuery->whereBetween('start_date', [
                 $now->startOfMonth()->format('Y-m-d'),
@@ -204,7 +375,7 @@ class EventController extends Controller
             $endOfNextMonth = $nextMonth->endOfMonth()->format('Y-m-d');
 
             $eventQuery = $eventQuery->whereBetween('start_date', [$startOfNextMonth, $endOfNextMonth])
-            ->where('start_date', '<=', $now->format('Y-m-d'));
+                ->where('start_date', '<=', $now->format('Y-m-d'));
         } else if ($request->timeframe == "this-day") {
             $eventQuery = $eventQuery->where('start_date', $now->format('Y-m-d'));
         } else if ($request->timeframe == "next-day") {
@@ -238,12 +409,13 @@ class EventController extends Controller
             'events' => $events
         ]);
     }
-    public function featured() {
+    public function featured()
+    {
         $events = Event::where([
             ['is_publish', 1],
         ])
-        ->orderBy('featured', 'DESC')
-        ->take(9)->orderBy('created_at', 'DESC')->get();
+            ->orderBy('featured', 'DESC')
+            ->take(9)->orderBy('created_at', 'DESC')->get();
         $events = self::getEventLowestPrice($events);
 
         return response()->json([
@@ -251,13 +423,14 @@ class EventController extends Controller
             'events' => $events
         ]);
     }
-    public function recommendation(Request $request) {
+    public function recommendation(Request $request)
+    {
         $now = Carbon::now();
         $eventsRaw = Event::where([
             ['is_publish', 1],
             ['start_date', '>=', $now->format('Y-m-d')]
         ])->with(['organizer', 'sessions.cheapestTicket'])->take(15)
-        ->orderBy('created_at', 'DESC')->get();
+            ->orderBy('created_at', 'DESC')->get();
         $events = self::getEventLowestPrice($eventsRaw);
 
         return response()->json([
@@ -265,11 +438,12 @@ class EventController extends Controller
             'events' => $events
         ]);
     }
-    public function detail($id, Request $request) {
-        $with = ['organizer','speakers','sessions.tickets'];
+    public function detail($id, Request $request)
+    {
+        $with = ['organizer', 'speakers', 'sessions.tickets'];
         $event = Event::where('id', $id)->with($with)->first();
         $event->relateds = Event::where([
-            ['category', 'LIKE', "%".$event->category."%"],
+            ['category', 'LIKE', "%" . $event->category . "%"],
             // ['id', '!=', $event->id]
         ])->take(4)->get();
 
@@ -278,29 +452,31 @@ class EventController extends Controller
             'event' => $event
         ]);
     }
-    public function speaker($eventID) {
+    public function speaker($eventID)
+    {
         $speakers = Speaker::where('event_id', $eventID)->get();
         return response()->json([
             'status' => 200,
             'speakers' => $speakers
         ]);
     }
-    public function explore(Request $request) {
+    public function explore(Request $request)
+    {
         $now = Carbon::now();
         $eventQuery = Event::where([
             ['is_publish', 1]
         ]);
         if ($request->q != "") {
-            $eventQuery = $eventQuery->where('name', 'LIKE', '%'.$request->q.'%');
+            $eventQuery = $eventQuery->where('name', 'LIKE', '%' . $request->q . '%');
         }
         if ($request->city != "") {
-            $eventQuery = $eventQuery->where('city', 'LIKE', '%'.$request->city.'%');
+            $eventQuery = $eventQuery->where('city', 'LIKE', '%' . $request->city . '%');
         }
         if ($request->category != "") {
-            $eventQuery = $eventQuery->where('category', 'LIKE', '%'.$request->category.'%');
+            $eventQuery = $eventQuery->where('category', 'LIKE', '%' . $request->category . '%');
         }
         if ($request->execution_type != "") {
-            $eventQuery = $eventQuery->where('execution_type', 'LIKE', '%'.$request->execution_type.'%');
+            $eventQuery = $eventQuery->where('execution_type', 'LIKE', '%' . $request->execution_type . '%');
         }
         if ($request->timeframe == "this-week" || $request->timeframe == "") {
             $eventQuery = $eventQuery->whereBetween('events.start_date', [
@@ -311,9 +487,9 @@ class EventController extends Controller
             $nextWeek = $now->endOfWeek()->addDay();
             $startOfNextWeek = $nextWeek->format('Y-m-d');
             $endOfNextWeek = $nextWeek->endOfWeek()->format('Y-m-d');
-            
+
             $eventQuery = $eventQuery->whereBetween('events.start_date', [$startOfNextWeek, $endOfNextWeek])
-            ->where('events.start_date', '<=', $now->format('Y-m-d'));
+                ->where('events.start_date', '<=', $now->format('Y-m-d'));
         } else if ($request->timeframe == "this-month") {
             $eventQuery = $eventQuery->whereBetween('events.start_date', [
                 $now->startOfMonth()->format('Y-m-d'),
@@ -325,7 +501,7 @@ class EventController extends Controller
             $endOfNextMonth = $nextMonth->endOfMonth()->format('Y-m-d');
 
             $eventQuery = $eventQuery->whereBetween('events.start_date', [$startOfNextMonth, $endOfNextMonth])
-            ->where('events.start_date', '<=', $now->format('Y-m-d'));
+                ->where('events.start_date', '<=', $now->format('Y-m-d'));
         } else if ($request->timeframe == "this-day") {
             $eventQuery = $eventQuery->where('events.start_date', $now->format('Y-m-d'));
         } else if ($request->timeframe == "next-day") {
@@ -335,26 +511,26 @@ class EventController extends Controller
         if (count($request->topics) > 0) {
             foreach ($request->topics as $topic) {
                 if ($topic != "") {
-                    $eventQuery = $eventQuery->where('topics', 'LIKE', '%'.$topic.'%');
+                    $eventQuery = $eventQuery->where('topics', 'LIKE', '%' . $topic . '%');
                 }
             }
         }
 
         if ($request->payment_type == "berbayar") {
             $eventQuery = $eventQuery->select('*', 'events.name as event_name')
-                                     ->join('sessions', 'sessions.event_id', '=', 'events.id')
-                                     ->join('tickets', 'tickets.session_id', '=', 'sessions.id')
-                                     ->where('tickets.price', '>', 0);
-        } 
+                ->join('sessions', 'sessions.event_id', '=', 'events.id')
+                ->join('tickets', 'tickets.session_id', '=', 'sessions.id')
+                ->where('tickets.price', '>', 0);
+        }
         if ($request->payment_type == "gratis") {
             $eventQuery = $eventQuery->select('*', 'events.name as event_name')
-                                     ->join('sessions', 'sessions.event_id', '=', 'events.id')
-                                     ->join('tickets', 'tickets.session_id', '=', 'sessions.id')
-                                     ->where('tickets.price', '=', 0);
+                ->join('sessions', 'sessions.event_id', '=', 'events.id')
+                ->join('tickets', 'tickets.session_id', '=', 'sessions.id')
+                ->where('tickets.price', '=', 0);
         }
-        
+
         $events = $eventQuery->orderBy('events.created_at', 'DESC')
-        ->with(['organizer', 'sessions.cheapestTicket'])->paginate(12);
+            ->with(['organizer', 'sessions.cheapestTicket'])->paginate(12);
         $events = json_decode(json_encode($events), FALSE);
         $sortedEvents = self::getEventLowestPrice($events->data);
 
@@ -365,67 +541,73 @@ class EventController extends Controller
             'events' => $events
         ]);
     }
-    public function exploreOld(Request $request) {
+    public function exploreOld(Request $request)
+    {
         $queryFilter = [
             ['is_publish', 1]
         ];
         $filter = $request->filter;
-        
-        if ($$request->location != null) {
-            array_push($queryFilter, ['city', 'LIKE', "%".$$request->location."%"]);
+
+        if ($request->location != null) {
+            array_push($queryFilter, ['city', 'LIKE', "%" . $request->location . "%"]);
         }
         if ($filter['category'] != null) {
-            array_push($queryFilter, ['category', 'LIKE', "%".$filter['category']."%"]);
+            array_push($queryFilter, ['category', 'LIKE', "%" . $filter['category'] . "%"]);
         }
         if ($filter['q'] != null) {
-            array_push($queryFilter, ['name', 'LIKE', "%".$filter['q']."%"]);
+            array_push($queryFilter, ['name', 'LIKE', "%" . $filter['q'] . "%"]);
         }
 
         $events = Event::where($queryFilter)
-        ->with('organizer')->get();
-        
+            ->with('organizer')->get();
+
         return response()->json([
             'status' => 200,
             'events' => $events,
             'filter' => $filter
         ]);
     }
-    public function rundown($id) {
+    public function rundown($id)
+    {
         $rundowns = \App\Models\Rundown::where('event_id', $id)
-        ->orderBy('start_date', 'ASC')->get();
+            ->orderBy('start_date', 'ASC')->get();
 
         return response()->json([
             'rundowns' => $rundowns
         ]);
     }
-    public function sponsor($id) {
+    public function sponsor($id)
+    {
         $sponsors = \App\Models\Sponsor::where('event_id', $id)->get();
         return response()->json([
             'sponsors' => $sponsors
         ]);
     }
-    public function session($id) {
+    public function session($id)
+    {
         $sessions = \App\Models\Session::where('event_id', $id)
-        ->orderBy('start_date', 'ASC')
-        ->orderBy('start_time', 'ASC')
-        ->get();
+            ->orderBy('start_date', 'ASC')
+            ->orderBy('start_time', 'ASC')
+            ->get();
         $rundowns = \App\Models\Rundown::where('event_id', $id)->orderBy('start_date', 'ASC')
-        ->get();
+            ->get();
 
         return response()->json([
             'sessions' => $sessions,
             'rundowns' => $rundowns
         ]);
     }
-    public function handbook($id) {
+    public function handbook($id)
+    {
         $handbooks = \App\Models\Handbook::where('event_id', $id)
-        ->get();
+            ->get();
 
         return response()->json([
             'handbooks' => $handbooks
         ]);
     }
-    public function updateLink($id, Request $request) {
+    public function updateLink($id, Request $request)
+    {
         $data = Event::where('id', $id);
         $event = $data->first();
 
@@ -453,16 +635,18 @@ class EventController extends Controller
             ]);
         }
     }
-    public function overview($id) {
+    public function overview($id)
+    {
         $sponsors = \App\Models\Sponsor::where('event_id', $id)->get('id')->count();
         $exhibitors = \App\Models\Exhibitor::where('event_id', $id)->get('id')->count();
-        
+
         return response()->json([
             'sponsors' => $sponsors,
             'exhibitors' => $exhibitors,
         ]);
     }
-    public function dashboard($id, Request $request) {
+    public function dashboard($id, Request $request)
+    {
         $now = Carbon::now();
         $startDate = $now->startOfMonth()->format('Y-m-d');
         $endDate = $now->endOfMonth()->format('Y-m-d');
@@ -477,17 +661,17 @@ class EventController extends Controller
             'purchase.tickets',
             'sessions.tickets'
         ])
-        ->first();
+            ->first();
         $filter = "monthly";
         $revenue = $event->purchase->sum('price');
-        
+
         $totalTicketsBeginning = 0;
         foreach ($event->sessions as $sesi) {
             $totalTicketsBeginning += $sesi->tickets->count();
         }
         // $totalTicketsOfEvent = $event->purchase->count() + $totalTicketsBeginning;
         $totalTicketsOfEvent = $event->purchase->count();
-        
+
         $datesOnChart = [];
         $chartDatas = [];
         $revenueOnDate = [];
@@ -507,7 +691,7 @@ class EventController extends Controller
                 array_push($purchases, $purchase);
             }
         }
-        
+
         $chartData = [];
         foreach ($revenueOnDate as $rev) {
             array_push($chartData, $rev);
@@ -516,11 +700,11 @@ class EventController extends Controller
         $visitors = Purchase::where([
             ['event_id', $event->id],
         ])
-        ->whereHas('payment', function ($query) {
-            $query->where('pay_state', 'Terbayar');
-        })
-        ->with('checkin')
-        ->get('id');
+            ->whereHas('payment', function ($query) {
+                $query->where('pay_state', 'Terbayar');
+            })
+            ->with('checkin')
+            ->get('id');
 
         $shortlink = SlugCustom::where('event_id', $event->id)->orderBy('created_at', 'DESC')->take(1)->get();
 
@@ -536,12 +720,15 @@ class EventController extends Controller
             'shortlink' => $shortlink
         ]);
     }
-    public function ticketSales($id, Request $request) {
+    public function ticketSales($id, Request $request)
+    {
         $limit = $request->limit == null ? 25 : $request->limit;
         $purchasesQuery = \App\Models\Purchase::where('event_id', $id)->with([
-            'tickets','users','events'
+            'tickets',
+            'users',
+            'events'
         ]);
-        $purchases = $purchasesQuery->get(['id','ticket_id','user_id','event_id']);
+        $purchases = $purchasesQuery->get(['id', 'ticket_id', 'user_id', 'event_id']);
         $purchasesDisplay = $purchasesQuery->paginate($limit);
 
         $totalTickets = 0;
@@ -559,7 +746,8 @@ class EventController extends Controller
             'total_tickets' => $totalTickets
         ]);
     }
-    public function checkin(Request $request) {
+    public function checkin(Request $request)
+    {
         $orderID = $request->order_id;
         $userID = $request->user_id;
         $response['message'] = '';
@@ -595,7 +783,7 @@ class EventController extends Controller
                 } else {
                     $queryCheckin->increment('checkin');
                 }
-                $response['message'] = "Berhasil checkin (".$user->name.")";
+                $response['message'] = "Berhasil checkin (" . $user->name . ")";
             } else {
                 $response['message'] = "Gagal, Kode pembayaran salah";
             }
@@ -606,23 +794,25 @@ class EventController extends Controller
             'status' => 200
         ]);
     }
-    public function visitor($eventID) {
+    public function visitor($eventID)
+    {
         $datas = Purchase::where('event_id', $eventID)
-        ->whereHas('payment', function ($query) {
-            $query->where('pay_state', 'Terbayar');
-        })
-        ->has('checkin')
-        ->with(['users', 'tickets.session'])
-        ->get();
+            ->whereHas('payment', function ($query) {
+                $query->where('pay_state', 'Terbayar');
+            })
+            ->has('checkin')
+            ->with(['users', 'tickets.session'])
+            ->get();
 
         return response()->json([
             'datas' => $datas
         ]);
     }
-    public function favoriteOrganizer() {
+    public function favoriteOrganizer()
+    {
         $organizers = Organization::withCount('events')->orderBy('events_count', 'DESC')
-        ->take(10)->get();
-        
+            ->take(10)->get();
+
         return response()->json([
             'status' => 200,
             'organizers' => $organizers

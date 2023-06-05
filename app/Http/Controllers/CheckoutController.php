@@ -185,25 +185,6 @@ class CheckoutController extends Controller
                 $objTicket = Ticket::where('id', $ticketIDs[$i]);
                 $newQty = $objTicket->first()->quantity - $quantitys[$i];
                 $objTicket->update(['quantity' => $newQty]);
-// <<<<<<< HEAD
-//                 TicketCart::where('id', $cartIDs[$i])->update(['status' => 'waiting',]);
-//                 $objTicket = Ticket::where('id', $ticketIDs[$i]);
-//                 $newQty = $objTicket->first()->quantity - $quantitys[$i];
-//                 $objTicket->update(['quantity' => $newQty]);
-// =======
-//                 $saveDataPchs = [
-//                     'code' => strtoupper(Str::random(6)),
-//                     'user_id' => $userID,
-//                     'send_from' => $userID,
-//                     'event_id' => $eventIDs[$i],
-//                     'ticket_id' => $ticketIDs[$i],
-//                     'cart_id' => $cartIDs[$i],
-//                     'payment_id' => $savePayment->id,
-//                     'quantity' => 1,
-//                     'price' => $price,
-//                 ];
-//                 Purchase::create($saveDataPchs);
-// >>>>>>> 6f7b0fd977e062702b5f7dfc26a9663f09ed6aa1
             }
         }
 

@@ -191,7 +191,7 @@
                             <div class="text muted mt-05 setting-description">Informasi tambahan yang sesuai dengan kebutuhanmu</div>
                         </div>
                         <div class="flex row wrap justify-space-between gap-20 grow-1 breakdown-area">
-                            <div class="flex row item-center bordered rounded p-2 breakdown-item active" breakdown="Stage and Session" onclick="selectBreakdown('Stage and Session', this)">
+                            <div class="flex row item-center bordered rounded p-2 breakdown-item" breakdown="Stage and Session" onclick="selectBreakdown('Stage and Session', this)">
                                 <div class="flex grow-1">
                                     Stage & Sessions
                                 </div>
@@ -235,6 +235,40 @@
             <div class="h-50"></div>
         </div>
     </div>
+
+    {{-- Tempat mengatur sesi --}}
+    <div class="screen-item column item-start justify-center d-none column" style="width: 85%" id="session-config">
+        <h2 class="text w-100 mb-1">Buat Sesi</h2>
+        <div class="mb-2">Siapkan dan atur sesi untuk eventmu</div>
+
+        <div class="flex row justify-center w-100 ticket-area">
+
+            <div id="multi-session-nav" class="w-100">
+                <div class="ticket w-100-i" onclick="createSession()">
+                    <div class="detail flex row wrap item-center">
+                        <div class="flex grow-1">
+                            <div class="flex column grow-1">
+                                <div class="text small muted w-100 label">BUAT SESI</div>
+                                <div class="text bold bigger mt-05 w-100 ticket_name">Buat sesi eventmu</div>
+                            </div>
+                        </div>
+                        <div class="flex row item-center justify-center outer-add">
+                            <div class="add-button rounded-max flex row item-center justify-center">
+                                <i class="bx bx-plus text bold big"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="single-session-nav" class="w-100 d-none">
+                @include('partials.CreateEvent.SessionConfig')
+            </div>
+           
+        </div>
+        <h2 id="rendered-session-card" class="d-none">Session</h2>
+        <div id="renderer-session-area" class="flex row item-center"></div>
+    </div>
+    {{-- -------------------= --}}
 
     <div class="screen-item column item-start justify-center d-none column" style="width: 85%" id="ticketing">
         <h2 class="text w-100 mb-1">Buat Tiket</h2>
@@ -331,12 +365,12 @@
     </div>
 </div>
 
-<input type="hidden" id="gcid" value="{{ env('GOOGLE_CLIENT_ID') }}">
+{{-- <input type="hidden" id="gcid" value="{{ env('GOOGLE_CLIENT_ID') }}">
 <div id="g_id_onload"
     data-client_id="{{ env('GOOGLE_CLIENT_ID') }}"
     data-login_uri="https://your.domain/your_login_endpoint"
     data-auto_prompt="false">
-</div>
+</div> --}}
 
 @include('partials.CreateEvent.LoginModal')
 @include('partials.CreateEvent.RegisterModal')
@@ -348,6 +382,7 @@
 @include('partials.CreateEvent.ChooseOrganizerModal', ['ableToCreateOrganizer' => false])
 @include('partials.CreateEvent.TicketModal')
 @include('partials.CreateEvent.DateTimeModal')
+@include('partials.CreateEvent.SessionModal')
 
 @include('partials.CreateEvent.Help.ExecutionTypeModal')
 @include('partials.CreateEvent.Help.Breakdown')
@@ -386,6 +421,7 @@
 <script src="{{ asset('riyan/js/CreateEvent.js') }}"></script>
 <script src="{{ asset('riyan/js/CreateEvent/Ticket.js') }}"></script>
 <script src="{{ asset('riyan/js/Authentication.js') }}"></script>
+<script src="{{ asset('riyan/js/CreateEvent/Session.js') }}"></script>
 
 </body>
 </html>

@@ -317,7 +317,7 @@ Route::group(['middleware' => ['User']], function() {
 	//Basic user
 	Route::get('events', "UserController@events")->name('user.events');
     Route::get('myTickets', "UserController@myTickets")->name('user.myTickets');
-    Route::get('my-ticketsNew', "UserController@myTicketsNew")->name('user.myTickets.new');
+    // Route::get('my-ticketsNew', "UserController@myTicketsNew")->name('user.myTickets.new');
     Route::get('my-tickets/{purchaseID}', "UserController@detailTicket")->name('user.myTickets.detail');
     Route::group(['prefix' => 'userSelfCheckin'], function ()
     {

@@ -114,6 +114,9 @@ h2 {
     border: 1px solid #ddd;
     border-bottom: 0;
 }
+.w-100-i{
+    width: 100% !important;
+}
 .ticket .LeftCircle {
     margin-left: -9.7px;
     transform: rotate(90deg);
@@ -315,6 +318,9 @@ h2 {
     border-radius: 15px;
     background-color: var(--primary);
   }
+.pointer{
+    cursor: pointer;
+}
 .load-3 .line:nth-last-child(1) {
     animation: loadingC 0.6s 0.1s linear infinite;
 }

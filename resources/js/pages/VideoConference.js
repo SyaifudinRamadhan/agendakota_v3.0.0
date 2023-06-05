@@ -797,11 +797,20 @@ function VideoConference() {
                     userMediaStream.getVideoTracks().forEach(track => {
                         userMediaStream.removeTrack(track);
                     });
+                    // *Menghapus videtrack dari videoStreamAns
+                    if(userMediaStreamAns !== null){
+                        userMediaStreamAns.getVideoTracks().forEach(track => {
+                            userMediaStreamAns.removeTrack(track);
+                        });
+                    }
                     navigator.mediaDevices
                         .getUserMedia({ video: true, audio: false })
                         .then(stream => {
                             stream.getVideoTracks().forEach(vidTrack => {
                                 userMediaStream.addTrack(vidTrack);
+                                if(userMediaStreamAns !== null){
+                                    userMediaStreamAns.addTrack(vidTrack);
+                                }
                                 // setCoverCam({peerId: peerjs.id, name: username})
                                 if (peerCall !== null) {
                                     peerCall.peerConnection
@@ -844,11 +853,24 @@ function VideoConference() {
                     // setLabelMic({peerId: peerjs.id, muted: true})
                     setMicState(false);
                 } else {
+                    userMediaStream.getAudioTracks().forEach(track => {
+                        userMediaStream.removeTrack(track);
+                    });
+                    // *Menghapus videtrack dari videoStreamAns
+                    if(userMediaStreamAns !== null){
+                        userMediaStreamAns.getAudioTracks().forEach(track => {
+                            userMediaStreamAns.removeTrack(track);
+                        });
+                    }
                     navigator.mediaDevices
                         .getUserMedia({ video: false, audio: true })
                         .then(stream => {
                             stream.getAudioTracks().forEach(audTrack => {
                                 userMediaStream.addTrack(audTrack);
+                                if(userMediaStreamAns !== null){
+                                    userMediaStreamAns.addTrack(audTrack);
+                                }
+
                                 if (peerCall !== null) {
                                     peerCall.peerConnection
                                         .getSenders()[0]
@@ -874,8 +896,10 @@ function VideoConference() {
                     setMicState(true);
                 }
             };
-            stopCam.current.addEventListener("click", changeStateCamera);
-            stopMic.current.addEventListener("click", changeStateMic);
+            // stopCam.current.addEventListener("click", changeStateCamera);
+            // stopMic.current.addEventListener("click", changeStateMic);
+            stopCam.current.onclick = changeStateCamera;
+            stopMic.current.onclick = changeStateMic;
         }
     }, [userMediaStream, userMediaStreamAns, peerCall, peerCallAns, call]);
 

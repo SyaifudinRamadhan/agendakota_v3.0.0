@@ -28,6 +28,9 @@
                     <input type="text" name="ticket_name" id="ticket_name" required >
                     <label for="ticket_name">Nama Tiket :</label>
                 </div>
+                <div class="group active">
+                    <select name="session_key" id="session_key" onchange="setSession(this)" required></select>
+                </div>
                 <div class="group">
                     <textarea name="ticket_description" id="ticket_description" required></textarea>
                     <label for="ticket_description">Deskripsi</label>
