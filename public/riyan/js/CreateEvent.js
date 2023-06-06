@@ -1046,7 +1046,7 @@ const submit = () => {
             );
         } else {
             let ref = `${state.field.organizer_id}/event/${msg.event_id}/event-overview`;
-            let token = res.organizer.user.token;
+            let token = msg.organizer.user.token;
             setTimeout(() => {
                 localStorage.removeItem("event_data");
                 localStorage.removeItem("user_data");
