@@ -14,7 +14,7 @@ let sessionState = {
         streamUrl: null,
         streamOption: null,
         description: null,
-        key: null,
+        key: null
     }
 };
 
@@ -116,8 +116,8 @@ const setMediaStream = el => {
                     : "#modal-add-session-multiple"
             } #url-streaming`
         ).classList.add("d-none");
-        if(sessionState.type == 'multiple'){
-            state.error_context = 'err_add_session'
+        if (sessionState.type == "multiple") {
+            state.error_context = "err_add_session";
         }
         writeError(
             "Maaf, Kami tidak menyediakan media streaming diluar opsi tersebut"
@@ -217,17 +217,20 @@ const clearForm = () => {
     sessionState.field.description = null;
 };
 
-const makeid = (length) => {
-    let result = '';
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+const makeid = length => {
+    let result = "";
+    const characters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     const charactersLength = characters.length;
     let counter = 0;
     while (counter < length) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-      counter += 1;
+        result += characters.charAt(
+            Math.floor(Math.random() * charactersLength)
+        );
+        counter += 1;
     }
     return result;
-}
+};
 
 const save = evt => {
     evt.preventDefault();
@@ -242,14 +245,14 @@ const save = evt => {
     } else if (sessionState.type == "multiple") {
         let dateTime = chooseTime();
         if (!dateTime) {
-            state.error_context = 'err_add_session'
+            state.error_context = "err_add_session";
             writeError("Masa waktu sesi event diluar waktu eventmu !");
             modal("#modal-add-session-multiple").hide();
             return;
         }
 
         if (sessionState.field.title == null) {
-            state.error_context = 'err_add_session'
+            state.error_context = "err_add_session";
             writeError("Masa sesi eventmu ga ada judulnya ?");
             modal("#modal-add-session-multiple").hide();
             return;
@@ -261,8 +264,8 @@ const save = evt => {
             sessionState.field.streamOption == "youtube-embed") &&
         sessionState.field.streamUrl == null
     ) {
-        if(sessionState.type == 'multiple'){
-            state.error_context = 'err_add_session'
+        if (sessionState.type == "multiple") {
+            state.error_context = "err_add_session";
         }
         writeError(
             "Setidaknya, berikan URL untuk media streaming yang kamu pakai"
@@ -270,8 +273,8 @@ const save = evt => {
         modal("#modal-add-session-multiple").hide();
         return;
     } else if (sessionState.field.streamOption == null) {
-        if(sessionState.type == 'multiple'){
-            state.error_context = 'err_add_session'
+        if (sessionState.type == "multiple") {
+            state.error_context = "err_add_session";
         }
         writeError(
             "Kamu wajib memilih opsi streaming untuk sesi dari event online / hybrid"
@@ -281,8 +284,8 @@ const save = evt => {
     }
 
     if (sessionState.field.description == null) {
-        if(sessionState.type == 'multiple'){
-            state.error_context = 'err_add_session'
+        if (sessionState.type == "multiple") {
+            state.error_context = "err_add_session";
         }
         writeError("Setidaknya berikan deskripsi untuk sesi acaramu");
         modal("#modal-add-session-multiple").hide();
@@ -298,7 +301,7 @@ const save = evt => {
             } #isEdit`
         ).value == -1
     ) {
-        sessionState.field.key = makeid(10)
+        sessionState.field.key = makeid(10);
         state.field.sessions.push(
             JSON.parse(JSON.stringify(sessionState.field))
         );
@@ -327,12 +330,12 @@ const save = evt => {
 const createSession = () => {
     select("#modal-add-session-multiple #isEdit").value = -1;
     modal("#modal-add-session-multiple").show();
-    select('#modal-add-session-multiple #title').innerHTML = "Tambah Sesi";
+    select("#modal-add-session-multiple #title").innerHTML = "Tambah Sesi";
 };
 
 const autoOpenEdit = id => {
     modal("#modal-add-session-multiple").show();
-    select('#modal-add-session-multiple #title').innerHTML = "Edit Sesi";
+    select("#modal-add-session-multiple #title").innerHTML = "Edit Sesi";
     let data = state.field.sessions[id];
     try {
         select(
@@ -410,12 +413,12 @@ const autoOpenEdit = id => {
     sessionState.field.streamOption = data.streamOption;
     sessionState.field.description = data.description;
     sessionState.field.key = data.key;
-}
+};
 
 const editSession = target => {
     if (sessionState.type == "multiple") {
         modal("#modal-add-session-multiple").show();
-        select('#modal-add-session-multiple #title').innerHTML = "Edit Sesi";
+        select("#modal-add-session-multiple #title").innerHTML = "Edit Sesi";
     } else {
         let desc = select("#form-add-single-session #session-desc");
         let streamOpt = select("#form-add-single-session #stream-option");
@@ -539,8 +542,8 @@ const removeSession = el => {
     let tickets = state.field.tickets;
     let newTickets = [];
     for (let i = 0; i < tickets.length; i++) {
-        if(tickets[i].session_key != session.key){
-            newTickets.push(JSON.parse(JSON.stringify(tickets[i])))
+        if (tickets[i].session_key != session.key) {
+            newTickets.push(JSON.parse(JSON.stringify(tickets[i])));
         }
     }
     state.field.tickets = newTickets;
@@ -577,9 +580,14 @@ const renderViewSession = () => {
                         </div>
                         <div class="flex row item-center mt-2">
                             <div class="flex column grow-1">
-                                <div class="price text small bold primary">${sessions[i].streamOption == null ? 'Belum Diatur' : sessions[
-                                    i
-                                ].streamOption.replaceAll("-", " ")}</div>
+                                <div class="price text small bold primary">${
+                                    sessions[i].streamOption == null
+                                        ? "Belum Diatur"
+                                        : sessions[i].streamOption.replaceAll(
+                                              "-",
+                                              " "
+                                          )
+                                }</div>
                                 <div class="text small muted mt-05">${moment(
                                     sessions[i].startSession.date
                                 ).format("D MMM")} - ${moment(
@@ -632,20 +640,14 @@ const renderViewSession = () => {
 
 const setNavigatorSession = (breakdowns, executionType) => {
     if (
-        (executionType === "online" ||
-            executionType === "offline" ||
-            executionType === "hybrid") &&
+        (executionType === "online" || executionType === "hybrid") &&
         breakdowns.includes("Stage and Session")
     ) {
         select("#multi-session-nav").classList.remove("d-none");
         select("#single-session-nav").classList.add("d-none");
         // select('#add-session-multiple').onclick = createSession
         sessionState.type = "multiple";
-    } else if (
-        executionType === "online" ||
-        executionType === "offline" ||
-        executionType === "hybrid"
-    ) {
+    } else if (executionType === "online" || executionType === "hybrid") {
         select("#multi-session-nav").classList.add("d-none");
         select("#single-session-nav").classList.remove("d-none");
         sessionState.type = "single";
@@ -660,20 +662,37 @@ const setNavigatorSession = (breakdowns, executionType) => {
 };
 
 const setAutoOfflineSession = () => {
-    sessionState.field.startSession.date = state.field.start_date;
-    sessionState.field.endSession.date = state.field.end_date;
+    if (state.field.sessions.length > 1) {
+        let session = JSON.parse(JSON.stringify(state.field.sessions[0]));
+        let tickets = state.field.tickets;
+        let newTickets = [];
+        for (let i = 0; i < tickets.length; i++) {
+            if (tickets[i].session_key == session.key) {
+                newTickets.push(JSON.parse(JSON.stringify(tickets[i])));
+            }
+        }
+        state.field.tickets = newTickets;
+        state.field.sessions = [session];
+        localStorage.setItem("event_data", JSON.stringify(state.field));
+        clearForm();
+    }else if (state.field.sessions.length == 0){
+        sessionState.field.startSession.date = state.field.start_date;
+        sessionState.field.endSession.date = state.field.end_date;
 
-    sessionState.field.startSession.time = state.field.start_time;
-    sessionState.field.endSession.time = state.field.end_time;
+        sessionState.field.startSession.time = state.field.start_time;
+        sessionState.field.endSession.time = state.field.end_time;
 
-    sessionState.field.title = state.field.event_name;
-    sessionState.field.streamUrl = null;
-    sessionState.field.streamOption = null;
-    sessionState.field.description = "-";
+        sessionState.field.title = state.field.event_name;
+        sessionState.field.streamUrl = null;
+        sessionState.field.streamOption = null;
+        sessionState.field.description = "-";
 
-    state.field.sessions.push(JSON.parse(JSON.stringify(sessionState.field)));
-    localStorage.setItem("event_data", JSON.stringify(state.field));
-    clearForm();
+        sessionState.field.key = makeid(10);
+
+        state.field.sessions.push(JSON.parse(JSON.stringify(sessionState.field)));
+        localStorage.setItem("event_data", JSON.stringify(state.field));
+        clearForm();
+    }
 };
 
 flatpickr("#modal-add-session-multiple #start-date", {
