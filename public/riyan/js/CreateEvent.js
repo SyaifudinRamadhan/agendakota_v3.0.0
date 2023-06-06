@@ -1029,11 +1029,10 @@ const submit = () => {
         try {
             // msg = await res.json();
             let tmp = await res.text();
-            console.log(msg);
+            console.log(tmp);
             msg = JSON.parse(tmp);
         } catch (error) {
             console.log(error);
-            console.log(await res.text());
         }
         if (res.status == 500) {
             writeError(
