@@ -194,7 +194,7 @@ const shareMedia = async (
 
             audio = await navigator.mediaDevices.getUserMedia({
                 video: false,
-                audio: true
+                audio: false
             });
         } else {
             video = await navigator.mediaDevices.getUserMedia({
@@ -614,8 +614,8 @@ const connectToNewUser = (
     call.on("stream", userVideoStream => {
 
         // Memberikan status camera dan mic
-        camState ? socket.emit("video-close", peer.id, myname) : socket.emit("video-on", peer.id, myname);
-        micState ? socket.emit("audio-close", peer.id, myname) : socket.emit("audio-on", peer.id, myname);
+        camState == false? socket.emit("video-close", peer.id, myname) : socket.emit("video-on", peer.id, myname);
+        micState == false? socket.emit("audio-close", peer.id, myname) : socket.emit("audio-on", peer.id, myname);
 
         console.log(userVideoStream, call);
         if (
@@ -995,8 +995,8 @@ function VideoConference() {
                 peerjs.on("call", call => {
 
                     // Memberikan status camera dan mic
-                    videoState ? socket.emit("video-close", peerjs.id, username) : socket.emit("video-on", peerjs.id, username);
-                    micState ? socket.emit("audio-close", peerjs.id, username) : socket.emit("audio-on", peerjs.id, username);
+                    videoState == false? socket.emit("video-close", peerjs.id, username) : socket.emit("video-on", peerjs.id, username);
+                    micState == false? socket.emit("audio-close", peerjs.id, username) : socket.emit("audio-on", peerjs.id, username);
 
                     console.log("peerjs receive calling from host");
                     console.log(call.peer, peerjs.id);
