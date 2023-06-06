@@ -1033,10 +1033,10 @@ const submit = () => {
             console.log(await res.text());
         }
         if (res.status == 500) {
-            // writeError(
-            //     "Internal Server Error. Silahkan kamu coba lagi !",
-            //     "internal_error"
-            // );
+            writeError(
+                "Internal Server Error. Silahkan kamu coba lagi !",
+                "internal_error"
+            );
         } else if (res.status == 403 || res.status == 402) {
             writeError(
                 `${msg.error} !`,
