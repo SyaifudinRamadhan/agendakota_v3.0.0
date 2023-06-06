@@ -315,6 +315,16 @@ class EventController extends Controller
             if ($session->streamOption == "rtmp-stream") {
                 $this->crdRTMPKey($accessToken, $sessionData->id, "/api/v1/reg-stream");
             }
+        } else if (count($sessions) > 0 && $execution == 'offline'){
+            $session = $sessions[0];
+            $sessionData = $this->createRundownSession($session, $saveData, $execution);
+            // array_push($sessionSave, $sessionData);
+            $sessionSave[$session->key] = $sessionData;
+        } else{
+            Event::where('id', $saveData->id)->delete();
+            return response()->json([
+                "error" => "Sesi wajib diisi setidaknya 1 sesi"
+            ], 500);
         }
 
         $ticketTypes = [
