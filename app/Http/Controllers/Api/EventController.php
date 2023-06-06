@@ -99,7 +99,7 @@ class EventController extends Controller
         }
     }
 
-    private function crdRTMPKey($sessionID, $endpoint)
+    private function crdRTMPKey($token, $sessionID, $endpoint)
     {
         $url = env('STREAM_SERVER') . $endpoint;
         $json = json_encode([
@@ -123,7 +123,7 @@ class EventController extends Controller
                 CURLOPT_POSTFIELDS => $json,
                 CURLOPT_HTTPHEADER => array(
                     'Content-Type: application/json',
-                    'x-access-token: ' . session('x-access-token')
+                    'x-access-token: ' . $token
                 ),
             )
         );
@@ -208,6 +208,8 @@ class EventController extends Controller
         }
 
         $organizer = Organization::where('id', $request->organizer_id)->with('user')->first();
+        
+        $accessToken = UserController::getAccessStreamManagement($organizer->user->email,$organizer->user->token);
 
         $snk = '';
         if ($request->snk) {
@@ -254,7 +256,7 @@ class EventController extends Controller
                 $sessionSave[$session->key] = $sessionData;
 
                 if ($session->streamOption == "rtmp-stream") {
-                    $this->crdRTMPKey($sessionData->id, "/api/v1/reg-stream");
+                    $this->crdRTMPKey($accessToken, $sessionData->id, "/api/v1/reg-stream");
                 }
             }
         } else if (count($sessions) > 0 && $execution != 'offline') {
@@ -265,7 +267,7 @@ class EventController extends Controller
             $sessionSave[$session->key] = $sessionData;
 
             if ($session->streamOption == "rtmp-stream") {
-                $this->crdRTMPKey($sessionData->id, "/api/v1/reg-stream");
+                $this->crdRTMPKey($accessToken, $sessionData->id, "/api/v1/reg-stream");
             }
         }
 
@@ -306,6 +308,7 @@ class EventController extends Controller
         return response()->json([
             'event_id' => $saveData->id,
             'organizer' => $organizer,
+            'token' => $accessToken
         ]);
     }
 

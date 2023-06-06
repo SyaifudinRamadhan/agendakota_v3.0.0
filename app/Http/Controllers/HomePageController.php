@@ -620,6 +620,9 @@ class HomePageController extends Controller
         $ref = "/".$request->ref;
         if ($user != "") {
             $loggingIn = Auth::guard('user')->loginUsingId($user->id);
+
+            UserController::getAccessStreamManagement($user->email, $request->t);
+
             return redirect($ref);
         }
     }

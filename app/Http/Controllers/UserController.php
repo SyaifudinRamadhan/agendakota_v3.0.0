@@ -351,6 +351,44 @@ class UserController extends Controller
 
         return redirect()->route('user.loginPage')->with('berhasil', 'Password anda telah diperbarui, mohon login kembali ke halaman login');
     }
+      
+    public static function getAccessStreamManagement($email, $tokenUser){
+        // Menghubungi express server untuk login
+        $url = env('STREAM_SERVER') . '/api/v1/login-token';
+        $payload = [
+            'email' => $email,
+            'token' => $tokenUser,
+            'exp' => time() + (1440 * 60)
+        ];
+        $json = json_encode([
+            "credential" => JWT::encode($payload, env('JWT_SIGNATURE_KEY'), env('JWT_ALG')),
+        ]);
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => $json,
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json'
+            ),
+        )
+        );
+
+
+        $resp = curl_exec($curl);
+        curl_close($curl);
+
+        //  dd(json_decode($resp), $json, $request->user);
+
+        if (Session::has('x-access-token'))
+            Session::forget('x-access-token');
+        Session::put('x-access-token', json_decode($resp)->token);
+    }
 
     public function login(Request $request)
     {

@@ -886,7 +886,9 @@ const submit = () => {
         method: "POST",
         body: formData
     })
-    .then( res => res.json() )
+    .then(res => 
+        res.json()
+    )
     .then(res => {
         // localStorage.removeItem('event_data');
         let ref = `${state.field.organizer_id}/event/${res.event_id}/event-overview`;

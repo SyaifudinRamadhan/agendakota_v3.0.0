@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Firebase\JWT\JWT;
 use Log;
 use Str;
 use Hash;
@@ -50,20 +51,20 @@ class UserController extends Controller
             'myPackage' => $myPackage,
         ]);
     }
-    private function getAccessStreamManagement($myData, $request){
+    public static function getAccessStreamManagement($email, $tokenUser){
         // Menghubungi express server untuk login
-        $url = env('STREAM_SERVER') . '/api/v1/login';
+        $url = env('STREAM_SERVER') . '/api/v1/login-token';
+        $payload = [
+            'email' => $email,
+            'token' => $tokenUser,
+            'exp' => time() + (1440 * 60)
+        ];
         $json = json_encode([
-            "email" => $myData->email,
-            "password" => $request->password
+            "credential" => JWT::encode($payload, env('JWT_SIGNATURE_KEY'), env('JWT_ALG')),
         ]);
 
         $curl = curl_init();
-        //  curl_setopt($curl, CURLOPT_URL, $url);
-        //  curl_setopt($curl, CURLOPT_POST, true);
-        //  curl_setopt($curl, CURLOPT_HTTPHEADER, array("Accept: application/json"));
-        //  curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
-        //  curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
         curl_setopt_array($curl, array(
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
@@ -81,9 +82,7 @@ class UserController extends Controller
         $resp = curl_exec($curl);
         curl_close($curl);
 
-        //  dd(json_decode($resp), $json);
-        if(Session::has('x-access-token')) Session::forget('x-access-token');
-        Session::put('x-access-token', json_decode($resp)->token);
+        return json_decode($resp)->token;
     }
     public function login(Request $request) {
         $data = User::where('email', $request->email);
@@ -103,8 +102,6 @@ class UserController extends Controller
         if ($user->is_active == 0 && $request->with_google == 1) {
             $data->update(['is_active' => 1]);
         }
-
-        $this->getAccessStreamManagement($user, $request);
 
         $updateData = $data->update(['token' => Str::random(32)]);
         $user = $data->first();

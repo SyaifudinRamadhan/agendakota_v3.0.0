@@ -11,6 +11,7 @@ const addTicket = (type) => {
             select('#modalTicket #session_key').innerHTML += `<option value=${session.key}>${session.title} (${session.startSession.date} ${session.startSession.time} - ${session.endSession.date} ${session.endSession.time})</option>`
         });
     }else{
+        select("#modalTicket #session_key").required = false;
         flatpickr("#ticket_start_date", {
             dateFormat: 'Y-m-d',
             maxDate: state.field.end_date == "" ? "" : state.field.end_date,
