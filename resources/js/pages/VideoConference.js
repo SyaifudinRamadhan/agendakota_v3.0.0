@@ -995,7 +995,7 @@ function VideoConference() {
                 peerjs.on("call", call => {
 
                     // Memberikan status camera dan mic
-                    camState ? socket.emit("video-close", peerjs.id, username) : socket.emit("video-on", peerjs.id, username);
+                    videoState ? socket.emit("video-close", peerjs.id, username) : socket.emit("video-on", peerjs.id, username);
                     micState ? socket.emit("audio-close", peerjs.id, username) : socket.emit("audio-on", peerjs.id, username);
 
                     console.log("peerjs receive calling from host");
