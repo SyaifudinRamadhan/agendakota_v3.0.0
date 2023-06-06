@@ -903,7 +903,7 @@ function VideoConference() {
             stopCam.current.onclick = changeStateCamera;
             stopMic.current.onclick = changeStateMic;
         }
-    }, [userMediaStream, userMediaStreamAns, peerCall, peerCallAns, call]);
+    }, [userMediaStream, userMediaStreamAns, peerCall, peerCallAns, call, videoState, micState]);
 
     useEffect(() => {
         if (mediaSelected !== null && isHost) {
