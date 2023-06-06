@@ -898,16 +898,17 @@ function VideoConference() {
                     setMicState(true);
                 }
             };
-
-            // Memberikan status camera dan mic
-            videoState == false? socket.emit("video-close", peerjs.id, username) : socket.emit("video-on", peerjs.id, username);
-            micState == false? socket.emit("audio-close", peerjs.id, username) : socket.emit("audio-on", peerjs.id, username);
             // stopCam.current.addEventListener("click", changeStateCamera);
             // stopMic.current.addEventListener("click", changeStateMic);
             stopCam.current.onclick = changeStateCamera;
             stopMic.current.onclick = changeStateMic;
         }
-    }, [userMediaStream, userMediaStreamAns, peerCall, peerCallAns, call, videoState, micState]);
+
+        // Memberikan status camera dan mic
+        videoState == false? socket.emit("video-close", peerjs.id, username) : socket.emit("video-on", peerjs.id, username);
+        micState == false? socket.emit("audio-close", peerjs.id, username) : socket.emit("audio-on", peerjs.id, username);
+
+    }, [userMediaStream, userMediaStreamAns, peerCall, peerCallAns, call, videoState, micState, socket]);
 
     useEffect(() => {
         if (mediaSelected !== null && isHost) {
