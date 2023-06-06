@@ -609,10 +609,10 @@ const connectToNewUser = (
     camState
 ) => {
     const call = peer.call(userId, streams);
-    fnSetCalling(call);
+    
     const video = document.createElement("video");
     call.on("stream", userVideoStream => {
-
+        fnSetCalling(call);
         // Memberikan status camera dan mic
         // camState == false? socket.emit("video-close", peer.id, myname) : socket.emit("video-on", peer.id, myname);
         // micState == false? socket.emit("audio-close", peer.id, myname) : socket.emit("audio-on", peer.id, myname);
