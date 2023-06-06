@@ -1024,6 +1024,21 @@ class UserController extends Controller
         $organizationID = "";
         $eventID = "";
         $purchases = Purchase::where('user_id', $myData->id)->orWhere('send_from', $myData->id)->with(['users', 'tickets', 'events.organizer'])->orderBy('created_at', 'DESC')->get();
+        for ($i=0; $i <count($purchases) ; $i++) { 
+            if(!isset($purchases[$i]->tempFor) && $purchases[$i]->payment->pay_state == 'Terbayar'){
+                $saveData = [
+                    "payment_id" => $purchases[$i]->payment->id,
+                    "purchase_id" => $purchases[$i]->id,
+                    "share_to" => $myData->email,
+                ];
+                $ckeckDouble = TempTicketShare::where('purchase_id', $purchases[$i]->id)->get();
+                // dd($ckeckDouble);
+                if(count($ckeckDouble) == 0){
+                    TempTicketShare::create($saveData);
+                }
+            }
+        }
+        $purchases = Purchase::where('user_id', $myData->id)->orWhere('send_from', $myData->id)->with(['users', 'tickets', 'events.organizer'])->orderBy('created_at', 'DESC')->get();
         $carts = CartController::cartCheckLoad($myData->id);
         // Get Transaction Ulang dari sebelumnya untuk mengatasi apabila ada perubahan data purchase akibat penghapusan tiket oleh admin
         $payments = $objPayCtrl->getTransaction($myData);

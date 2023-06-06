@@ -110,11 +110,10 @@
                                         @endphp
                                         <p class="text-secondary mt-0 float-right fs-13" id="jumlah">
                                             Tiket Tersisa :
-                                            {{ $ticket->quantity - count($purchaseObj) }} /
                                             {{ $ticket->quantity }} </p>
 
                                         @php
-                                            $valuenow = (count($purchaseObj) / $ticket->quantity) * 100;
+                                            $valuenow = $ticket->quantity == 0 ? 100 : (count($purchaseObj) / $ticket->quantity) * 100;
                                             $valuemax = $ticket->quantity;
                                         @endphp
                                         <p class="text-secondary mt-0 mb-0 fs-13">Terjual :</p>
@@ -202,11 +201,10 @@
                                         @endphp
                                         <p class="text-secondary mt-0 float-right fs-13" id="jumlah">
                                             Tiket Tersisa :
-                                            {{ $ticket->quantity - count($purchaseObj) }} /
                                             {{ $ticket->quantity }} </p>
 
                                         @php
-                                            $valuenow = (count($purchaseObj) / $ticket->quantity) * 100;
+                                            $valuenow = $ticket->quantity == 0 ? 100 : (count($purchaseObj) / $ticket->quantity) * 100;
                                             $valuemax = $ticket->quantity;
                                         @endphp
                                         <p class="text-secondary mt-0 mb-0 fs-13">Terjual :</p>
@@ -292,11 +290,10 @@
                                         @endphp
                                         <p class="text-secondary mt-0 float-right fs-13" id="jumlah">
                                             Tiket Tersisa :
-                                            {{ $ticket->quantity - count($purchaseObj) }} /
                                             {{ $ticket->quantity }} </p>
 
                                         @php
-                                            $valuenow = (count($purchaseObj) / $ticket->quantity) * 100;
+                                            $valuenow = $ticket->quantity == 0 ? 100 : (count($purchaseObj) / $ticket->quantity) * 100;
                                             $valuemax = $ticket->quantity;
                                         @endphp
                                         <p class="text-secondary mt-0 mb-0 fs-13">Terjual :</p>

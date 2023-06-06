@@ -777,10 +777,10 @@ function VideoConference() {
 
     useEffect(() => {
         if (userMediaStream !== null) {
-            let micState = true;
-            let vidSTate = true;
+            // let micState = true;
+            // let vidSTate = true;
             const changeStateCamera = () => {
-                if (vidSTate) {
+                if (videoState) {
                     console.log("stop cam dijalankan");
                     userMediaStream.getVideoTracks().forEach(track => {
                         track.stop();
@@ -792,7 +792,7 @@ function VideoConference() {
                     }
                     socket.emit("video-close", peerjs.id, username);
                     // setCoverCam({disabled: true, peerId: peerjs.id, name: username})
-                    vidSTate = false;
+                    // vidSTate = false;
                     setVidState(false);
                 } else {
                     console.log("stop cam dijalankan restart");
@@ -834,7 +834,7 @@ function VideoConference() {
                             });
                             console.log("restart");
                         });
-                    vidSTate = true;
+                    // vidSTate = true;
                     setVidState(true);
                 }
             };
@@ -850,7 +850,7 @@ function VideoConference() {
                             track.stop();
                         });
                     }
-                    micState = false;
+                    // micState = false;
                     socket.emit("audio-close", peerjs.id, username);
                     // setLabelMic({peerId: peerjs.id, muted: true})
                     setMicState(false);
@@ -894,7 +894,7 @@ function VideoConference() {
                             console.log("restart");
                         });
                     // setLabelMic({peerId: peerjs.id})
-                    micState = true;
+                    // micState = true;
                     setMicState(true);
                 }
             };
