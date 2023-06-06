@@ -154,7 +154,8 @@ class OrganizationController extends Controller
 
         // $logo->storeAs('public/organizer_logo', $logoFileName);
 
-        return redirect()->route('organization.event.create', [$organization->id]);
+        // return redirect()->route('organization.event.create', [$organization->id]);
+        return redirect()->route('create-event');
     }
     public function settings($organizationID)
     {

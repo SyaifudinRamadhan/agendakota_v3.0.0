@@ -17,7 +17,8 @@
 
 @section('content')
     <h2>Events
-        <a href="{{ route('organization.event.create', [$organizationID]) }}">
+        {{-- <a href="{{ route('organization.event.create', [$organizationID]) }}"> --}}
+        <a href="{{ route('create-event') }}" >
             <button class="ke-kanan pointer btn bg-primer font-inter">
                 <i class="fas fa-plus"></i> Buat Event Baru
             </button>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\PackagePricingController;
 use Log;
 use File;
 use Image;
@@ -21,6 +22,7 @@ use App\Models\SlugCustom;
 use App\Models\Ticket;
 use App\Models\TicketDiscount;
 use App\Models\UserCheckin;
+use App\Models\User;
 
 
 class EventController extends Controller
@@ -183,7 +185,7 @@ class EventController extends Controller
         $logo = $request->file('cover');
         $logoFileName = $logo->getClientOriginalName();
 
-        $slug = Str::slug($request->event_name);
+        // $slug = Str::slug($request->event_name);
         $breakdowns = [];
 
         $execution = strtolower($request->execution_type);
@@ -209,6 +211,50 @@ class EventController extends Controller
 
         $organizer = Organization::where('id', $request->organizer_id)->with('user')->first();
         
+        $timeSlug = new DateTime();
+        $slug = Str::slug($request->event_name).$timeSlug->format('d-m-y_H-i-s').'_'.$organizer->user->id.$organizer->id;
+
+        // -------- Cek date-time start <= date-time end ? ------------------------------------
+        $startDate = new DateTime($request->start_date.' '.$request->start_time);
+        $endDate = new DateTime($request->end_date.' '.$request->end_time);
+
+        if($startDate > $endDate){
+            return response()->json([
+                "error" => 'Input tanggal & waktu mulai kurang dari tanggal & waktu akhir',
+            ], 402);
+        }
+        // ------------------------------------------------------------------------------------
+
+        // -------- Cek package aktif ? dan masih sesuai dengan config package ? --------------
+        $myData = User::where('id', $organizer->user->id)->first();
+        $isPkgActive = PackagePricingController::limitCalculator($myData);
+
+        // Tidak boleh ada event yang start nya sama dalam satu organisasi
+        $eventSameTime = Event::where('organizer_id',$organizer->id)->where('start_date',$request->start_date)->where('deleted',0)->get();
+
+        $paramCombine = false;
+        // paramCombine adalah parameter untuk cek jumlahnya unlimited / sudah lewat batas
+        if($organizer->user->package->event_same_time <= -1){
+            $paramCombine = false;
+        }else{
+            if(count($eventSameTime) > $organizer->user->package->event_same_time){
+                $paramCombine = true;
+            }
+        }
+
+        if($isPkgActive == 0 || $paramCombine == true){
+            if($isPkgActive == 0){
+                return response()->json([
+                    'error' => 'Paketmu sudah lewat satu bulan / belum dibayar'
+                ], 403);
+            }else{
+                return response()->json([
+                    'error' => 'Event dengan tanggal mulai yang sama hanya boleh '.$organizer->user->package->event_same_time.' per Organisasi'
+                ], 403);
+            }
+        }
+        // ------------------------------------------------------------------------------------
+
         $accessToken = UserController::getAccessStreamManagement($organizer->user->email,$organizer->user->token);
 
         $snk = '';

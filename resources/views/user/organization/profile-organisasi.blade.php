@@ -90,7 +90,7 @@
                 {{-- <h4 style="color: #979797; margin-top:-1%;font-family: 'RobotoLight';font-weight: bold;">Temukan semua event yang diadakan oleh organisasimu</h4> --}}
             </div>
             <div class="col-lg-5">
-                <a href="{{ route('organization.event.create', [$organizationID]) }}">
+                <a href="{{ route('create-event') }}">
                     <button type="button" class="btn bg-primer mt-0 btn-float-r">
                         <i class="fa fa-plus" style="color: #fff;"></i> Buat Event
                     </button>

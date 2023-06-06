@@ -21,7 +21,11 @@ class PackagePricingController extends Controller
         $now = new DateTime();
         $userTime = new DateTime($myData->created_at);
         $different = $userTime->diff($now);
-        self::confirmUserPackage();
+        if(UserController::me()){
+            self::confirmUserPackage();
+        }else{
+            self::confirmUserPackage_v2($myData);
+        }
         // Batas waktu adalah 1 bulan = 30 hari
         $lastPaidPkg = PackagePayment::where('user_id',$myData->id)->where('status',1)->orderBy('id','DESC')->first();
         
@@ -222,6 +226,94 @@ class PackagePricingController extends Controller
     {
         
         $myData = UserController::me();
+        $packagesBuyed = $myData->packagePayments;
+        $lastPackage = $packagesBuyed[count($packagesBuyed)-1];
+        if($lastPackage->status == 0){
+            // Jika statusnya belum terbayar
+            $curl = curl_init();
+			// Memindahkan value variable cURL ke agendakota.comfig per tgl 14 Mey 2022
+	        curl_setopt_array($curl, array(
+                CURLOPT_URL => config('agendakota')['midtrans_config']['main_url'].'v2/'.$lastPackage->order_id.'/status',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_HTTPHEADER => config('agendakota')['midtrans_config']['CURLOPT_HTTPHEADER'],
+                )
+            );
+
+	        $output = curl_exec($curl);
+
+	        curl_close($curl);
+
+	        $dataFromJson = json_decode($output, true);
+	            
+	        if($dataFromJson != null){
+	            $payState = $dataFromJson["status_code"];
+
+	            if($payState == 200 || $payState == "200"){
+	                $dataUpdate = [
+	                    'status' => 1
+	                ];
+                    #--------------------------------------------------------------------------
+                    // Aturan untuk menentukan created_at pembaruan setelah pembayaran berhasil
+                    // 1. Jika ID paket yang dibeli sama / melakukan beli lagi / melakukan pembelian sebelum jatuh tempo,
+                    //    Maka masa aktif yang tersisa akan ditambkan dengan masa aktif yan terbaru
+                    // 2. Masa aktif ditentukan dari tipe harga (menggunakan price atau price_in_year)
+                    // 3. Penambahan masa aktif tidak berlaku untuk pembelian yang berbeda ID paketnya.
+
+                    $newCreatedAt = '';
+                    // Paket yang dibeli sebelumnya
+                    $pastPkg = PackagePayment::where('user_id',$myData->id)->where('status',1)->orderBy('id','DESC')->first();
+
+                    if($pastPkg != null){
+                        if($pastPkg->pkg_id == $lastPackage->pkg_id){
+                            // Akumulasikan masa aktif paket
+                            if($myData->pkg_status == 1){
+                                $userTime = new DateTime($myData->created_at);
+                                $limitTime = 30;
+                                if($pastPkg->nominal == $pastPkg->package->price_in_year){
+                                    // Jika iya, terhitung limitTime = 365
+                                    $limitTime = 365;
+                                }
+                                $newCreatedAt = $userTime->modify('+'.($limitTime).' day');
+                                // dd($newCreatedAt,'case 1');
+                            }else{
+                                $now = new DateTime();
+                                $newCreatedAt = $now;
+                                // dd($newCreatedAt,'case 2');
+                            }
+                        }else{
+                            // Ganti masa aktif menjadi mengikuti paket yang baru
+                            $now = new DateTime();
+                            $newCreatedAt = $now;
+                            // dd($newCreatedAt,'case 3');
+                        }
+                    }else{
+                        // Ganti masa aktif menjadi mengikuti paket yang baru
+                        $now = new DateTime();
+                        $newCreatedAt = $now;
+                        // dd($newCreatedAt,'case 3');
+                    }
+                    // dd($newCreatedAt,'case 4');
+                    #--------------------------------------------------------------------------
+	                // Update status pembayaran user package
+                    PackagePayment::where('id',$lastPackage->id)->update($dataUpdate);
+                    // Update status active package di table user menjadi aktif dan update created_at user
+                    // Created_at table user adalah parameter tanggal awal pembelian paket
+                    // Untuk mengetahui masa akhir dilakukan oleh function self::limitCalculator($userData)
+                    
+                    User::where('id',$myData->id)->update([
+                        'pkg_id' => $lastPackage->pkg_id,
+                        'pkg_status'=>1,
+                        // Created_at bisa bervariasi tergantung masa aktif sebelumnya
+                        'created_at' => $newCreatedAt,
+                    ]);
+	            }
+            }
+        }
+        return $lastPackage;
+    }
+
+    public static function confirmUserPackage_v2($myData)
+    {
         $packagesBuyed = $myData->packagePayments;
         $lastPackage = $packagesBuyed[count($packagesBuyed)-1];
         if($lastPackage->status == 0){

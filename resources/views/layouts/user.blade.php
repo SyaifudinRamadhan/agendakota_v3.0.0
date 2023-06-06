@@ -996,8 +996,9 @@
                             <h4 class="h4-org-popup">MY ORGANIZATIONS</h4>
                         </div>
                         @foreach ($myData->organizations as $organization)
-                            <a class="mt-2 link-org-popup"
-                                href="{{ route('organization.event.create', [$organization->id]) }}">
+                            {{-- <a class="mt-2 link-org-popup"
+                                href="{{ route('organization.event.create', [$organization->id]) }}"> --}}
+                            <a href="{{ route('create-event') }}" class="mt-2 link-org-popup">
                                 <li class="li-org-popup">
                                     <div class="icon-org-popup"
                                     style="background-image:url({{ "'" }}{{ $organization->logo == '' ? asset('storage/organization_logo/default_logo.png') : asset('storage/organization_logo/' . $organization->logo) }}{{ "'" }});">
@@ -1010,7 +1011,8 @@
                             <h4 class="h4-org-popup">ORGANIZATIONS INVITE</h4>
                         </div>
                         @foreach ($myData->organizationsTeam as $organizationTeam)
-                            <a class="link-org-popup" href="{{ route('organization.event.create', [$organizationTeam->organizations->id]) }}">
+                            {{-- <a class="link-org-popup" href="{{ route('organization.event.create', [$organizationTeam->organizations->id]) }}"> --}}
+                            <a href="{{ route('create-event') }}" class="link-org-popup">
                                 <li class="li-org-popup">
                                     <div class="icon-org-popup"
                                         style="background-image:url({{ "'" }}{{ $organizationTeam->organizations->logo == '' ? asset('storage/organization_logo/default_logo.png') : asset('storage/organization_logo/' . $organizationTeam->organizations->logo) }}{{ "'" }});">
