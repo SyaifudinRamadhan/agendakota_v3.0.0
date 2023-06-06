@@ -445,12 +445,12 @@ const nextScreen = () => {
     }
 
     if (screens[state.currentScreen].id == "loading") {
-        select(".footer").classList.add('d-none');
+        select(".footer").style.display = "none";
         submit();
     } else if (screens[state.currentScreen].id == "ticketing") {
         select(".footer #next").innerHTML = "Publish";
     } else {
-        select(".footer").classList.remove('d-none');
+        select(".footer").style.display = "flex";
     }
 
     let theScreen = screens[state.currentScreen];
