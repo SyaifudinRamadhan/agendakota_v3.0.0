@@ -900,8 +900,10 @@ function VideoConference() {
             };
             // stopCam.current.addEventListener("click", changeStateCamera);
             // stopMic.current.addEventListener("click", changeStateMic);
-            stopCam.current.onclick = changeStateCamera;
-            stopMic.current.onclick = changeStateMic;
+            if(socket !== null){
+                stopCam.current.onclick = changeStateCamera;
+                stopMic.current.onclick = changeStateMic;
+            }
         }
 
         // Memberikan status camera dan mic
