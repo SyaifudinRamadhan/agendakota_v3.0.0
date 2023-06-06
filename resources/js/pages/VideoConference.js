@@ -614,8 +614,8 @@ const connectToNewUser = (
     call.on("stream", userVideoStream => {
 
         // Memberikan status camera dan mic
-        camState == false? socket.emit("video-close", peer.id, myname) : socket.emit("video-on", peer.id, myname);
-        micState == false? socket.emit("audio-close", peer.id, myname) : socket.emit("audio-on", peer.id, myname);
+        // camState == false? socket.emit("video-close", peer.id, myname) : socket.emit("video-on", peer.id, myname);
+        // micState == false? socket.emit("audio-close", peer.id, myname) : socket.emit("audio-on", peer.id, myname);
 
         console.log(userVideoStream, call);
         if (
@@ -790,7 +790,7 @@ function VideoConference() {
                             track.stop();
                         });
                     }
-                    socket.emit("video-close", peerjs.id, username);
+                    // socket.emit("video-close", peerjs.id, username);
                     // setCoverCam({disabled: true, peerId: peerjs.id, name: username})
                     // vidSTate = false;
                     setVidState(false);
@@ -830,7 +830,7 @@ function VideoConference() {
                                         call.peerConnection.getSenders()
                                     );
                                 }
-                                socket.emit("video-on", peerjs.id, username);
+                                // socket.emit("video-on", peerjs.id, username);
                             });
                             console.log("restart");
                         });
@@ -851,7 +851,7 @@ function VideoConference() {
                         });
                     }
                     // micState = false;
-                    socket.emit("audio-close", peerjs.id, username);
+                    // socket.emit("audio-close", peerjs.id, username);
                     // setLabelMic({peerId: peerjs.id, muted: true})
                     setMicState(false);
                 } else {
@@ -889,7 +889,7 @@ function VideoConference() {
                                         call.peerConnection.getSenders()
                                     );
                                 }
-                                socket.emit("audio-on", peerjs.id, username);
+                                // socket.emit("audio-on", peerjs.id, username);
                             });
                             console.log("restart");
                         });
@@ -898,6 +898,10 @@ function VideoConference() {
                     setMicState(true);
                 }
             };
+
+            // Memberikan status camera dan mic
+            videoState == false? socket.emit("video-close", peerjs.id, username) : socket.emit("video-on", peerjs.id, username);
+            micState == false? socket.emit("audio-close", peerjs.id, username) : socket.emit("audio-on", peerjs.id, username);
             // stopCam.current.addEventListener("click", changeStateCamera);
             // stopMic.current.addEventListener("click", changeStateMic);
             stopCam.current.onclick = changeStateCamera;
@@ -993,10 +997,6 @@ function VideoConference() {
             if (loopSet === 0) {
                 console.log("setup peerjs on calls");
                 peerjs.on("call", call => {
-
-                    // Memberikan status camera dan mic
-                    videoState == false? socket.emit("video-close", peerjs.id, username) : socket.emit("video-on", peerjs.id, username);
-                    micState == false? socket.emit("audio-close", peerjs.id, username) : socket.emit("audio-on", peerjs.id, username);
 
                     console.log("peerjs receive calling from host");
                     console.log(call.peer, peerjs.id);
