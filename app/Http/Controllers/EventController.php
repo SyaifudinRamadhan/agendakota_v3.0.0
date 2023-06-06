@@ -243,7 +243,7 @@ class EventController extends Controller
         if($organization->user->package->event_same_time <= -1){
             $paramCombine = false;
         }else{
-            if(count($eventSameTime) > $organization->user->package->event_same_time){
+            if(count($eventSameTime) >= $organization->user->package->event_same_time){
                 $paramCombine = true;
             }
         }
