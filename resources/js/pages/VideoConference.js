@@ -776,7 +776,7 @@ function VideoConference() {
     };
 
     useEffect(() => {
-        if (userMediaStream !== null) {
+        if (userMediaStream !== null && socket !== null) {
             // let micState = true;
             // let vidSTate = true;
             const changeStateCamera = () => {
