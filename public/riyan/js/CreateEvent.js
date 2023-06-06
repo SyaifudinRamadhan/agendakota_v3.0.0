@@ -1027,7 +1027,10 @@ const submit = () => {
         console.log(res.status);
         let msg;
         try {
-            msg = await res.json();
+            // msg = await res.json();
+            let tmp = await res.text();
+            console.log(msg);
+            msg = JSON.parse(tmp);
         } catch (error) {
             console.log(error);
             console.log(await res.text());
