@@ -797,7 +797,7 @@ function VideoConference() {
 
                     navigator.mediaDevices
                         .getUserMedia({ video: {
-                            facingMode: {exact: "user"},
+                            facingMode: 'user',
                             width: {min: 640, ideal: 1280},
                             height: {min: 360, ideal: 720},
                             aspectRatio: 1.333,
@@ -1022,7 +1022,7 @@ function VideoConference() {
                 navigator.mediaDevices
                     .getUserMedia({
                         video: {
-                            facingMode: {exact: "user"},
+                            facingMode: 'user',
                             width: {min: 640, ideal: 1280},
                             height: {min: 360, ideal: 720},
                             aspectRatio: 1.333,
