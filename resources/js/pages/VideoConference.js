@@ -1004,7 +1004,7 @@ function VideoConference() {
             userMediaStream !== null &&
             socket !== null &&
             peerjs !== null &&
-            username !== null
+            username !== null && room !== null && userData !== null
         ) {
             peerjs.on("call", call => {
 
@@ -1016,6 +1016,8 @@ function VideoConference() {
                 );
                 setIncomingCall(call);
             });
+
+            socket.emit("join-room", room, peerjsOpen, username, userData);
 
             const myVideo = document.createElement("video");
             // myVideo.id = peerjs.id;
@@ -1086,7 +1088,7 @@ function VideoConference() {
 
             // socket.emit("join-room", room, peerjsOpen, username, userData);
         }
-    }, [userMediaStream, socket, peerjs, username]);
+    }, [userMediaStream, socket, peerjs, username, room, userData]);
 
     useEffect(() => {
         if (userMediaStream !== null && peerjs !== null && incomingCall !== null) {
@@ -1328,7 +1330,7 @@ function VideoConference() {
             peer.on("open", id => {
                 setPeerOpen(id);
                 console.log("peerjs open ", id);
-                ioSc.emit("join-room", room.value, id, name.value, userData);
+                // ioSc.emit("join-room", room.value, id, name.value, userData);
                 console.log(peer._open);
             });
 
