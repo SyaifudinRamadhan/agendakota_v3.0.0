@@ -189,29 +189,29 @@ const shareMedia = async (
         if (deviceId === "share-screen") {
             video = await navigator.mediaDevices.getDisplayMedia({
                 video: true,
-                audio: false
+                audio: true
             });
 
-            audio = await navigator.mediaDevices.getUserMedia({
-                video: false,
-                audio: false
-            });
+            // audio = await navigator.mediaDevices.getUserMedia({
+            //     video: false,
+            //     audio: false
+            // });
         } else {
             video = await navigator.mediaDevices.getUserMedia({
                 video: {
                     deviceId: { exact: deviceId }
                 },
-                audio: true
+                audio: false
             });
 
-            audio = new MediaStream([...video.getTracks()]);
+            // audio = new MediaStream([...video.getTracks()]);
         }
 
         if (video && audio) {
             let finalAV;
             finalAV = new MediaStream([
-                ...video.getVideoTracks(),
-                ...audio.getAudioTracks()
+                ...video.getTracks()
+                // ...audio.getAudioTracks()
             ]);
 
             let videoEl = document.createElement("video");
@@ -797,7 +797,11 @@ function VideoConference() {
                     // *Menghapus videtrack dari videoStreamAns
 
                     navigator.mediaDevices
-                        .getUserMedia({ video: true, audio: false })
+                        .getUserMedia({ video: {
+                            width: {min: 640, ideal: 1280},
+                            height: {min: 360, ideal: 720},
+                            aspectRatio: 1.333
+                        }, audio: false })
                         .then(stream => {
                             stream.getVideoTracks().forEach(vidTrack => {
                                 userMediaStream.addTrack(vidTrack);
@@ -1013,7 +1017,11 @@ function VideoConference() {
 
                 navigator.mediaDevices
                     .getUserMedia({
-                        video: true,
+                        video: {
+                            width: {min: 640, ideal: 1280},
+                            height: {min: 360, ideal: 720},
+                            aspectRatio: 1.333
+                        },
                         audio: true
                     })
                     .then(stream => {
