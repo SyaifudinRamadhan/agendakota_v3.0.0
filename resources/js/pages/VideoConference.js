@@ -76,10 +76,10 @@ const setCoverCam = ({ disabled = false, peerId, name }) => {
         parentGrid.appendChild(cover);
     }
     if (disabled) {
-        video.style.display = "none";
+        video.classList.add('d-none');
         cover.classList.remove("d-none");
     } else {
-        video.style.display = "unset";
+        video.classList.remove('d-none');
         cover.classList.add("d-none");
     }
 };
@@ -207,7 +207,7 @@ const shareMedia = async (
             // audio = new MediaStream([...video.getTracks()]);
         }
 
-        if (video && audio) {
+        if (video) {
             let finalAV;
             finalAV = new MediaStream([
                 ...video.getTracks()
