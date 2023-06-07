@@ -798,9 +798,9 @@ function VideoConference() {
                     navigator.mediaDevices
                         .getUserMedia({ video: {
                             facingMode: 'user',
-                            width: {min: 640, ideal: 1280},
-                            height: {min: 360, ideal: 720},
-                            aspectRatio: 1.333,
+                            // width: {min: 640, ideal: 1280},
+                            // height: {min: 360, ideal: 720},
+                            // aspectRatio: 1.333,
                         }, audio: false })
                         .then(stream => {
                             stream.getVideoTracks().forEach(vidTrack => {
@@ -1023,9 +1023,9 @@ function VideoConference() {
                     .getUserMedia({
                         video: {
                             facingMode: 'user',
-                            width: {min: 640, ideal: 1280},
-                            height: {min: 360, ideal: 720},
-                            aspectRatio: 1.333,
+                            // width: {min: 640, ideal: 1280},
+                            // height: {min: 360, ideal: 720},
+                            // aspectRatio: 1.333,
                         },
                         audio: true
                     })
