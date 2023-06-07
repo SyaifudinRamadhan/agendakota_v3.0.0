@@ -823,9 +823,9 @@ function VideoConference() {
                                 for(let x in peers){
                                     console.log("===== Run restart ======", peers[x]);
                                     if (
-                                        peers[x].peer.match(
+                                        !peers[x].peer.match(
                                             /universal-media-share/gi
-                                        ) === false
+                                        )
                                     ) {
                                         console.log("restart");
                                         console.log(peers[x].peerConnection
@@ -887,9 +887,9 @@ function VideoConference() {
                                 for(let x in peers){
                                     console.log("===== Run restart ======", peers[x]);
                                     if (
-                                        peers[x].peer.match(
+                                        !peers[x].peer.match(
                                             /universal-media-share/gi
-                                        ) === false
+                                        )
                                     ) {
                                         console.log("restart");
                                         console.log(peers[x].peerConnection
