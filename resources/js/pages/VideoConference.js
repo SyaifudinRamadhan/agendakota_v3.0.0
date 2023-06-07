@@ -820,21 +820,21 @@ function VideoConference() {
                                 //     );
                                 // }
                                 // socket.emit("video-on", peerjs.id, username);
-                                peers.forEach(connection => {
-                                    console.log("===== Run restart ======", connection);
+                                for(let x in peers){
+                                    console.log("===== Run restart ======", peers[x]);
                                     if (
-                                        connection.peer.match(
+                                        peers[x].peer.match(
                                             /universal-media-share/gi
                                         ) === false
                                     ) {
                                         console.log("restart");
-                                        console.log(connection.peerConnection
+                                        console.log(peers[x].peerConnection
                                             .getSenders()[1]);
-                                        connection.peerConnection
+                                        peers[x].peerConnection
                                             .getSenders()[1]
                                             .replaceTrack(vidTrack);
                                     }
-                                });
+                                }
                             });
                         });
                     // vidSTate = true;
@@ -883,21 +883,22 @@ function VideoConference() {
                                 //         .replaceTrack(audTrack);
                                 // }
                                 // socket.emit("audio-on", peerjs.id, username);
-                                peers.forEach(connection => {
-                                    console.log("===== Run restart ======", connection);
+
+                                for(let x in peers){
+                                    console.log("===== Run restart ======", peers[x]);
                                     if (
-                                        connection.peer.match(
+                                        peers[x].peer.match(
                                             /universal-media-share/gi
                                         ) === false
                                     ) {
                                         console.log("restart");
-                                        console.log(connection.peerConnection
+                                        console.log(peers[x].peerConnection
                                             .getSenders()[0]);
-                                        connection.peerConnection
+                                        peers[x].peerConnection
                                             .getSenders()[0]
                                             .replaceTrack(audTrack);
                                     }
-                                });
+                                }
                             });
                         });
                     // setLabelMic({peerId: peerjs.id})
