@@ -790,9 +790,9 @@ function VideoConference() {
                     setVidState(false);
                 } else {
                     console.log("stop cam dijalankan restart");
-                    userMediaStream.getVideoTracks().forEach(track => {
-                        userMediaStream.removeTrack(track);
-                    });
+                    // userMediaStream.getVideoTracks().forEach(track => {
+                    //     userMediaStream.removeTrack(track);
+                    // });
                     // *Menghapus videtrack dari videoStreamAns
 
                     navigator.mediaDevices
@@ -804,7 +804,11 @@ function VideoConference() {
                         .then(stream => {
                             stream.getVideoTracks().forEach(vidTrack => {
                                 userMediaStream.addTrack(vidTrack);
-
+                                userMediaStream.getVideoTracks().forEach(track => {
+                                    if(track.readyState == "ended"){
+                                        userMediaStream.removeTrack(track);
+                                    }
+                                });
                                 // setCoverCam({peerId: peerjs.id, name: username})
                                 // if (peerCall !== null) {
                                 //     peerCall.peerConnection
