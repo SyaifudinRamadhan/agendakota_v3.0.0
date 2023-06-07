@@ -671,7 +671,6 @@ const addVideoStream = (
         videoEl.addEventListener("loadedmetadata", () => {
             videoEl.play();
         });
-        videoEl.style.display = "unset";
         const videoGrid = document.createElement("div");
         videoGrid.id = id;
         videoGrid.classList.add("video-grid");
