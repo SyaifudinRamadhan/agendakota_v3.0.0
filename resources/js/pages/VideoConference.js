@@ -741,7 +741,7 @@ function VideoConference() {
     const [userMediaStreamAns, setUserMediaStreanAns] = useState(null);
     const [micState, setMicState] = useState(true);
     const [videoState, setVidState] = useState(true);
-    const [call, setCall] = useState(null);
+    const [incomingCall, setIncomingCall] = useState(null);
     const [peerCall, setCalling] = useState(null);
     const [peerCallAns, setCallingAns] = useState(null);
     const [isShare, setShareState] = useState(false);
@@ -785,11 +785,6 @@ function VideoConference() {
                     userMediaStream.getVideoTracks().forEach(track => {
                         track.stop();
                     });
-                    if (userMediaStreamAns !== null) {
-                        userMediaStreamAns.getVideoTracks().forEach(track => {
-                            track.stop();
-                        });
-                    }
                     // socket.emit("video-close", peerjs.id, username);
                     // setCoverCam({disabled: true, peerId: peerjs.id, name: username})
                     // vidSTate = false;
@@ -800,19 +795,13 @@ function VideoConference() {
                         userMediaStream.removeTrack(track);
                     });
                     // *Menghapus videtrack dari videoStreamAns
-                    if(userMediaStreamAns !== null){
-                        userMediaStreamAns.getVideoTracks().forEach(track => {
-                            userMediaStreamAns.removeTrack(track);
-                        });
-                    }
+                    
                     navigator.mediaDevices
                         .getUserMedia({ video: true, audio: false })
                         .then(stream => {
                             stream.getVideoTracks().forEach(vidTrack => {
                                 userMediaStream.addTrack(vidTrack);
-                                if(userMediaStreamAns !== null){
-                                    userMediaStreamAns.addTrack(vidTrack);
-                                }
+                                
                                 // setCoverCam({peerId: peerjs.id, name: username})
                                 if (peerCall !== null) {
                                     peerCall.peerConnection
@@ -822,12 +811,12 @@ function VideoConference() {
                                         peerCall.peerConnection.getSenders()
                                     );
                                 }
-                                if (peerCallAns !== null && call !== null) {
-                                    call.peerConnection
+                                if (peerCallAns !== null) {
+                                    peerCallAns.peerConnection
                                         .getSenders()[1]
                                         .replaceTrack(vidTrack);
                                     console.log(
-                                        call.peerConnection.getSenders()
+                                        peerCallAns.peerConnection.getSenders()
                                     );
                                 }
                                 // socket.emit("video-on", peerjs.id, username);
@@ -845,11 +834,7 @@ function VideoConference() {
                     userMediaStream.getAudioTracks().forEach(track => {
                         track.stop();
                     });
-                    if (userMediaStreamAns !== null) {
-                        userMediaStreamAns.getAudioTracks().forEach(track => {
-                            track.stop();
-                        });
-                    }
+                    
                     // micState = false;
                     // socket.emit("audio-close", peerjs.id, username);
                     // setLabelMic({peerId: peerjs.id, muted: true})
@@ -859,19 +844,12 @@ function VideoConference() {
                         userMediaStream.removeTrack(track);
                     });
                     // *Menghapus videtrack dari videoStreamAns
-                    if(userMediaStreamAns !== null){
-                        userMediaStreamAns.getAudioTracks().forEach(track => {
-                            userMediaStreamAns.removeTrack(track);
-                        });
-                    }
+                    
                     navigator.mediaDevices
                         .getUserMedia({ video: false, audio: true })
                         .then(stream => {
                             stream.getAudioTracks().forEach(audTrack => {
                                 userMediaStream.addTrack(audTrack);
-                                if(userMediaStreamAns !== null){
-                                    userMediaStreamAns.addTrack(audTrack);
-                                }
 
                                 if (peerCall !== null) {
                                     peerCall.peerConnection
@@ -881,12 +859,12 @@ function VideoConference() {
                                         peerCall.peerConnection.getSenders()
                                     );
                                 }
-                                if (peerCallAns !== null && call !== null) {
-                                    call.peerConnection
+                                if (peerCallAns !== null) {
+                                    peerCallAns.peerConnection
                                         .getSenders()[0]
                                         .replaceTrack(audTrack);
                                     console.log(
-                                        call.peerConnection.getSenders()
+                                        peerCallAns.peerConnection.getSenders()
                                     );
                                 }
                                 // socket.emit("audio-on", peerjs.id, username);
@@ -910,7 +888,7 @@ function VideoConference() {
          micState == false? socket.emit("audio-close", peerjs.id, username) : socket.emit("audio-on", peerjs.id, username);
  
        }
-    }, [userMediaStream, userMediaStreamAns, peerCall, peerCallAns, call, videoState, micState, socket]);
+    }, [userMediaStream, peerCall, peerCallAns, videoState, micState, socket]);
 
     useEffect(() => {
         if (mediaSelected !== null && isHost) {
@@ -999,24 +977,6 @@ function VideoConference() {
         ) {
             if (loopSet === 0) {
                 console.log("setup peerjs on calls");
-                peerjs.on("call", call => {
-
-                    console.log("peerjs receive calling from host");
-                    console.log(call.peer, peerjs.id);
-                    console.log(
-                        lastMediaId,
-                        peerjs.id.match(/universal-media-share/gi)
-                    );
-                    navigator.mediaDevices
-                        .getUserMedia({ video: true, audio: true })
-                        .then(stream => {
-                            setUserMediaStreanAns(stream);
-                            setCall(call);
-                        })
-                        .catch(err => {
-                            console.log("Failed to get local stream", err);
-                        });
-                });
 
                 navigator.mediaDevices
                     .getUserMedia({
@@ -1046,6 +1006,17 @@ function VideoConference() {
             peerjs !== null &&
             username !== null
         ) {
+            peerjs.on("call", call => {
+
+                console.log("peerjs receive calling from host");
+                console.log(call.peer, peerjs.id);
+                console.log(
+                    lastMediaId,
+                    peerjs.id.match(/universal-media-share/gi)
+                );
+                setIncomingCall(call);
+            });
+
             const myVideo = document.createElement("video");
             // myVideo.id = peerjs.id;
             myVideo.muted = true;
@@ -1118,56 +1089,56 @@ function VideoConference() {
     }, [userMediaStream, socket, peerjs, username]);
 
     useEffect(() => {
-        if (userMediaStreamAns !== null && peerjs !== null && call !== null) {
-            console.log(call.peer);
+        if (userMediaStream !== null && peerjs !== null && incomingCall !== null) {
+            console.log(incomingCall.peer);
             try {
-                let callAns = call.answer(userMediaStreamAns);
-                console.log(callAns, call);
+                let callAns = incomingCall.answer(userMediaStream);
+                console.log(callAns, incomingCall);
                 setCallingAns(callAns);
 
                 // video.id = call.peer;
-                call.on("stream", remoteStream => {
-                    if (call.peer.match(/universal-media-share/gi)) {
+                incomingCall.on("stream", remoteStream => {
+                    if (incomingCall.peer.match(/universal-media-share/gi)) {
                         if (
-                            peers[call.peer] == undefined ||
-                            peers[call.peer] == null
+                            peers[incomingCall.peer] == undefined ||
+                            peers[incomingCall.peer] == null
                         ) {
                             const video = document.createElement("video");
                             pinnedLayout(
                                 remoteStream,
-                                call.peer.split("name")[1],
+                                incomingCall.peer.split("name")[1],
                                 video,
                                 videoGrids,
-                                call.peer
+                                incomingCall.peer
                             );
-                            peers[call.peer] = call;
+                            peers[incomingCall.peer] = incomingCall;
                             console.log("Masuk univerasl medoa  share screen");
 
-                            call.on("close", callIn => {
+                            incomingCall.on("close", callIn => {
                                 video.remove();
                                 console.log(callIn);
                                 console.log("peer close remove divs");
                                 RemoveUnusedDivs(videoGrids);
-                                delete peers[call.peer];
+                                delete peers[incomingCall.peer];
                             });
                         }
                     } else {
                         if (
                             (lastMediaId === undefined ||
                                 remoteStream.id !== lastMediaId) &&
-                            call.peer !== peerjs.id &&
+                                incomingCall.peer !== peerjs.id &&
                             remoteStream.id !== myVideoStream.id
                         ) {
                             const video = document.createElement("video");
                             console.log(remoteStream);
-                            console.log(userMediaStreamAns);
+                            console.log(userMediaStream);
                             console.log("Menerima panggilan dari host");
                             addVideoStream(
                                 videoGrids,
                                 video,
                                 remoteStream,
-                                otherUsername[call.peer],
-                                call.peer,
+                                otherUsername[incomingCall.peer],
+                                incomingCall.peer,
                                 peerjs.id,
                                 socket,
                                 isHost
@@ -1175,16 +1146,16 @@ function VideoConference() {
 
                             setUserAdd(true);
                             lastMediaId = remoteStream.id;
-                            peers[call.peer] = call;
+                            peers[incomingCall.peer] = incomingCall;
                             mode = "host";
 
-                            call.on("close", callIn => {
+                            incomingCall.on("close", callIn => {
                                 video.remove();
                                 console.log(callIn);
                                 console.log("peer close remove divs");
                                 RemoveUnusedDivs(videoGrids);
-                                delete otherUsername[call.peer]
-                                delete peers[call.peer];
+                                delete otherUsername[incomingCall.peer]
+                                delete peers[incomingCall.peer];
                             });
                         }
                     }
@@ -1193,7 +1164,7 @@ function VideoConference() {
                 console.log(error);
             }
         }
-    }, [userMediaStreamAns, peerjs, call]);
+    }, [userMediaStream, peerjs, incomingCall]);
 
     useEffect(() => {
         if (
