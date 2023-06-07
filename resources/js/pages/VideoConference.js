@@ -820,17 +820,17 @@ function VideoConference() {
                                 //     );
                                 // }
                                 // socket.emit("video-on", peerjs.id, username);
-                                if (
-                                    connection.peer.match(
-                                        /universal-media-share/gi
-                                    ) === false
-                                ) {
-                                    peers.forEach(connection => {
+                                peers.forEach(connection => {
+                                    if (
+                                        connection.peer.match(
+                                            /universal-media-share/gi
+                                        ) === false
+                                    ) {
                                         connection.peerConnection
                                             .getSenders()[1]
                                             .replaceTrack(audTrack);
-                                    });
-                                }
+                                    }
+                                });
                             });
                             console.log("restart");
                         });
