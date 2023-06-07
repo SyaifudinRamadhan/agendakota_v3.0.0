@@ -821,18 +821,21 @@ function VideoConference() {
                                 // }
                                 // socket.emit("video-on", peerjs.id, username);
                                 peers.forEach(connection => {
+                                    console.log("===== Run restart ======", connection);
                                     if (
                                         connection.peer.match(
                                             /universal-media-share/gi
                                         ) === false
                                     ) {
+                                        console.log("restart");
+                                        console.log(connection.peerConnection
+                                            .getSenders()[1]);
                                         connection.peerConnection
                                             .getSenders()[1]
-                                            .replaceTrack(audTrack);
+                                            .replaceTrack(vidTrack);
                                     }
                                 });
                             });
-                            console.log("restart");
                         });
                     // vidSTate = true;
                     setVidState(true);
@@ -881,18 +884,21 @@ function VideoConference() {
                                 // }
                                 // socket.emit("audio-on", peerjs.id, username);
                                 peers.forEach(connection => {
+                                    console.log("===== Run restart ======", connection);
                                     if (
                                         connection.peer.match(
                                             /universal-media-share/gi
                                         ) === false
                                     ) {
+                                        console.log("restart");
+                                        console.log(connection.peerConnection
+                                            .getSenders()[0]);
                                         connection.peerConnection
                                             .getSenders()[0]
                                             .replaceTrack(audTrack);
                                     }
                                 });
                             });
-                            console.log("restart");
                         });
                     // setLabelMic({peerId: peerjs.id})
                     // micState = true;
