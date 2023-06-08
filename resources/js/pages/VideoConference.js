@@ -254,7 +254,7 @@ const shareMedia = async (
                     }
                     peerjs.destroy();
                     finalAV = null;
-                    audio = null;
+                    // audio = null;
                     video = null;
                     videoEl.remove();
                     fnSetShareState(false);
@@ -277,7 +277,7 @@ const shareMedia = async (
                 }
                 peerjs.destroy();
                 finalAV = null;
-                audio = null;
+                // audio = null;
                 video = null;
                 videoEl.remove();
                 fnSetShareState(false);
@@ -303,7 +303,8 @@ const shareMedia = async (
             });
 
             fnSetAudioTracks(audioTracks);
-
+            console.log(audioTracks);
+            console.log(finalAV);
             return finalAV;
         } else {
             console.log("Failed, AV not success get source");
@@ -1575,7 +1576,7 @@ function VideoConference() {
                                         }}
                                     >
                                         <i className="bi bi-mic"></i>
-                                        <span>{el.labelDEvice}</span>
+                                        <span>{el.labelDevice}</span>
                                     </div>
                                 )
                             })}
