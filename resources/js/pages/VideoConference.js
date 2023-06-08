@@ -870,27 +870,13 @@ function VideoConference() {
                     navigator.mediaDevices
                         .getUserMedia({ video: true, audio: true })
                         .then(stream => {
-                            stream.getVideoTracks().forEach(vidTrack => {
-                                for(let x in peers){
-                                    console.log("===== Run restart temp audio-video ======", peers[x]);
-                                    if (
-                                        !peers[x].peer.match(
-                                            /universal-media-share/gi
-                                        )
-                                    ) {
-                                        console.log("restart temp audio-video");
-                                        console.log(peers[x].peerConnection
-                                            .getSenders()[1]);
-                                        peers[x].peerConnection
-                                            .getSenders()[1]
-                                            .replaceTrack(vidTrack);
-                                    }
-                                }
-                                vidTrack.stop();
-                            })
                             stream.getAudioTracks().forEach(audTrack => {
                                 userMediaStream.addTrack(audTrack);
-
+                                userMediaStream.getAudioTracks().forEach(track => {
+                                    if(track.readyState == "ended"){
+                                        userMediaStream.removeTrack(track);
+                                    }
+                                });
                                 // if (peerCall !== null) {
                                 //     peerCall.peerConnection
                                 //         .getSenders()[0]
@@ -906,7 +892,7 @@ function VideoConference() {
                                 //     );
                                 //     hasAnsweared.peerConnection
                                 //         .getSenders()[0]
-                                //         .replaceTrack(audTrack);
+                                //         .replaceTrack(agetVideoTracksudTrack);
                                 // }
                                 // socket.emit("audio-on", peerjs.id, username);
 
