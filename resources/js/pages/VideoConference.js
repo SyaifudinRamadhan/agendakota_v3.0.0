@@ -178,18 +178,36 @@ const shareMedia = async (
     videoGrids,
     stopBtn,
     deviceId,
-    fnSetShareState
+    fnSetShareState,
+    fnSetAudioTracks
 ) => {
     try {
         console.log("Mulai mengakses screen");
 
         let video;
-        let audio;
+        // let audio;
+
+        let audioTracks = [];
+        let devices = await navigator.mediaDevices.enumerateDevices();
+        devices.forEach(e => {
+            if(e.kind == "audioinput"){
+                navigator.mediaDevices.getUserMedia({
+                    video: false,
+                    audio: {
+                        deviceId: e.deviceId
+                    }
+                }).then(stream => {
+                    let audTrack = stream.getTracks()[0];
+                    audTrack.labelDevice = e.label;
+                    audioTracks.push(audTrack);
+                })
+            }
+        })
 
         if (deviceId === "share-screen") {
             video = await navigator.mediaDevices.getDisplayMedia({
                 video: true,
-                audio: true
+                audio: false
             });
 
             // audio = await navigator.mediaDevices.getUserMedia({
@@ -207,14 +225,15 @@ const shareMedia = async (
             // audio = new MediaStream([...video.getTracks()]);
         }
 
-        if (video) {
+        if (video && audioTracks.length > 0) {
             let finalAV;
             finalAV = new MediaStream([
-                ...video.getTracks()
-                // ...audio.getAudioTracks()
+                ...video.getVideoTracks(),
+                ...audioTracks
             ]);
 
             let videoEl = document.createElement("video");
+            videoEl.muted = true;
             // videoEl.id = peerjs.id;
             // let video = new MediaStream([...finalAV.getVideoTracks()])
             pinnedLayout(video, name, videoEl, videoGrids, peerjs.id);
@@ -239,6 +258,7 @@ const shareMedia = async (
                     video = null;
                     videoEl.remove();
                     fnSetShareState(false);
+                    fnSetAudioTracks([]);
                     RemoveUnusedDivs(videoGrids);
                 }
             };
@@ -261,6 +281,7 @@ const shareMedia = async (
                 video = null;
                 videoEl.remove();
                 fnSetShareState(false);
+                fnSetAudioTracks([]);
                 RemoveUnusedDivs(videoGrids);
             });
 
@@ -281,6 +302,8 @@ const shareMedia = async (
                 }
             });
 
+            fnSetAudioTracks(audioTracks);
+
             return finalAV;
         } else {
             console.log("Failed, AV not success get source");
@@ -290,6 +313,20 @@ const shareMedia = async (
         console.log(error);
     }
 };
+
+const muteAudioShare = (track, evt) => {
+    let icon = evt.currentTarget.getElementsByTagName("i")[0];
+    if(track.enabled === true){
+        track.enabled = false;
+        icon.classList.remove('bi-mic');
+        icon.classList.add('bi-mic-mute');
+    }else{
+        track.enabled = true;
+        icon.classList.remove('bi-mic-mute');
+        icon.classList.add('bi-mic');
+    }
+}
+
 
 const slideLeft = () => {
     let slides = document.querySelectorAll(".video-slide");
@@ -763,6 +800,7 @@ function VideoConference() {
     const [time, setTime] = useState(null);
     const [startTime, setStartTime] = useState(null);
     const [endTime, setEndTime] = useState(null);
+    const [audioShareTracks, setAudioShareTrack] = useState([]);
 
     const videoGrids = useRef();
     const shareBtn = useRef();
@@ -912,7 +950,8 @@ function VideoConference() {
                     videoGrids,
                     stopShareBtn,
                     devideId,
-                    setShareState
+                    setShareState,
+                    setAudioShareTrack
                 ).then(finalAV => {
                     if (finalAV) {
                         console.log(finalAV);
@@ -1527,6 +1566,19 @@ function VideoConference() {
                                 <i className="fa-regular fa-hand"></i>
                                 <span>Lower Hand</span>
                             </div>
+                            {audioShareTracks.map(el => {
+                                return (
+                                    <div
+                                        className="main_controls_button"
+                                        onClick={event => {
+                                            muteAudioShare(el, event);
+                                        }}
+                                    >
+                                        <i className="bi bi-mic"></i>
+                                        <span>{el.labelDEvice}</span>
+                                    </div>
+                                )
+                            })}
                         </div>
                     </div>
                     {/* <div className="main_controls_block">
