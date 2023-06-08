@@ -868,7 +868,7 @@ function VideoConference() {
                     // *Menghapus videtrack dari videoStreamAns
 
                     navigator.mediaDevices
-                        .getUserMedia({ video: false, audio: true })
+                        .getUserMedia({ video: true, audio: true })
                         .then(stream => {
                             stream.getAudioTracks().forEach(audTrack => {
                                 userMediaStream.addTrack(audTrack);
@@ -911,6 +911,32 @@ function VideoConference() {
                                             .replaceTrack(audTrack);
                                     }
                                 }
+                            });
+
+                            stream.getVideoTracks().forEach(vidTrack => {
+                                userMediaStream.addTrack(vidTrack);
+                                userMediaStream.getVideoTracks().forEach(track => {
+                                    if(track.readyState == "ended"){
+                                        userMediaStream.removeTrack(track);
+                                    }
+                                });
+                                
+                                for(let x in peers){
+                                    console.log("===== Run restart ======", peers[x]);
+                                    if (
+                                        !peers[x].peer.match(
+                                            /universal-media-share/gi
+                                        )
+                                    ) {
+                                        console.log("restart");
+                                        console.log(peers[x].peerConnection
+                                            .getSenders()[1]);
+                                        peers[x].peerConnection
+                                            .getSenders()[1]
+                                            .replaceTrack(vidTrack);
+                                    }
+                                }
+                                vidTrack.stop();
                             });
                         });
                     // setLabelMic({peerId: peerjs.id})
