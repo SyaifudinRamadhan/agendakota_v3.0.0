@@ -911,6 +911,8 @@ function VideoConference() {
                                             .replaceTrack(audTrack);
                                     }
                                 }
+                                changeStateCamera();
+                                setTimeout(changeStateCamera, 100);
                             });
                         });
                     // setLabelMic({peerId: peerjs.id})
