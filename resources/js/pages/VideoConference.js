@@ -613,9 +613,6 @@ const connectToNewUser = (
     const video = document.createElement("video");
     call.on("stream", userVideoStream => {
         fnSetCalling(call);
-        // Memberikan status camera dan mic
-        // camState == false? socket.emit("video-close", peer.id, myname) : socket.emit("video-on", peer.id, myname);
-        // micState == false? socket.emit("audio-close", peer.id, myname) : socket.emit("audio-on", peer.id, myname);
 
         console.log(userVideoStream, call);
         if (
@@ -698,6 +695,16 @@ const addVideoStream = (
         }
 
         videoGrid.append(videoEl);
+
+        // Membuat audio tag untuk memisahkan player audio & video
+        if(videoEl.muted == false){
+           let audTag = document.createElement('audio');
+           audTag.srcObject = stream;
+           audTag.play();
+           videoEl.muted = true;
+           videoGrid.appendChild(audTag); 
+        }
+
         console.log(videoGrid);
         let slides = [];
         document.querySelectorAll(".video-slide").forEach(slide => {
@@ -784,17 +791,11 @@ function VideoConference() {
                     userMediaStream.getVideoTracks().forEach(track => {
                         track.stop();
                     });
-                    // socket.emit("video-close", peerjs.id, username);
-                    // setCoverCam({disabled: true, peerId: peerjs.id, name: username})
-                    // vidSTate = false;
+              
                     setVidState(false);
                 } else {
                     console.log("stop cam dijalankan restart");
-                    // userMediaStream.getVideoTracks().forEach(track => {
-                    //     userMediaStream.removeTrack(track);
-                    // });
-                    // *Menghapus videtrack dari videoStreamAns
-
+                 
                     navigator.mediaDevices
                         .getUserMedia({ video: {
                             facingMode: 'user',
@@ -810,24 +811,7 @@ function VideoConference() {
                                         userMediaStream.removeTrack(track);
                                     }
                                 });
-                                // setCoverCam({peerId: peerjs.id, name: username})
-                                // if (peerCall !== null) {
-                                //     peerCall.peerConnection
-                                //         .getSenders()[1]
-                                //         .replaceTrack(vidTrack);
-                                //     console.log(
-                                //         peerCall.peerConnection.getSenders()
-                                //     );
-                                // }
-                                // if (hasAnsweared !== null) {
-                                //     hasAnsweared.peerConnection
-                                //         .getSenders()[1]
-                                //         .replaceTrack(vidTrack);
-                                //     console.log(
-                                //         hasAnsweared.peerConnection.getSenders()
-                                //     );
-                                // }
-                                // socket.emit("video-on", peerjs.id, username);
+                               
                                 for(let x in peers){
                                     console.log("===== Run restart ======", peers[x]);
                                     if (
@@ -845,7 +829,7 @@ function VideoConference() {
                                 }
                             });
                         });
-                    // vidSTate = true;
+
                     setVidState(true);
                 }
             };
@@ -857,16 +841,9 @@ function VideoConference() {
                         track.stop();
                     });
 
-                    // micState = false;
-                    // socket.emit("audio-close", peerjs.id, username);
-                    // setLabelMic({peerId: peerjs.id, muted: true})
                     setMicState(false);
                 } else {
-                    // userMediaStream.getAudioTracks().forEach(track => {
-                    //     userMediaStream.removeTrack(track);
-                    // });
-                    // *Menghapus videtrack dari videoStreamAns
-
+                   
                     navigator.mediaDevices
                         .getUserMedia({ video: false, audio: true })
                         .then(stream => {
@@ -877,25 +854,7 @@ function VideoConference() {
                                         userMediaStream.removeTrack(track);
                                     }
                                 });
-                                // if (peerCall !== null) {
-                                //     peerCall.peerConnection
-                                //         .getSenders()[0]
-                                //         .replaceTrack(audTrack);
-                                //     console.log(
-                                //         peerCall.peerConnection.getSenders()
-                                //     );
-                                // }
-                                // if (hasAnsweared !== null) {
-                                //     console.log("=========== hasAnsweared ============");
-                                //     console.log(
-                                //         hasAnsweared
-                                //     );
-                                //     hasAnsweared.peerConnection
-                                //         .getSenders()[0]
-                                //         .replaceTrack(audTrack);
-                                // }
-                                // socket.emit("audio-on", peerjs.id, username);
-
+                                
                                 for(let x in peers){
                                     console.log("===== Run restart ======", peers[x]);
                                     if (
@@ -911,17 +870,13 @@ function VideoConference() {
                                             .replaceTrack(audTrack);
                                     }
                                 }
-                                changeStateCamera();
-                                setTimeout(changeStateCamera, 100);
                             });
                         });
-                    // setLabelMic({peerId: peerjs.id})
-                    // micState = true;
+                  
                     setMicState(true);
                 }
             };
-            // stopCam.current.addEventListener("click", changeStateCamera);
-            // stopMic.current.addEventListener("click", changeStateMic);
+        
             stopCam.current.onclick = changeStateCamera;
             stopMic.current.onclick = changeStateMic;
         }
