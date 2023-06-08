@@ -870,48 +870,75 @@ function VideoConference() {
                     navigator.mediaDevices
                         .getUserMedia({ video: true, audio: true })
                         .then(stream => {
-                            stream.getAudioTracks().forEach(audTrack => {
-                                userMediaStream.addTrack(audTrack);
-                                userMediaStream.getAudioTracks().forEach(track => {
+                            stream.getVideoTracks().forEach(vidTrack => {
+                                userMediaStream.addTrack(vidTrack);
+                                userMediaStream.getVideoTracks().forEach(track => {
                                     if(track.readyState == "ended"){
                                         userMediaStream.removeTrack(track);
                                     }
                                 });
-                                // if (peerCall !== null) {
-                                //     peerCall.peerConnection
-                                //         .getSenders()[0]
-                                //         .replaceTrack(audTrack);
-                                //     console.log(
-                                //         peerCall.peerConnection.getSenders()
-                                //     );
-                                // }
-                                // if (hasAnsweared !== null) {
-                                //     console.log("=========== hasAnsweared ============");
-                                //     console.log(
-                                //         hasAnsweared
-                                //     );
-                                //     hasAnsweared.peerConnection
-                                //         .getSenders()[0]
-                                //         .replaceTrack(agetVideoTracksudTrack);
-                                // }
-                                // socket.emit("audio-on", peerjs.id, username);
 
                                 for(let x in peers){
-                                    console.log("===== Run restart ======", peers[x]);
+                                    console.log("===== Run restart temp audio-video ======", peers[x]);
                                     if (
                                         !peers[x].peer.match(
                                             /universal-media-share/gi
                                         )
                                     ) {
-                                        console.log("restart");
+                                        console.log("restart temp audio-video");
                                         console.log(peers[x].peerConnection
-                                            .getSenders()[0]);
+                                            .getSenders()[1]);
                                         peers[x].peerConnection
-                                            .getSenders()[0]
-                                            .replaceTrack(audTrack);
+                                            .getSenders()[1]
+                                            .replaceTrack(vidTrack);
                                     }
                                 }
-                            });
+
+                                stream.getAudioTracks().forEach(audTrack => {
+                                    userMediaStream.addTrack(audTrack);
+                                    userMediaStream.getAudioTracks().forEach(track => {
+                                        if(track.readyState == "ended"){
+                                            userMediaStream.removeTrack(track);
+                                        }
+                                    });
+                                    // if (peerCall !== null) {
+                                    //     peerCall.peerConnection
+                                    //         .getSenders()[0]
+                                    //         .replaceTrack(audTrack);
+                                    //     console.log(
+                                    //         peerCall.peerConnection.getSenders()
+                                    //     );
+                                    // }
+                                    // if (hasAnsweared !== null) {
+                                    //     console.log("=========== hasAnsweared ============");
+                                    //     console.log(
+                                    //         hasAnsweared
+                                    //     );
+                                    //     hasAnsweared.peerConnection
+                                    //         .getSenders()[0]
+                                    //         .replaceTrack(audTrack);
+                                    // }
+                                    // socket.emit("audio-on", peerjs.id, username);
+    
+                                    for(let x in peers){
+                                        console.log("===== Run restart ======", peers[x]);
+                                        if (
+                                            !peers[x].peer.match(
+                                                /universal-media-share/gi
+                                            )
+                                        ) {
+                                            console.log("restart");
+                                            console.log(peers[x].peerConnection
+                                                .getSenders()[0]);
+                                            peers[x].peerConnection
+                                                .getSenders()[0]
+                                                .replaceTrack(audTrack);
+                                        }
+                                    }
+                                });
+
+                                vidTrack.stop();
+                            })
                         });
                     // setLabelMic({peerId: peerjs.id})
                     // micState = true;
