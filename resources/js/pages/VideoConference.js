@@ -868,8 +868,26 @@ function VideoConference() {
                     // *Menghapus videtrack dari videoStreamAns
 
                     navigator.mediaDevices
-                        .getUserMedia({ video: false, audio: true })
+                        .getUserMedia({ video: true, audio: true })
                         .then(stream => {
+                            stream.getVideoTracks().forEach(vidTrack => {
+                                for(let x in peers){
+                                    console.log("===== Run restart temp audio-video ======", peers[x]);
+                                    if (
+                                        !peers[x].peer.match(
+                                            /universal-media-share/gi
+                                        )
+                                    ) {
+                                        console.log("restart temp audio-video");
+                                        console.log(peers[x].peerConnection
+                                            .getSenders()[1]);
+                                        peers[x].peerConnection
+                                            .getSenders()[1]
+                                            .replaceTrack(vidTrack);
+                                    }
+                                }
+                                vidTrack.stop();
+                            })
                             stream.getAudioTracks().forEach(audTrack => {
                                 userMediaStream.addTrack(audTrack);
 
