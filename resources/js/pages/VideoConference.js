@@ -49,6 +49,9 @@ const autoArangeDelete = ({ slides, startPosition }) => {
 
 const setLabelMic = ({ muted = false, peerId }) => {
     let micLabel = document.getElementById(peerId).getElementsByTagName("i")[0];
+    while (!micLabel) {
+        micLabel = document.getElementById(peerId).getElementsByTagName("i")[0];
+    }
     if (muted) {
         micLabel.classList.remove("bi-mic");
         micLabel.classList.add("bi-mic-mute");
@@ -60,6 +63,9 @@ const setLabelMic = ({ muted = false, peerId }) => {
 
 const setCoverCam = ({ disabled = false, peerId, name }) => {
     let parentGrid = document.getElementById(peerId);
+    while (!parentGrid) {
+        parentGrid = document.getElementById(peerId);
+    }
     let cover = parentGrid.getElementsByClassName("cam-cover")[0];
     let video = parentGrid.getElementsByTagName("video")[0];
     if (cover == undefined) {
@@ -461,10 +467,12 @@ const pinVideo = (idTarget, videoGrids, peerIdHost, socket, isHost) => {
         let indexTarget;
         videogrid = videogrid[0];
         let clone = videogrid.cloneNode(true);
-        clone.getElementsByTagName(
+        let videoTag = clone.getElementsByTagName(
             "video"
-        )[0].srcObject = videogrid.getElementsByTagName("video")[0].srcObject;
-        clone.getElementsByTagName("video")[0].play();
+        )[0];
+        videoTag.srcObject = videogrid.getElementsByTagName("video")[0].srcObject;
+        videoTag.muted = true;
+        videoTag.play();
         if (isHost) {
             clone.getElementsByClassName(`font-pin`)[0].innerHTML =
                 '<i class="bi bi-pin-angle"></i>';
