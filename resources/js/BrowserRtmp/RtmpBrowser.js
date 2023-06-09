@@ -1,5 +1,4 @@
 import { io } from "socket.io-client";
-import MediaSwitcher from "./SwitchStream";
 
 class BrowserToRtmpClientOptions {
     host = "";
@@ -19,18 +18,12 @@ const DEFAULT_OPTIONS = {
     framerate: 25
 };
 
-// export type BrowserToRtmpClientEvents = {
-//     error: (error: ServerError) => void;
-//     destroyed: () => void;
-//     ffmpegOutput: (message: string) => void;
-// }
 
 export default class BrowserToRtmpClient {
     #socket;
     #stream;
     #options;
     #mediaRecorder;
-    #mediaSwitcher = new MediaSwitcher();
 
     constructor(stream, options) {
         this.#stream = stream;
@@ -65,10 +58,6 @@ export default class BrowserToRtmpClient {
 
         this.#socket.on("error", err => this.#onRemoteError(err));
         this.#socket.on("ffmpegOutput", msg => this.emit("ffmpegOutput", msg));
-
-        // this.#socket.on("connect_error", (err) => {
-        //     console.log(err.message, "error koneksi"); // prints the message associated with the error
-        //   });
     }
 
     async start() {
@@ -81,28 +70,26 @@ export default class BrowserToRtmpClient {
             return;
         }
 
-        this.#mediaSwitcher
-            .initialize(this.#stream)
-            .then(switcherStream => {
-                // this.#stream = switcherStream
-                this.#mediaRecorder = new MediaRecorder(switcherStream, {
-                    audioBitsPerSecond: this.#options.audioBitsPerSecond,
-                    videoBitsPerSecond: this.#options.videoBitsPerSecond
-                });
-        
-                this.#socket.emit("start", this.#options, () => {
-                    this.#mediaRecorder.ondataavailable = data =>
-                        this.#onMediaRecorderDataAvailable(data);
-        
-                    try {
-                        this.#mediaRecorder.start(250);
-                    } catch (e) {
-                        this.#socket.emit("stop");
-                        throw e;
-                    }
-                });
-            })
-            .catch(err => console.error(err.message));
+
+        // this.#stream = switcherStream
+        this.#mediaRecorder = new MediaRecorder(this.#stream, {
+            audioBitsPerSecond: this.#options.audioBitsPerSecond,
+            videoBitsPerSecond: this.#options.videoBitsPerSecond
+        });
+
+        this.#socket.emit("start", this.#options, () => {
+            this.#mediaRecorder.ondataavailable = data =>
+                this.#onMediaRecorderDataAvailable(data);
+
+            try {
+                console.log("try start");
+                console.log(this.#mediaRecorder);
+                this.#mediaRecorder.start(250);
+            } catch (e) {
+                this.#socket.emit("stop");
+                throw e;
+            }
+        });
     }
 
     pause() {
@@ -117,7 +104,7 @@ export default class BrowserToRtmpClient {
                 return;
             }
             this.#mediaRecorder.onstop = () => {
-                this.#socket.emit("stop", () => {
+                this.#socket.emit("stop", () => {http
                     this.#mediaRecorder = undefined;
                 });
             };
@@ -126,28 +113,14 @@ export default class BrowserToRtmpClient {
     }
 
     restart(newStream) {
-        // const newRecorder = new MediaRecorder(newStream, {
-        //     audioBitsPerSecond: this.#options.audioBitsPerSecond,
-        //     videoBitsPerSecond: this.#options.videoBitsPerSecond
-        // });
-
-        // newRecorder.ondataavailable = data =>
-        //     this.#onMediaRecorderDataAvailable(data);
-
-        // try {
-        //     newRecorder.start(250);
-        //     this.#mediaRecorder.stop();
-        //     this.#mediaRecorder = newRecorder;
-        // } catch (e) {
-        //     this.#socket.emit("stop");
-        //     throw e;
-        // }
-
-        // this.#mediaRecorder = newRecorder;
-        console.log("restart stream", this.#mediaSwitcher);
-        // this.#mediaRecorder.pause();
-        this.#mediaSwitcher.changeStream(newStream)
-        // this.#mediaRecorder.resume();
+        this.#mediaRecorder.onstop = () => {
+            this.#socket.emit("stop", () => {
+                this.#mediaRecorder = undefined;
+                this.#stream = newStream
+                this.start();
+            });
+        };
+        this.#mediaRecorder.stop();
     }
 
     on(msg, callback){
@@ -168,7 +141,12 @@ export default class BrowserToRtmpClient {
     }
 
     #onMediaRecorderDataAvailable(data) {
-        this.#socket.emit("binarystream", data.data, err => {
+        console.log(data);
+        const blob = new Blob([data.data], {
+            type: "video/mp4",
+          });
+        this.#socket.emit("binarystream", blob, err => {
+            console.log("emit binarystream");
             if (err) {
                 this.#onRemoteError(err);
             }

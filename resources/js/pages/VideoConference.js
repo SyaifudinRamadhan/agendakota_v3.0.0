@@ -190,7 +190,7 @@ const shareMedia = async (
         let audioTracks = [];
         let devices = await navigator.mediaDevices.enumerateDevices();
         devices.forEach(e => {
-            if(e.kind == "audioinput" && e.label != "Default"){
+            if(e.kind == "audioinput"){
                 navigator.mediaDevices.getUserMedia({
                     video: false,
                     audio: {

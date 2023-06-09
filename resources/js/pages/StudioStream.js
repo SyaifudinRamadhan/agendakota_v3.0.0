@@ -825,6 +825,7 @@ function StudioStream() {
                                 autoPlay
                                 ref={videoPrev}
                                 style={{ aspectRatio: "16/9" }}
+                                muted={true}
                             ></video>
                             <hr></hr>
                         </div>
@@ -838,6 +839,7 @@ function StudioStream() {
                                 autoPlay
                                 ref={videoProg}
                                 style={{ aspectRatio: "16/9" }}
+                                muted={true}
                             ></video>
                             <hr></hr>
                         </div>
