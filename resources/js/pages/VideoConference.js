@@ -49,9 +49,6 @@ const autoArangeDelete = ({ slides, startPosition }) => {
 
 const setLabelMic = ({ muted = false, peerId }) => {
     let micLabel = document.getElementById(peerId).getElementsByTagName("i")[0];
-    while (!micLabel) {
-        micLabel = document.getElementById(peerId).getElementsByTagName("i")[0];
-    }
     if (muted) {
         micLabel.classList.remove("bi-mic");
         micLabel.classList.add("bi-mic-mute");
@@ -63,9 +60,6 @@ const setLabelMic = ({ muted = false, peerId }) => {
 
 const setCoverCam = ({ disabled = false, peerId, name }) => {
     let parentGrid = document.getElementById(peerId);
-    while (!parentGrid) {
-        parentGrid = document.getElementById(peerId);
-    }
     let cover = parentGrid.getElementsByClassName("cam-cover")[0];
     let video = parentGrid.getElementsByTagName("video")[0];
     if (cover == undefined) {
@@ -1076,6 +1070,7 @@ function VideoConference() {
             socket.emit("join-room", room, peerjsOpen, username, userData);
 
             const myVideo = document.createElement("video");
+            myVideo.autoplay = true;
             // myVideo.id = peerjs.id;
             myVideo.muted = true;
             console.log(myVideo);
