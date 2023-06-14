@@ -23,14 +23,14 @@
 @endsection
 
 {{-- ============== SNADBOX / TEST MODE =============================== --}}
-{{-- <script type="text/javascript"
+<script type="text/javascript"
             src="https://app.sandbox.midtrans.com/snap/snap.js"
-            data-client-key="{{ $CLIENT_KEY }}"></script> --}}
+            data-client-key="{{ $CLIENT_KEY }}"></script>
 
 {{-- =============== PRODUCTION MODE =========================== --}}
-<script type="text/javascript"
+{{-- <script type="text/javascript"
         src="https://app.midtrans.com/snap/snap.js"
-        data-client-key="{{ $CLIENT_KEY }}"></script>
+        data-client-key="{{ $CLIENT_KEY }}"></script> --}}
 
 @section('content')
 @php
