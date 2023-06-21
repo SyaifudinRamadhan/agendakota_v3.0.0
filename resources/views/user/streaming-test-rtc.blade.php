@@ -22,6 +22,10 @@
 
     <div id="multiple-conference"></div>
 
+    <div id="stream-blank" class="d-none">
+       
+    </div>
+
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 
