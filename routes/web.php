@@ -24,8 +24,9 @@ Route::get('otp', function () {
 //Umum
 
 Route::middleware(['Cors'])->group(function () {
-    Route::get('test-vid-page', "TestController@testOnly");
+    Route::get('test-vid-page/{purchaseID}/{userID}', "TestController@testRTMPVideo");
     Route::get('studio', "TestController@testStudio");
+    Route::get('test-rtc/{purchaseID}/{userID}', "TestController@testRTCStudio");
 });
 
 Route::get('buat-event', "HomePageController@createEvent")->name('create-event');
