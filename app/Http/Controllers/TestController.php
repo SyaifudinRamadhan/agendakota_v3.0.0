@@ -18,6 +18,47 @@ use Illuminate\Support\Str;
 
 class TestController extends Controller
 {
+    private function getStreamKey(String $sessionID = '', String $purchaseID = ''){
+        $xAccessToken = session('x-access-token');
+
+        $url = '';
+        if($sessionID != ''){
+            $url = env('STREAM_SERVER') . '/api/v1/get-stream-key-session/' . $sessionID;
+        }else if($purchaseID != ''){
+            $url = env('STREAM_SERVER') . '/api/v1/get-stream-key-purchase/' . $purchaseID;
+        }else{
+            return null;
+        }
+      
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'x-access-token: '.$xAccessToken
+            ),
+        )
+        );
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+
+        $response = json_decode($response);
+
+        if(!$response->stream_key){
+            return null;
+        }
+
+        return $response->stream_key;
+    }
+
     public function testRTMPVideo(Request $request, $purchaseID, $userID)
     {
         $dataReturn = [];
