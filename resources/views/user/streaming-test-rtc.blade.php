@@ -21,6 +21,8 @@
     <input type="hidden" id="end-time" value="{{ $url[0]->end_date . ' ' . $url[0]->end_time }}">
 
     <div id="multiple-conference"></div>
+
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 
 </html>

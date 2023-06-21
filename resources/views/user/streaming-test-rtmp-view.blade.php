@@ -11,5 +11,7 @@
     <input type="hidden" id="start-time" value="{{ $url[0]->start_date.' '.$url[0]->start_time }}">
     <input type="hidden" id="end-time" value="{{ $url[0]->end_date.' '.$url[0]->end_time }}">
     <div id="rtmp-video"></div>
+
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
