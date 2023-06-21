@@ -3,6 +3,7 @@
 <head>
     <meta charset=utf-8 />
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <link rel="stylesheet" href="{{ asset('css/user/streamPage.css') }}">
 </head>
 <body>
     <input type="hidden" id="type-stream" value="{{ $streamType }}">
