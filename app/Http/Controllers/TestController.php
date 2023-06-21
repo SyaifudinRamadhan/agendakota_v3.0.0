@@ -13,6 +13,7 @@ use App\Models\Purchase;
 use DateTime;
 use App\Models\Rundown;
 use App\Models\Organization;
+use App\Models\User;
 use Illuminate\Support\Str;
 
 class TestController extends Controller
@@ -21,7 +22,7 @@ class TestController extends Controller
     {
         $dataReturn = [];
         $purchase = Purchase::where('id', $purchaseID)->first();
-        $myData = UserController::where('id', $userID)->first();
+        $myData = User::where('id', $userID)->first();
         $urlMain = $purchase->tickets->session;
         //check ticket statuses
         if ($purchase->payment->pay_state != 'Terbayar' || $purchase->tempFor->share_to != $myData->email) {
@@ -204,7 +205,7 @@ class TestController extends Controller
     {
         $dataReturn = [];
         $purchase = Purchase::where('id', $purchaseID)->first();
-        $myData = UserController::where('id', $userID)->first();
+        $myData = User::where('id', $userID)->first();
         $urlMain = $purchase->tickets->session;
         //check ticket statuses
         if ($purchase->payment->pay_state != 'Terbayar' || $purchase->tempFor->share_to != $myData->email) {
