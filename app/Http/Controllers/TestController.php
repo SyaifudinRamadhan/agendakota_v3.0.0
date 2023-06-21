@@ -14,12 +14,45 @@ use DateTime;
 use App\Models\Rundown;
 use App\Models\Organization;
 use App\Models\User;
+use Firebase\JWT\JWT;
 use Illuminate\Support\Str;
 
 class TestController extends Controller
 {
-    private function getStreamKey(String $sessionID = '', String $purchaseID = ''){
-        $xAccessToken = session('x-access-token');
+    private function autoLoginById($userData){
+        $url = env('STREAM_SERVER') . '/api/v1/login-token';
+        $payload = [
+            'email' => $userData->email,
+            'token' => $userData->token,
+            'exp' => time() + (1440 * 60)
+        ];
+        $json = json_encode([
+            "credential" => JWT::encode($payload, env('JWT_SIGNATURE_KEY'), env('JWT_ALG')),
+        ]);
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => $json,
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json'
+            ),
+        )
+        );
+
+        $resp = curl_exec($curl);
+        curl_close($curl);
+
+        return json_decode($resp)->token;
+    }
+
+    private function getStreamKey($userData, String $sessionID = '', String $purchaseID = ''){
+        $xAccessToken = $this->autoLoginById($userData);
 
         $url = '';
         if($sessionID != ''){
@@ -132,7 +165,7 @@ class TestController extends Controller
                 'url' => Session::where('id', $urlMain->id)->get(),
             ];
         }else if ($linkFor == "rtmp-stream-key"){
-            $streamKey = $this->getStreamKey('', $purchaseID);
+            $streamKey = $this->getStreamKey( $myData,'', $purchaseID);
             if($streamKey == null){
                 return redirect()->back()->with('gagal', 'Stream key failed getting from server');
             }
@@ -147,7 +180,7 @@ class TestController extends Controller
                 'email_peserta' => $myData->email,
                 'url' => Session::where('id', $urlMain->id)->get(),
                 // Kebutuhan untuk stream dengan RTMP & webrtc
-                'xAccessToken' => session('x-access-token'),
+                'xAccessToken' => $this->autoLoginById($myData),
                 'link' => $link
             ];
         } else if ($linkFor == "webrtc-video-conference"){
@@ -162,7 +195,7 @@ class TestController extends Controller
                 'email_peserta' => $myData->email,
                 'url' => Session::where('id', $urlMain->id)->get(),
                 // Kebutuhan untuk stream dengan RTMP & webrtc
-                'xAccessToken' => session('x-access-token'),
+                'xAccessToken' => $this->autoLoginById($myData),
                 'link' => $link
             ];
         }
@@ -315,7 +348,7 @@ class TestController extends Controller
                 'url' => Session::where('id', $urlMain->id)->get(),
             ];
         }else if ($linkFor == "rtmp-stream-key"){
-            $streamKey = $this->getStreamKey('', $purchaseID);
+            $streamKey = $this->getStreamKey($myData,'', $purchaseID);
             if($streamKey == null){
                 return redirect()->back()->with('gagal', 'Stream key failed getting from server');
             }
@@ -330,7 +363,7 @@ class TestController extends Controller
                 'email_peserta' => $myData->email,
                 'url' => Session::where('id', $urlMain->id)->get(),
                 // Kebutuhan untuk stream dengan RTMP & webrtc
-                'xAccessToken' => session('x-access-token'),
+                'xAccessToken' => $this->autoLoginById($myData),
                 'link' => $link
             ];
         } else if ($linkFor == "webrtc-video-conference"){
@@ -345,7 +378,7 @@ class TestController extends Controller
                 'email_peserta' => $myData->email,
                 'url' => Session::where('id', $urlMain->id)->get(),
                 // Kebutuhan untuk stream dengan RTMP & webrtc
-                'xAccessToken' => session('x-access-token'),
+                'xAccessToken' => $this->autoLoginById($myData),
                 'link' => $link
             ];
         }
