@@ -6,6 +6,14 @@ use App\Models\Event;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Database\Query\Builder;
+use App\Models\BoothCategory;
+use App\Models\Session;
+use App\Models\SessionSpeaker;
+use App\Models\Purchase;
+use DateTime;
+use App\Models\Rundown;
+use App\Models\Organization;
+use Illuminate\Support\Str;
 
 class TestController extends Controller
 {
