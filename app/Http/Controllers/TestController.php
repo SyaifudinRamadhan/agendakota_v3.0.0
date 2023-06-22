@@ -19,7 +19,8 @@ use Illuminate\Support\Str;
 
 class TestController extends Controller
 {
-    private function autoLoginById($userData){
+    private function autoLoginById($userData)
+    {
         $url = env('STREAM_SERVER') . '/api/v1/login-token';
         $payload = [
             'email' => $userData->email,
@@ -32,17 +33,19 @@ class TestController extends Controller
 
         $curl = curl_init();
 
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => $json,
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json'
-            ),
-        )
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL => $url,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => $json,
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json'
+                ),
+            )
         );
 
         $resp = curl_exec($curl);
@@ -51,32 +54,35 @@ class TestController extends Controller
         return json_decode($resp)->token;
     }
 
-    private function getStreamKey($userData, String $sessionID = '', String $purchaseID = ''){
+    private function getStreamKey($userData, String $sessionID = '', String $purchaseID = '')
+    {
         $xAccessToken = $this->autoLoginById($userData);
 
         $url = '';
-        if($sessionID != ''){
+        if ($sessionID != '') {
             $url = env('STREAM_SERVER') . '/api/v1/get-stream-key-session/' . $sessionID;
-        }else if($purchaseID != ''){
+        } else if ($purchaseID != '') {
             $url = env('STREAM_SERVER') . '/api/v1/get-stream-key-purchase/' . $purchaseID;
-        }else{
+        } else {
             return null;
         }
-      
+
         $curl = curl_init();
 
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-            CURLOPT_HTTPHEADER => array(
-                'x-access-token: '.$xAccessToken
-            ),
-        )
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL => $url,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_CUSTOMREQUEST => 'GET',
+                CURLOPT_HTTPHEADER => array(
+                    'x-access-token: ' . $xAccessToken
+                ),
+            )
         );
 
         $response = curl_exec($curl);
@@ -85,7 +91,7 @@ class TestController extends Controller
 
         $response = json_decode($response);
 
-        if(!$response->stream_key){
+        if (!$response->stream_key) {
             return null;
         }
 
@@ -164,12 +170,12 @@ class TestController extends Controller
             $dataReturn += [
                 'url' => Session::where('id', $urlMain->id)->get(),
             ];
-        }else if ($linkFor == "rtmp-stream-key"){
-            $streamKey = $this->getStreamKey( $myData,'', $purchaseID);
-            if($streamKey == null){
+        } else if ($linkFor == "rtmp-stream-key") {
+            $streamKey = $this->getStreamKey($myData, '', $purchaseID);
+            if ($streamKey == null) {
                 return redirect()->back()->with('gagal', 'Stream key failed getting from server');
             }
-            $link = env('STREAM_SERVER') . '/streams/'. $streamKey .'/index.m3u8?purchase=' . $purchaseID;
+            $link = env('STREAM_SERVER') . '/streams/' . $streamKey . '/index.m3u8?purchase=' . $purchaseID;
             $dataReturn += [
                 'id' => $id,
                 //Bertipe Array
@@ -183,7 +189,7 @@ class TestController extends Controller
                 'xAccessToken' => $this->autoLoginById($myData),
                 'link' => $link
             ];
-        } else if ($linkFor == "webrtc-video-conference"){
+        } else if ($linkFor == "webrtc-video-conference") {
             $link = env('STREAM_SERVER');
             $dataReturn += [
                 'id' => $id,
@@ -347,12 +353,12 @@ class TestController extends Controller
             $dataReturn += [
                 'url' => Session::where('id', $urlMain->id)->get(),
             ];
-        }else if ($linkFor == "rtmp-stream-key"){
-            $streamKey = $this->getStreamKey($myData,'', $purchaseID);
-            if($streamKey == null){
+        } else if ($linkFor == "rtmp-stream-key") {
+            $streamKey = $this->getStreamKey($myData, '', $purchaseID);
+            if ($streamKey == null) {
                 return redirect()->back()->with('gagal', 'Stream key failed getting from server');
             }
-            $link = env('STREAM_SERVER') . '/streams/'. $streamKey .'/index.m3u8?purchase=' . $purchaseID;
+            $link = env('STREAM_SERVER') . '/streams/' . $streamKey . '/index.m3u8?purchase=' . $purchaseID;
             $dataReturn += [
                 'id' => $id,
                 //Bertipe Array
@@ -366,7 +372,7 @@ class TestController extends Controller
                 'xAccessToken' => $this->autoLoginById($myData),
                 'link' => $link
             ];
-        } else if ($linkFor == "webrtc-video-conference"){
+        } else if ($linkFor == "webrtc-video-conference") {
             $link = env('STREAM_SERVER');
             $dataReturn += [
                 'id' => $id,
@@ -454,5 +460,21 @@ class TestController extends Controller
         ];
 
         return view('user.streaming-test-rtc', $dataReturn);
+    }
+    public function testZoom(Request $request, $username, $email, $meetId, $pwd)
+    {
+        $dataReturn = [
+            'id' => [$meetId],
+            'password' => [$pwd],
+            'nama_peserta' => $username,
+            'email_peserta' => $email,
+            // 'url' => Session::where('id', $urlMain->id)->get(),
+        ];
+        $url_leave = route('user.login');
+        $dataReturn += [
+            'url_leave' => $url_leave
+        ];
+
+        return view('user.streaming-test-zoom', $dataReturn);
     }
 }
