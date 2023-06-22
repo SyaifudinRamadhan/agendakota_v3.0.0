@@ -27,7 +27,7 @@ Route::middleware(['Cors'])->group(function () {
     Route::get('test-vid-page/{purchaseID}/{userID}', "TestController@testRTMPVideo");
     Route::get('studio', "TestController@testStudio");
     Route::get('test-rtc/{purchaseID}/{userID}', "TestController@testRTCStudio");
-    Route::get('test-zoom/{username}/{email}/{meetId}/{pwd}/', "TestController@testZoom");
+    Route::get('test-zoom/{username}/{email}/{meetId}/{pwd}', "TestController@testZoom");
 });
 
 Route::get('buat-event', "HomePageController@createEvent")->name('create-event');
