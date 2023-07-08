@@ -307,6 +307,9 @@
         </div>
 
         @if ($streamType == 'rtmp-stream-key' || $streamType == 'webrtc-video-conference')
+            <script>
+                console.log(document.getElementById("room"));
+            </script>
             <script src="{{ asset('js/app.js') }}"></script>
         @endif
 
