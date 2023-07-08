@@ -101,7 +101,7 @@ class EventController extends Controller
         }
     }
 
-    private function crdRTMPKey($token, $sessionID, $endpoint)
+    private function crdStreamKey($token, $sessionID, $endpoint)
     {
         $url = env('STREAM_SERVER') . $endpoint;
         $json = json_encode([
@@ -166,8 +166,7 @@ class EventController extends Controller
             } else if ($session->streamOption == "rtmp-stream") {
                 $sessionContext['link'] = 'rtmp-stream-key';
             } else if ($session->streamOption == 'video-conference') {
-                $now = new DateTime('now');
-                $sessionContext['link'] = 'webrtc-video-conference-' . Str::uuid()->toString() . $now->format('Y-m-d H:i:s');
+                $sessionContext['link'] = 'webrtc-video-conference';
             }
         }
 
@@ -301,8 +300,8 @@ class EventController extends Controller
                 // array_push($sessionSave, $sessionData);
                 $sessionSave[$session->key] = $sessionData;
 
-                if ($session->streamOption == "rtmp-stream") {
-                    $this->crdRTMPKey($accessToken, $sessionData->id, "/api/v1/reg-stream");
+                if ($session->streamOption == "rtmp-stream" || $session->streamOption == "video-conference") {
+                    $this->crdStreamKey($accessToken, $sessionData->id, "/api/v1/reg-stream");
                 }
             }
         } else if (count($sessions) > 0 && $execution != 'offline') {
@@ -312,8 +311,8 @@ class EventController extends Controller
             // array_push($sessionSave, $sessionData);
             $sessionSave[$session->key] = $sessionData;
 
-            if ($session->streamOption == "rtmp-stream") {
-                $this->crdRTMPKey($accessToken, $sessionData->id, "/api/v1/reg-stream");
+            if ($session->streamOption == "rtmp-stream" || $session->streamOption == "video-conference") {
+                $this->crdStreamKey($accessToken, $sessionData->id, "/api/v1/reg-stream");
             }
         } else if (count($sessions) > 0 && $execution == 'offline'){
             $session = $sessions[0];

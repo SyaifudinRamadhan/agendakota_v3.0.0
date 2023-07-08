@@ -143,7 +143,7 @@ class SessionController extends Controller
         }
     }
 
-    private function crdRTMPKey($sessionID, $endpoint)
+    private function crdStreamKey($sessionID, $endpoint)
     {
         $url = env('STREAM_SERVER') . $endpoint;
         $json = json_encode([
@@ -276,8 +276,8 @@ class SessionController extends Controller
             'end_time' => $endRundown->end_time,
         ]);
 
-        if ($fixLink == 'rtmp-stream-key') {
-            $this->crdRTMPKey($saveData->id, "/api/v1/reg-stream");
+        if ($fixLink == 'rtmp-stream-key' || $fixLink == "video-conference") {
+            $this->crdStreamKey($saveData->id, "/api/v1/reg-stream");
         }
 
         // $speakersID = $request->speakers;
@@ -321,26 +321,23 @@ class SessionController extends Controller
                 $streamOption = $request->streamOption;
                 $fixLink = '';
 
-                if ($streamOption == 1) {
+                if ($streamOption == 1 || $streamOption == 2) {
                     // dd(session('x-access-token'));
-                    $fixLink = 'rtmp-stream-key';
-                    if($eventCheck->sessions[0]->link != 'rtmp-stream-key'){
-                        $this->crdRTMPKey($eventCheck->sessions[0]->id, "/api/v1/reg-stream");
+                    $fixLink = $streamOption == 1 ? 'rtmp-stream-key' : 'webrtc-video-conference';
+                    if($eventCheck->sessions[0]->link != 'rtmp-stream-key' && $eventCheck->sessions[0]->link != "video-conference"){
+                        $this->crdStreamKey($eventCheck->sessions[0]->id, "/api/v1/reg-stream");
+                    }else{
+                        $this->crdStreamKey($eventCheck->sessions[0]->id, "/api/v1/del-stream");
+                        $this->crdStreamKey($eventCheck->sessions[0]->id, "/api/v1/reg-stream");
                     }
-                } else if ($streamOption == 2) {
-                    $now = new DateTime('now');
-                    if ($eventCheck->sessions[0]->link == 'rtmp-stream-key') {
-                        $this->crdRTMPKey($eventCheck->sessions[0]->id, "/api/v1/del-stream");
-                    }
-                    $fixLink = 'webrtc-video-conference-' . Str::uuid()->toString() . $now->format('Y-m-d H:i:s');
                 } else if ($streamOption != 0) {
                     if ($link != null) {
                         $fixLink = $this->checkLink($link);
                         if ($fixLink == -1) {
                             return redirect()->back()->with('gagal', 'Link Youtube / Zoom yang dimasukkan tidak benar');
                         }
-                        if ($eventCheck->sessions[0]->link == 'rtmp-stream-key') {
-                            $this->crdRTMPKey($eventCheck->sessions[0]->id, "/api/v1/del-stream");
+                        if ($eventCheck->sessions[0]->link == 'rtmp-stream-key' || $eventCheck->sessions[0]->link == "video-conference") {
+                            $this->crdStreamKey($eventCheck->sessions[0]->id, "/api/v1/del-stream");
                         }
                     } else {
                         return redirect()->back()->with('gagal', 'Link platform streaming wajib diisi');
@@ -388,26 +385,23 @@ class SessionController extends Controller
             $streamOption = $request->streamOption;
             // $fixLink = '';
 
-            if ($streamOption == 1) {
+            if ($streamOption == 1 || $streamOption == 2) {
                 // dd(session('x-access-token'));
-                $fixLink = 'rtmp-stream-key';
-                if ($sessionEvent->link != 'rtmp-stream-key'){
-                    $this->crdRTMPKey($id, "/api/v1/reg-stream");
+                $fixLink = $streamOption == 1 ? 'rtmp-stream-key' : 'webrtc-video-conference';
+                if($sessionEvent->link != 'rtmp-stream-key' && $sessionEvent->link != "video-conference"){
+                    $this->crdStreamKey($id, "/api/v1/reg-stream");
+                }else{
+                    $this->crdStreamKey($id, "/api/v1/del-stream");
+                    $this->crdStreamKey($id, "/api/v1/reg-stream");
                 }
-            } else if ($streamOption == 2) {
-                $now = new DateTime('now');
-                if ($sessionEvent->link == 'rtmp-stream-key') {
-                    $this->crdRTMPKey($id, "/api/v1/del-stream");
-                }
-                $fixLink = 'webrtc-video-conference-' . Str::uuid()->toString() . $now->format('Y-m-d H:i:s');
             } else if ($streamOption != 0) {
                 if ($link != null) {
                     $fixLink = $this->checkLink($link);
                     if ($fixLink == -1) {
                         return redirect()->back()->with('gagal', 'Link Youtube / Zoom yang dimasukkan tidak benar');
                     }
-                    if ($sessionEvent->link == 'rtmp-stream-key') {
-                        $this->crdRTMPKey($id, "/api/v1/del-stream");
+                    if ($sessionEvent->link == 'rtmp-stream-key' || $sessionEvent->link != "video-conference") {
+                        $this->crdStreamKey($id, "/api/v1/del-stream");
                     }
                 } else {
                     return redirect()->back()->with('gagal', 'Link platform streaming wajib diisi');
@@ -531,15 +525,18 @@ class SessionController extends Controller
             } else if ($linkFor[$j] == "youtube") {
                 array_push($id, "");
                 array_push($password, "");
-            } else if ($linkFor[$j] == "rtmp-stream-key"){
+            } else if ($linkFor[$j] == "rtmp-stream-key" || $linkFor[$j] == "webrtc-video-conference"){
                 $streamKey = $this->getStreamKey($sessionID, '');
                 if($streamKey == null){
                     return redirect()->back()->with('gagal', 'Stream key failed getting from server');
                 }
-                $link = env('STREAM_SERVER') . '/streams/'. $streamKey .'/index.m3u8?session=' . $sessionID;
-            } else if ($linkFor[$j] == "webrtc-video-conference"){
-                $link = env('STREAM_SERVER');
-            }
+                if($linkFor[$j] == "rtmp-stream-key"){
+                    $link = env('STREAM_SERVER') . '/streams/'. $streamKey .'/index.m3u8?session=' . $sessionID;
+                }else{
+                    $link = env('STREAM_SERVER');
+                    $url[0]['link'] = $streamKey;
+                }
+            } 
         }
 
         $url_leave = route('organization.event.session.url', [$organizationID, $eventID, $sessionID]);
@@ -692,12 +689,19 @@ class SessionController extends Controller
             $dataReturn += [
                 'url' => Session::where('id', $urlMain->id)->get(),
             ];
-        }else if ($linkFor == "rtmp-stream-key"){
+        }else if ($linkFor == "rtmp-stream-key" || $linkFor == "webrtc-video-conference"){
             $streamKey = $this->getStreamKey('', $purchaseID);
             if($streamKey == null){
                 return redirect()->back()->with('gagal', 'Stream key failed getting from server');
             }
-            $link = env('STREAM_SERVER') . '/streams/'. $streamKey .'/index.m3u8?purchase=' . $purchaseID;
+            $url = Session::where('id', $urlMain->id)->get();
+            if($linkFor == "rtmp-stream-key"){
+                $link = env('STREAM_SERVER') . '/streams/'. $streamKey .'/index.m3u8?purchase=' . $purchaseID;
+            }else{
+                $url[0]['link'] = $streamKey;
+                $link = env('STREAM_SERVER');
+            }
+
             $dataReturn += [
                 'id' => $id,
                 //Bertipe Array
@@ -706,27 +710,12 @@ class SessionController extends Controller
                 // 'streamWith' => $linkFor[0],
                 'nama_peserta' => $myData->name,
                 'email_peserta' => $myData->email,
-                'url' => Session::where('id', $urlMain->id)->get(),
+                'url' => $url,
                 // Kebutuhan untuk stream dengan RTMP & webrtc
                 'xAccessToken' => session('x-access-token'),
                 'link' => $link
             ];
-        } else if ($linkFor == "webrtc-video-conference"){
-            $link = env('STREAM_SERVER');
-            $dataReturn += [
-                'id' => $id,
-                //Bertipe Array
-                'password' => $password,
-                //Bertipe Array
-                // 'streamWith' => $linkFor[0],
-                'nama_peserta' => $myData->name,
-                'email_peserta' => $myData->email,
-                'url' => Session::where('id', $urlMain->id)->get(),
-                // Kebutuhan untuk stream dengan RTMP & webrtc
-                'xAccessToken' => session('x-access-token'),
-                'link' => $link
-            ];
-        }
+        } 
 
         $url_leave = route('user.joinStream', [$purchaseID]);
         $dataReturn += [
