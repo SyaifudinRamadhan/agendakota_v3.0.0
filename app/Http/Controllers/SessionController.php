@@ -531,9 +531,9 @@ class SessionController extends Controller
                     return redirect()->back()->with('gagal', 'Stream key failed getting from server');
                 }
                 if($linkFor[$j] == "rtmp-stream-key"){
-                    $link = env('STREAM_SERVER') . '/streams/'. $streamKey .'/index.m3u8?session=' . $sessionID;
+                    $link = env('MIX_PEER_HOST') . '/streams/'. $streamKey .'/index.m3u8?session=' . $sessionID;
                 }else{
-                    $link = env('STREAM_SERVER');
+                    $link = env('MIX_PEER_HOST');
                     $url[0]['link'] = $streamKey;
                 }
             } 
@@ -696,10 +696,10 @@ class SessionController extends Controller
             }
             $url = Session::where('id', $urlMain->id)->get();
             if($linkFor == "rtmp-stream-key"){
-                $link = env('STREAM_SERVER') . '/streams/'. $streamKey .'/index.m3u8?purchase=' . $purchaseID;
+                $link = env('MIX_PEER_HOST') . '/streams/'. $streamKey .'/index.m3u8?purchase=' . $purchaseID;
             }else{
                 $url[0]['link'] = $streamKey;
-                $link = env('STREAM_SERVER');
+                $link = env('MIX_PEER_HOST');
             }
 
             $dataReturn += [
