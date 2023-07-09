@@ -55,8 +55,8 @@
                         <option value="0">-- Pilih Media --</option>
                         <option value="rtmp-stream">Streaming satu arah (RTMP)</option>
                         <option value="video-conference">Video Conference</option>
-                        <option value="zoom-embed">Zoom Embed</option>
-                        <option value="youtube-embed">YouTube Embed</option>
+                        <!-- <option value="zoom-embed">Zoom Embed</option> -->
+                        <!-- <option value="youtube-embed">YouTube Embed</option> -->
                     </select>
                     <label class="active" for="stream-option">Media Streaming :</label>
                 </div>

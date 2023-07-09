@@ -57,8 +57,8 @@
                                                 <option selected value="0">--- Belum ada yang dipilih ---</option>
                                                 <option value="1">Streaming satu arah (RTMP)</option>
                                                 <option value="2">Video Conference</option>
-                                                <option value="3">Zoom Embed</option>
-                                                <option value="4">YouTube Embed</option>
+                                                <!-- <option value="3">Zoom Embed</option> -->
+                                                <!-- <option value="4">YouTube Embed</option> -->
                                             </select>
                                             <input type="url" class="box no-bg" name="link" id="link"
                                                 style="display: none"
