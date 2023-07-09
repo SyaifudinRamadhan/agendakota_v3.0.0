@@ -276,7 +276,7 @@ class SessionController extends Controller
             'end_time' => $endRundown->end_time,
         ]);
 
-        if ($fixLink == 'rtmp-stream-key' || $fixLink == "video-conference") {
+        if ($fixLink == 'rtmp-stream-key' || $fixLink == "webrtc-video-conference") {
             $this->crdStreamKey($saveData->id, "/api/v1/reg-stream");
         }
 
@@ -324,7 +324,7 @@ class SessionController extends Controller
                 if ($streamOption == 1 || $streamOption == 2) {
                     // dd(session('x-access-token'));
                     $fixLink = $streamOption == 1 ? 'rtmp-stream-key' : 'webrtc-video-conference';
-                    if($eventCheck->sessions[0]->link != 'rtmp-stream-key' && $eventCheck->sessions[0]->link != "video-conference"){
+                    if($eventCheck->sessions[0]->link != 'rtmp-stream-key' && $eventCheck->sessions[0]->link != "webrtc-video-conference"){
                         $this->crdStreamKey($eventCheck->sessions[0]->id, "/api/v1/reg-stream");
                     }else{
                         $this->crdStreamKey($eventCheck->sessions[0]->id, "/api/v1/del-stream");
@@ -336,7 +336,7 @@ class SessionController extends Controller
                         if ($fixLink == -1) {
                             return redirect()->back()->with('gagal', 'Link Youtube / Zoom yang dimasukkan tidak benar');
                         }
-                        if ($eventCheck->sessions[0]->link == 'rtmp-stream-key' || $eventCheck->sessions[0]->link == "video-conference") {
+                        if ($eventCheck->sessions[0]->link == 'rtmp-stream-key' || $eventCheck->sessions[0]->link == "webrtc-video-conference") {
                             $this->crdStreamKey($eventCheck->sessions[0]->id, "/api/v1/del-stream");
                         }
                     } else {
@@ -388,7 +388,7 @@ class SessionController extends Controller
             if ($streamOption == 1 || $streamOption == 2) {
                 // dd(session('x-access-token'));
                 $fixLink = $streamOption == 1 ? 'rtmp-stream-key' : 'webrtc-video-conference';
-                if($sessionEvent->link != 'rtmp-stream-key' && $sessionEvent->link != "video-conference"){
+                if($sessionEvent->link != 'rtmp-stream-key' && $sessionEvent->link != "webrtc-video-conference"){
                     $this->crdStreamKey($id, "/api/v1/reg-stream");
                 }else{
                     $this->crdStreamKey($id, "/api/v1/del-stream");
@@ -400,7 +400,7 @@ class SessionController extends Controller
                     if ($fixLink == -1) {
                         return redirect()->back()->with('gagal', 'Link Youtube / Zoom yang dimasukkan tidak benar');
                     }
-                    if ($sessionEvent->link == 'rtmp-stream-key' || $sessionEvent->link != "video-conference") {
+                    if ($sessionEvent->link == 'rtmp-stream-key' || $sessionEvent->link != "webrtc-video-conference") {
                         $this->crdStreamKey($id, "/api/v1/del-stream");
                     }
                 } else {
