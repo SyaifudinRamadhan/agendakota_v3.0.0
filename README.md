@@ -45,10 +45,11 @@ We would like to extend our thanks to the following sponsors for funding Laravel
 - **[Curotec](https://www.curotec.com/)**
 - **[OP.GG](https://op.gg)**
 
-## Panduan Untuk Deploy
-1. Hapus Semua Database yang lama
-2. Buat migration DB MySQL baru
-3. Jalankan perintah Query Berikut di MySQL
-
-Perintah Add Category :
-INSERT INTO `categories` (`id`, `name`, `created_at`, `updated_at`) VALUES (NULL, 'Technology', NULL, NULL), (NULL, 'Education', NULL, NULL), (NULL, 'Career Fair', NULL, NULL), (NULL, 'Health & Lifestyle', NULL, NULL), (NULL, 'Sport', NULL, NULL), (NULL, 'Conference', NULL, NULL), (NULL, 'Workshop', NULL, NULL), (NULL, 'Exhibition', NULL, NULL), (NULL, 'Music', NULL, NULL), (NULL, 'Festivals', NULL, NULL)
+## Panduan Setup (hanya untuk OS Ubuntu)
+1. Install PHP 7.4 (all package), MySQL, Composer untuk PHP 7.4, NodeJS v 16.x, dan npm
+2. Masuk directori repo ini
+3. Jalankan "composer install"
+4. Jalankan "npm install"
+5. Buat database bernama "agendakota"
+6. Jalankan "php artisan migrate"
+7. Jika saat running ada error, lakukan perbaikan pada permission accessnya, biasanya di bagian log
